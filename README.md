@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-# Softexpert Case Study
+## ToDoListSoftExpert
+A ToDo List written on React with Redux for SoftExpert. Softexpert Case Study
 
 ## Extenda uma aplicação de TodoList simples
 
@@ -208,7 +208,6 @@ Por favor, crie um plugin babel que pode alterar estaticamente o código `isEnab
 `true` ou `false` baseado em alguma parte da configuração webpack (à sua escolha). 
 
 Dica: Provavelmente você pode criar um webpack loader para isso.
-
 ### WEB-303: Melhore a experiência do desenvolvedor
 
 Nós fomos informados que nossos desenvolvedores não estão sendo tão produtivos quanto
@@ -218,7 +217,3 @@ ser mais produtivos.
 
 Por favor, ajuste todas as partes necessárias da aplicação para que seja possíbel 
 utilizar o webpack-dev-server e idealmente com o hot reloading pelo menos para o CSS.
-=======
-# ToDoListSoftExpert
- A ToDo List written on React with Redux for SoftExpert.
->>>>>>> 01915cff6011c729c88e6331f2642073d1930e50
