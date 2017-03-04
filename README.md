@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Softexpert Case Study
 
 ## Extenda uma aplicação de TodoList simples
@@ -217,3 +218,7 @@ ser mais produtivos.
 
 Por favor, ajuste todas as partes necessárias da aplicação para que seja possíbel 
 utilizar o webpack-dev-server e idealmente com o hot reloading pelo menos para o CSS.
+=======
+# ToDoListSoftExpert
+ A ToDo List written on React with Redux for SoftExpert.
+>>>>>>> 01915cff6011c729c88e6331f2642073d1930e50
