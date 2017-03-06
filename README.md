@@ -1,5 +1,9 @@
-## ToDoListSoftExpert
-A ToDo List written on React with Redux for SoftExpert. Softexpert Case Study
+# ToDoListSoftExpert
+A ToDo List written on React with Redux for SoftExpert.
+
+--
+
+# Softexpert Case Study
 
 ## Extenda uma aplicação de TodoList simples
 
