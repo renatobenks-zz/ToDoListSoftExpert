@@ -89,7 +89,7 @@ manter as alterações que fez, e explicar o motivo de não terminá-la ou o que
 
 ## As tarefas
 
-### WEB-101: Suportar a tecla ENTER no input para adicionar um TODO item
+### WEB-101: Suportar a tecla ENTER no input para adicionar um ToDo item
 
 Nós gostaríamos de poder adicionar um todo item, usando a tecla `enter`.
 
