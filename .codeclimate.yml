@@ -2,6 +2,8 @@
 engines:
   radon:
     enabled: true
+    config:
+      python_version: 3
     exclude_fingerprints:
     - dd8b0c981429d84e570ecf65b5b26927
   rubocop:
@@ -30,5 +32,5 @@ ratings:
   - "**.php"
   - "**.py"
   - "**.rb"
-exclude_paths: 
+exclude_paths:
 - node_modules/**/*
