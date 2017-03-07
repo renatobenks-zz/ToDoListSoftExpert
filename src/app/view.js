@@ -1,12 +1,4 @@
-import {isEnabled} from './lib/feature';
-
-export function render(el, state) {
-    const todoItems = state.todos.map(renderTodoItem).join('');
-    el.innerHTML = renderApp(
-        renderInput(),
-        renderTodos(todoItems)
-    );
-}
+import { isEnabled } from './lib/feature';
 
 function renderApp(input, todoList) {
     if(isEnabled('renderBottom')) {
@@ -44,4 +36,12 @@ function renderTodoItem(todo) {
         <input class="js_toggle_todo" type="checkbox" data-id="${todo.id}"${todo.done ? ' checked' : ''}>
         ${todo.text}
     </li>`;
+}
+
+export function render(el, state) {
+    const todoItems = state.todos.map(renderTodoItem).join('');
+    el.innerHTML = renderApp(
+        renderInput(),
+        renderTodos(todoItems)
+    );
 }
