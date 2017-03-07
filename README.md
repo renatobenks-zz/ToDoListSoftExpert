@@ -2,6 +2,9 @@
 
 > A ToDo List written for implement React with Redux data-flow.
 
+[![Code Climate](https://codeclimate.com/repos/58bddd275723fd027b003f5a/badges/b9071f9c803e247ef447/gpa.svg)](https://codeclimate.com/repos/58bddd275723fd027b003f5a/feed)
+[![Issue Count](https://codeclimate.com/repos/58bddd275723fd027b003f5a/badges/b9071f9c803e247ef447/issue_count.svg)](https://codeclimate.com/repos/58bddd275723fd027b003f5a/feed)
+
 Esta é uma pequena aplicação de ToDo List, que deverá ser extendida e melhorada.
 
 [Leia mais sobre esse app aqui](./.docs/about.md)
