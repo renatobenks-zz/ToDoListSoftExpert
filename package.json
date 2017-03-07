@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --watch",
-    "build": "webpack"
+    "start": "./node_modules/.bin/webpack --watch",
+    "build": "./node_modules/.bin/webpack"
   },
   "author": "",
   "license": "ISC",
