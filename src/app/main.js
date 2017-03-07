@@ -1,4 +1,4 @@
-import '../css/main.css';
+import '../public/styles/main.css';
 
 import {todos} from './state';
 import {render} from './view';

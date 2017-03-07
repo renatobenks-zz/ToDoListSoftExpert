@@ -1,8 +1,11 @@
 var path = require('path');
 
 module.exports = {
-    entry: ['babel-polyfill', path.normalize(__dirname + '/src/js/main')],
     devtool: 'cheap-module-source-map',
+    entry: [
+        'babel-polyfill',
+        './src/app/main'
+    ],
     output: {
         filename: 'bundle.js',
         path: path.join(__dirname, 'dist')
