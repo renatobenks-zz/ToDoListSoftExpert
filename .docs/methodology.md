@@ -100,3 +100,28 @@ da tarefa, será usado duas ferramentas integradas ao projeto.
 
  - CodeClimate: Serviço de code review, onde um boot análise meu
  código com base nas configurações e métricas que será definida.
+
+## Automated
+
+Com a padronizaçao do processo de desenvolvimento e
+entrega das tarefas é possível automatizar alguns processos.
+
+Desta forma, eu criei uma branch `automating` de implementação
+de automatizações no projeto:
+
+- Travis CI: arquivo de configuração (.travis.yml)
+com as instruções para executar os builds do app.
+
+- Code Climate: arquivo de de configuração de análise do código
+(.codeclimate.yml) para que o código seja revisado.
+
+- Importação (Python): [script em _python_](../cli/tasks/get_tasks.py)
+desenvolvido para importar as tasks descritas no
+modelo que eu criei de ToDo List das tarefas que
+preciso desenvolver, [veja o modelo](tasks.md).
+Usando a API do GitHub e através
+do novo modelo que usei para descrever as tarefas em ToDo List,
+esse script importa as tasks em markdown para issues do GitHub.
+
+- Git (bash): scripts escritos em bash script para facilitar a
+troca, o inicio de terefas e a entrega de tarefas.
