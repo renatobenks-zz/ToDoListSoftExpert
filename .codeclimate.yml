@@ -1,0 +1,34 @@
+---
+engines:
+  radon:
+    enabled: true
+    exclude_fingerprints:
+    - dd8b0c981429d84e570ecf65b5b26927
+  rubocop:
+    enabled: true
+  csslint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - ruby
+      - javascript
+      - python
+      - php
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
+ratings:
+  paths:
+  - "**.css"
+  - "**.inc"
+  - "**.js"
+  - "**.jsx"
+  - "**.module"
+  - "**.php"
+  - "**.py"
+  - "**.rb"
+exclude_paths: 
+- node_modules/**/*
