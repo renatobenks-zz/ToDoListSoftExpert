@@ -38,3 +38,6 @@ jspm_packages
 
 # Projects settings configutated
 .idea
+
+# build files
+dist
