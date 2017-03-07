@@ -21,7 +21,7 @@ da tarefa para a _branch (master_) principal do projeto.
 
 
     Tarefa: WEB-101
-    Descrição da tarefa: Suportar a tecla ENTER no input para adicionar um TODO item.
+    Descrição da tarefa: Suportar a tecla ENTER no input para adicionar um ToDo item.
     Branch: [Tarefa]
     Pull request: [Tarefa] - [Descrição da tarefa]
     Descrição pull request: (Não existe um formato padrão,
@@ -34,10 +34,10 @@ da tarefa para a _branch (master_) principal do projeto.
 
 
     Tarefa: WEB-101
-    Descrição da tarefa: Suportar a tecla ENTER no input para adicionar um TODO item.
+    Descrição da tarefa: Suportar a tecla ENTER no input para adicionar um ToDo item.
     Branch: [Tarefa]
-    Pull request: WEB-101 - Suportar a tecla ENTER no input para adicionar um TODO item.
-    Descrição pull request: ## Suportar a tecla ENTER no input para adicionar um TODO item.
+    Pull request: WEB-101 - Suportar a tecla ENTER no input para adicionar um ToDo item.
+    Descrição pull request: ## Suportar a tecla ENTER no input para adicionar um ToDo item.
                             Adicionar um todo item, usando a tecla `enter`.
                             ![Button add ToDo](imagem do botão desenvolvido)
 
