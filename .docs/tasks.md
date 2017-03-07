@@ -4,19 +4,19 @@
 
 ### WEB-101
 
-- [ ] Suportar a tecla ENTER no input para adicionar um TODO item
+- [ ] Suportar a tecla ENTER no input para adicionar um ToDo item
 
-Nós gostaríamos de poder adicionar um todo item, usando a tecla `enter`
+Nós gostaríamos de poder adicionar um ToDO item, usando a tecla `enter`
 
 ### WEB-102
 
-- [ ] Adicionar um todo item causa perca de foco no text field
+- [ ] Adicionar um ToDO item causa perca de foco no text field
 
- Como nós habilitamos a tecla `enter` para adicionar um todo item, nossos usuários
+ Como nós habilitamos a tecla `enter` para adicionar um ToDo item, nossos usuários
  notaram que ao adicionar, o text field perde o foco e eles precisam clicar manualmente no input
  para voltar o foco para ele.
 
- Por favor, garanta que ao adicionar um todo item, o foco irá voltar (ou manter-se) ao text field.
+ Por favor, garanta que ao adicionar um ToDo item, o foco irá voltar (ou manter-se) ao text field.
 
 ### WEB-103
 
@@ -30,13 +30,13 @@ e deve se chamar "filter".
 
 Por favor, implemente o filtro abaixo da lista como radio buttons, contendo estas três opções:
 
-- Mostrar todos (habilitado por padrão)
+- Mostrar ToDos (habilitado por padrão)
 - Somente abertos
 - Somente fechados
 
 Estes radio buttons devem ser mutuamente exclusivos, apenas um deles pode ser selecionado.
 
-Ex.: se "Somente abertos" estiver selecionados, apenas os todo items que tiverem o `done`
+Ex.: se "Somente abertos" estiver selecionados, apenas os ToDo items que tiverem o `done`
 setado como `false` devem ser mostrados.
 
 ### WEB-104
@@ -69,9 +69,9 @@ Usar CSS puro, também não é um problema. Faça como achar melhor.
 
 ### WEB-120
 
-- [ ] Salve a lista de todo items
+- [ ] Salve a lista de ToDo items
 
-Nós gostaríamos agora, que a aplicação salvasse os todo items que o usuário adicionar.
+Nós gostaríamos agora, que a aplicação salvasse os ToDo items que o usuário adicionar.
 Assim quando ele atualizar a página, sua lista estará intacta e não irá perder nada.
 
 A decisão de qual tecnologia usar, é totalmente com você. É suficiente para nós que
@@ -122,9 +122,9 @@ para que use `Redux` invés do código que fizemos nós mesmos.
 - [ ] Otimize a renderização da view
 
 Infelizmente alguns dos nossos usuários começaram a reclamar que a performance
-da aplicação está ruim. Alguns deles disseram que adicionaram *mais mil* todo items
+da aplicação está ruim. Alguns deles disseram que adicionaram *mais mil* ToDo items
 e que chegando neste grande número a aplicação começa a travar após adicionar mais
-todo items ou modificar algum estado.
+ToDo items ou modificar algum estado.
 
 Nosso time de performance identificou que este problema esta relacionado ao modo
 como nós renderizamos a o HTML da aplicação.
