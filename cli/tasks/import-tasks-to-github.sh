@@ -6,6 +6,4 @@ while echo $1 | grep -q ^--; do
     shift
 done
 
-echo Creating branch $task
-git checkout -b $task
-git branch -vvv
+python ./get_tasks.py $username $password $request

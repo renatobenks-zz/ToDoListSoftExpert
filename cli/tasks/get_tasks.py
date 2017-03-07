@@ -5,20 +5,21 @@ import sys
 
 
 class Tasks:
-    def __init__(self, owner_repository, repository):
+    def __init__(self, username, password, request):
         self.tasks = self.getTasks()
         # Authentication for user filing issue (must have read/write access to
         # repository to add issue to)
-        try:
-            self.USERNAME = sys.argv[1]
-            self.PASSWORD = sys.argv[2]
-        except Exception as e:
-            raise e
+        self.USERNAME = username
+        self.PASSWORD = password
 
         # The repository to add this issue to
-        self.REPO_OWNER = owner_repository
-        self.REPO_NAME = repository
+        self.REPO_OWNER = 'renatobenks'
+        self.REPO_NAME = 'ToDoListSoftExpert'
 
+        # For make a request on GitHub issues
+        self.request = request
+
+        # Transform tasks on issues
         self.createTasks()
 
     @staticmethod
@@ -58,7 +59,7 @@ class Tasks:
                 tasks.append(self.getContentTasks(task.split('\n')))
         return tasks
 
-    def makeGitHubIssue(self, task, milestone=None, request=False):
+    def makeGitHubIssue(self, task, milestone=None):
         """Create an issue on github.com using the given parameters."""
         # Our url to create issues via POST
         url = 'https://api.github.com/repos/%s/%s/issues' % (self.REPO_OWNER, self.REPO_NAME)
@@ -74,7 +75,7 @@ class Tasks:
             'labels': []
         }
         # Add the issue to our repository
-        if request:
+        if self.request is True:
             response = session.post(url, json.dumps(issue))
             if response.status_code == 201:
                 return 'Successfully created Issue "%s"' % task['title']
@@ -89,4 +90,14 @@ class Tasks:
 
 
 if __name__ == '__main__':
-    Tasks('renatobenks', 'ToDoListSoftExpert')
+    try:
+        isValid = True
+        for argument in sys.argv:
+            if not argument:
+                isValid = False
+        if len(sys.argv) == 4 and isValid:
+            Tasks(sys.argv[1], sys.argv[2], sys.argv[3])
+        else:
+            raise ('Is missing some param that is necessary')
+    except Exception as e:
+        raise e
