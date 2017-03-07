@@ -80,6 +80,8 @@ a sua solução para isso funcione no Chrome e no Firefox.
 Se desejar, utilizar alguma tecnologia no back para salvar, apenas nos informe como
 iremos ligá-la para revisar e nos envies os fontes também.
 
+## Level 2 (200)
+
 ### WEB-201
 
 - [ ] Extraia o CSS em um arquivo separado
@@ -112,6 +114,8 @@ fosse substituida pela lib original que à influenciou.
 
 A lib que nos influenciou foi o `Redux`. Por favor refatore o código atual
 para que use `Redux` invés do código que fizemos nós mesmos.
+
+## Level 3 (300)
 
 ### WEB-301
 
