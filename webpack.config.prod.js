@@ -17,7 +17,7 @@ module.exports = {
         ]
     },
     output: {
-        path: __dirname + '/build/static',
+        path: path.join(__dirname, '/build/static'),
         filename: '[name]_[hash].js',
         chunkFilename: '[id].chunk_[hash].js',
         publicPath: '/build/static/'
@@ -54,7 +54,12 @@ module.exports = {
             use: [
                 'style-loader',
                 {
-                    loader: 'css-loader?sourceMap&importLoaders=1'
+                    loader: 'css-loader',
+                    options: {
+                        minimize: true,
+                        camelCase: true,
+                        importLoaders: 1
+                    }
                 }
             ],
             include: path.join(__dirname, 'src/public/styles')

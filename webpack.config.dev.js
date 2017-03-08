@@ -47,7 +47,12 @@ module.exports = {
             use: [
                 'style-loader',
                 {
-                    loader: 'css-loader?sourceMap&importLoaders=1'
+                    loader: 'css-loader',
+                    options: {
+                        sourceMap: true,
+                        camelCase: true,
+                        importLoaders: 1
+                    }
                 }
             ],
             include: path.join(__dirname, 'src/public/styles')
