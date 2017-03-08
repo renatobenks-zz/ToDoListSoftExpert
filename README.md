@@ -53,7 +53,7 @@ Assim que você tiver o bundle construído, você pode abrir o
 `index.html`  no seu browser e verificar se a aplicação
 está funcionando corretamente.
 
-## Como habilitar um teste?
+### Testing components
 
 Como esta aplicação é para ser supostamente um case study e não
 uma aplicação real, você pode habilitar testes específicos,
@@ -63,11 +63,10 @@ Por exemplo, para habilitar o teste "renderBottom", você abrirá
 o arquivo `index.html` e adicionará no final a hash "#renderBottom".
 
 Example URL:
-```
-file:///C:/Users/user/Desktop/TodoList/index.html#renderBottom
-```
+
+    file:///C:/Users/user/Desktop/TodoList/index.html#renderBottom
+
 
 Note que agora o campo input está renderizado abaixo da lista.
 
-Por favor, ajuste todas as partes necessárias da aplicação para que seja possíbel
-utilizar o webpack-dev-server e idealmente com o hot reloading pelo menos para o CSS.
+---
