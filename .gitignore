@@ -39,5 +39,7 @@ jspm_packages
 # Projects settings configutated
 .idea
 
-# build files
+# build webpack files
 dist
+build
+assets.json
