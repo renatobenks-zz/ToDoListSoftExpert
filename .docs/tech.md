@@ -68,4 +68,19 @@ trabalhar com a versão 2.x e não com a 1.x.
 
 ### webpack config:
 
+- created two webpack configurations files
+- webpack configuration version 2.x.x
+
+Em vista da atualização que foi feita na versão do webpack,
+assim mudando a estrutura do arquivo que faz o bundle com webpack.
+Percebeu-se que a fim de ilustração e transparência fosse
+exposto de forma clara as distinções de ambients e necessidades
+no bundle do webpack. Dessa forma, foi configurado dois
+arquivos de bundle do webpack que representasse o ambiente de
+desenvolvimento e de produção. Podíamos ter mantido a
+configuração padrão do webpack em um só arquivo
+(*webpack.config.js*), tratando as distinções na hora de
+execução do app com o node.js, mas a fim de representação,
+achei melhor ilustrar com dois arquivos distintos separados.
+
 ---
