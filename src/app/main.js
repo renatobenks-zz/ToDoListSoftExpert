@@ -1,5 +1,3 @@
-import '../public/styles/main.css';
-
 import { todos } from './state';
 import { render } from './view';
 import { registerEventHandlers } from './events';
