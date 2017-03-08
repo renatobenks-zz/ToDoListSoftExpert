@@ -93,14 +93,18 @@ sem nenhum estilo quando inicia, e nós gostaríamos então de separar o CSS em 
 Por favor, integre o plugin `extract-text-webpack-plugin` na configuração do webpack
 e carregue o arquivo CSS separamente do bundle javascript.
 
-### WEB-202
+### ~~WEB-202~~
 
-- [ ] Otimize a geração do bundle
+- [x] Otimize a geração do bundle
 
 Atualmente nosso bundle gerado não está otimizado e está um pouco grande para uma
 aplicação pequena. Por favor, ajuste as configurações do webpack para que possamos
 criar um bundle otimizado ao invés do bundle grande. Seria ideal se tanto Javascript
 e o CSS fossem minificados.
+
+### DONE [#30](https://github.com/renatobenks/ToDoListSoftExpert/pull/30)
+
+---
 
 ### WEB-203
 
