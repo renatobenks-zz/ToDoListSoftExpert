@@ -12,6 +12,18 @@ estão envolvidos nelas.
 
 > Atualizado
 
+### Node.js + Express
+
+- running app with server with node.js
+
+Em vista da necessidade que foi vista, de ter configurado
+um *server* http rodando o app a fim de controlar melhor a
+aplicação no *client-side*. Como utilizamos o webpack para o
+bundle da aplicação, através do uso do node.js com express,
+podemos subir essa aplicação para um servidor onde ela poderá
+ser executada com os recrusos do webpakc,
+e assim montando a aplicação através do webpack com o node.js.
+
 ### webpack version:
 
 - updated to version: 2.2.1
