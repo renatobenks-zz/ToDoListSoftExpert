@@ -29,7 +29,6 @@ module.exports = {
             filename: 'vendor_[hash].js',
             minChunks: 2
         }),
-        new webpack.optimize.DedupePlugin(),
         new AssetsPlugin({filename: 'assets.json'}),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
@@ -47,7 +46,12 @@ module.exports = {
     module: {
         rules: [{
             test: /\.js$/,
-            use: 'babel-loader',
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: ['es2015', 'stage-0']
+                }
+            },
             include: path.join(__dirname, 'src/app')
         }, {
             test: /\.css$/,
