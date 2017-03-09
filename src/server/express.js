@@ -31,11 +31,11 @@ server.get('*', (req, res) => {
     if (process.env.NODE_ENV === 'development') {
         const assetsByChunkName = res.locals.webpackStats.toJson().assetsByChunkName;
 
-        function getAssetConcat(Assets, key) {
+        const getAssetConcat = (Assets, key) => {
             Assets.filter(asset => {
                 if (asset.endsWith('.js')) assets[key] = {js: '/build/public/'.concat(asset)}
             });
-        }
+        };
 
         for (let key in assetsByChunkName) {
             if (assetsByChunkName.hasOwnProperty(key)) {
