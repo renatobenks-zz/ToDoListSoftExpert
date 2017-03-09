@@ -152,9 +152,9 @@ Por favor, crie um plugin babel que pode alterar estaticamente o código `isEnab
 
 Dica: Provavelmente você pode criar um webpack loader para isso.
 
-### WEB-303
+### ~~WEB-303~~
 
-- [ ] Melhore a experiência do desenvolvedor
+- [x] Melhore a experiência do desenvolvedor
 
 Nós fomos informados que nossos desenvolvedores não estão sendo tão produtivos quanto
 poderiam e precisam constantemente atualizar a página e esperar o webpack watcher acabar
