@@ -2,17 +2,21 @@ import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../../webpack.config.dev';
+import webpackConfigProd from '../../webpack.config.prod';
 import morgan from 'morgan';
 
-const isDeveloping = process.env.NODE_ENV == 'development';
+import Assets from '../../assets.json';
 
-// Stub for assets, in case running in dev mode.
-let assets;
+const isDeveloping = process.env.NODE_ENV === 'development';
+
+let assets = Assets;
 
 export default (server) => {
     // Webpack (for development)
     if (isDeveloping) {
         const compiler = webpack(webpackConfig);
+        // Stub for assets, in case running in dev mode.
+        assets = {};
         server.use(morgan('dev'));
         server.use(webpackMiddleware(compiler, {
             publicPath: webpackConfig.output.publicPath,
@@ -32,11 +36,9 @@ export default (server) => {
             log: console.log
         }));
     } else {
-        const buildPath = require('../../webpack.config.prod').output.path;
-        assets = require('../../assets.json');
         server.use(morgan('combined'));
-        server.use('/build/public', express.static(buildPath));
-
-        return assets;
+        server.use('/build/public', express.static(webpackConfigProd.output.path));
     }
+
+    return assets;
 }

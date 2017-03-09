@@ -30,12 +30,17 @@ const renderFullPage = (assets) => {
 server.get('*', (req, res) => {
     if (process.env.NODE_ENV === 'development') {
         const assetsByChunkName = res.locals.webpackStats.toJson().assetsByChunkName;
-        assets = {};
 
-        for (let key in assetsByChunkName) {
-            assetsByChunkName[key].filter(asset => {
+        function getAssetConcat(Assets, key) {
+            Assets.filter(asset => {
                 if (asset.endsWith('.js')) assets[key] = {js: '/build/public/'.concat(asset)}
             });
+        }
+
+        for (let key in assetsByChunkName) {
+            if (assetsByChunkName.hasOwnProperty(key)) {
+                getAssetConcat(assetsByChunkName[key], key);
+            }
         }
     }
 
