@@ -17,10 +17,10 @@ module.exports = {
         ]
     },
     output: {
-        path: path.join(__dirname, '/build/static'),
+        path: path.join(__dirname, '/build/public'),
         filename: '[name]_[hash].js',
         chunkFilename: '[id].chunk_[hash].js',
-        publicPath: '/build/static/'
+        publicPath: '/build/public/'
     },
     plugins: [
         OccurrenceOrderPlugin,

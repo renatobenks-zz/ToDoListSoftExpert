@@ -8,9 +8,9 @@ module.exports = {
     devtool: 'cheap-module-source-map',
     entry: {
         bundle: [
-            'babel-polyfill',
             'webpack/hot/only-dev-server',
             'webpack-hot-middleware/client',
+            'babel-polyfill',
             './src/app/main.js',
             './src/public/styles/main.css'
         ],
@@ -19,7 +19,7 @@ module.exports = {
         ]
     },
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: path.join(__dirname, 'build/public'),
         filename: '[name].js',
         chunkFilename: '[id].chunk.js',
         publicPath: '/build/public/'
@@ -49,8 +49,6 @@ module.exports = {
                 {
                     loader: 'css-loader',
                     options: {
-                        sourceMap: true,
-                        camelCase: true,
                         importLoaders: 1
                     }
                 }
