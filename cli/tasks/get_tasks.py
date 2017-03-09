@@ -47,7 +47,7 @@ class Tasks:
 
     @staticmethod
     def getTasksTextFromMarkdown():
-        file = open('../../.docs/tasks.md', 'r', encoding='utf-8')
+        file = open('task_by_task.md', 'r', encoding='utf-8')
         tasks = file.read()
         file.close()
         return tasks
