@@ -8,4 +8,4 @@ done
 
 echo Creating branch $task
 git checkout -b $task
-git branch -vvv
+echo git rev-parse --abbrev-ref HEAD
