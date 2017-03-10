@@ -1,3 +1,5 @@
+import path from 'path';
+import express from 'express';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
@@ -22,6 +24,8 @@ export default (server) => {
             publicPath: webpackConfig.output.publicPath,
             contentBase: './src/app',
             serverSideRender: true,
+            hot: true,
+            headers: { 'Access-Control-Allow-Origin': '*' },
             stats: {
                 colors: true,
                 hash: false,
@@ -40,5 +44,10 @@ export default (server) => {
         server.use('/build/public', express.static(webpackConfigProd.output.path));
     }
 
-    return assets;
+    const PATH_PUBLIC = __dirname.split('server')[0].concat('public');
+    server.use('/public', express.static(PATH_PUBLIC));
+
+    return {
+        assets
+    };
 }

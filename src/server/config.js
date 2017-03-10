@@ -16,19 +16,6 @@ export default (server) => {
     server.use(bodyParser.json());
 
     server.use(hpp());
-    server.use(helmet.contentSecurityPolicy({
-        directives: {
-            defaultSrc: ["'self'"],
-            scriptSrc: ["'self'"],
-            styleSrc: ["'unsafe-inline'"],
-            imgSrc: ["'self'"],
-            connectSrc: ["'self'", 'ws:'],
-            fontSrc: ["'self'"],
-            objectSrc: ["'none'"],
-            mediaSrc: ["'none'"],
-            frameSrc: ["'none'"]
-        }
-    }));
     server.use(helmet.xssFilter());
     server.use(helmet.frameguard('deny'));
     server.use(helmet.ieNoOpen());
