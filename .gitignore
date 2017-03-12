@@ -43,3 +43,7 @@ jspm_packages
 dist
 build
 assets.json
+
+# semantic-ui files
+semantic
+semantic.json

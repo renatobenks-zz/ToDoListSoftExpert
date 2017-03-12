@@ -8,11 +8,11 @@ module.exports = {
     devtool: 'cheap-module-source-map',
     entry: {
         bundle: [
-            'webpack/hot/only-dev-server',
-            'webpack-hot-middleware/client',
             'babel-polyfill',
+            'webpack-hot-middleware/client?localhost:5000/build/public',
+            'webpack/hot/only-dev-server',
             './src/app/main.js',
-            './src/public/styles/main.css'
+            './src/public/styles/main.less'
         ],
         vendor: [
             'aphrodite' // Stylesheet Javascript for styles components
@@ -40,10 +40,11 @@ module.exports = {
     module: {
         rules: [{
             test: /\.js$/,
+            exclude: path.join(__dirname, 'node_modules'),
             use: 'babel-loader',
             include: path.join(__dirname, 'src/app')
         }, {
-            test: /\.css$/,
+            test: /\.less$/,
             use: [
                 'style-loader',
                 {
@@ -51,9 +52,14 @@ module.exports = {
                     options: {
                         importLoaders: 1
                     }
+                }, {
+                    loader: 'less-loader'
                 }
             ],
             include: path.join(__dirname, 'src/public/styles')
+        }, {
+            test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+            use: 'url-loader'
         }]
     }
 };

@@ -6,7 +6,9 @@ import env from './env';
 
 const server = express();
 
-let assets = env(server);
+const environment = env(server);
+
+let assets = environment.assets;
 
 config(server);
 
@@ -21,6 +23,7 @@ const renderFullPage = (assets) => {
             <meta name="viewport" content="width=device-width, initial-scale=1" />
           </head>
           <body>
+            <div id="root"></div>
             <script type="text/javascript" src="${assets.vendor.js}"></script>
             <script type="text/javascript" src="${assets.bundle.js}"></script>
           </body>
@@ -33,7 +36,15 @@ server.get('*', (req, res) => {
 
         const getAssetConcat = (Assets, key) => {
             Assets.filter(asset => {
-                if (asset.endsWith('.js')) assets[key] = {js: '/build/public/'.concat(asset)}
+                if (asset.endsWith('.js')) {
+                    asset = '/build/public/'.concat(asset);
+                    let Path = path.parse(path.parse(asset).name);
+                    if (Path.base === Path.name && !Path.ext){
+                        assets[key] = {
+                            js: asset
+                        }
+                    }
+                }
             });
         };
 

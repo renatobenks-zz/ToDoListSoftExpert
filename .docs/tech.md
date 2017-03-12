@@ -66,7 +66,7 @@ por exemplo.
 E essa descrição é só uma pincelada dos motivos de escolher
 trabalhar com a versão 2.x e não com a 1.x.
 
-### webpack webpackConfig:
+### webpack config:
 
 - created two webpack configurations files
 - webpack configuration version 2.x.x

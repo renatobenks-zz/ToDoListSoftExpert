@@ -10,7 +10,7 @@ module.exports = {
     entry:  {
         bundle: [
             './src/app/main.js',
-            './src/public/styles/main.css'
+            './src/public/styles/main.less'
         ],
         vendor: [
             'aphrodite' // Stylesheet Javascript for styles components
@@ -46,15 +46,17 @@ module.exports = {
     module: {
         rules: [{
             test: /\.js$/,
+            exclude: path.join(__dirname, 'node_modules'),
             use: {
                 loader: 'babel-loader',
                 options: {
-                    presets: ['es2015', 'stage-0']
+                    presets: ['env', 'es2015', 'stage-0']
                 }
             },
             include: path.join(__dirname, 'src/app')
         }, {
-            test: /\.css$/,
+            test: /\.less$/,
+            exclude: path.join(__dirname, 'node_modules'),
             use: [
                 'style-loader',
                 {
@@ -64,9 +66,14 @@ module.exports = {
                         camelCase: true,
                         importLoaders: 1
                     }
+                }, {
+                    loader: 'less-loader'
                 }
             ],
             include: path.join(__dirname, 'src/public/styles')
+        }, {
+            test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+            use: 'url-loader'
         }]
     }
 };

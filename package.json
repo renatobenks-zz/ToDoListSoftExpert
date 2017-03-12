@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-      "start": "./node_modules/.bin/cross-env NODE_ENV=development node ./src/server",
+    "start": "./node_modules/.bin/cross-env NODE_ENV=development node ./src/server",
     "start:prod": "./node_modules/.bin/cross-env NODE_ENV=production node ./src/server",
     "build": "./node_modules/.bin/webpack -p --config webpack.config.prod.js",
     "clean": "rm -r build && rm -r dist"
@@ -30,8 +30,11 @@
     "express": "^4.15.2",
     "helmet": "^3.4.1",
     "hpp": "^0.2.1",
+    "less": "^2.7.2",
+    "less-loader": "^3.0.0",
     "morgan": "^1.8.1",
     "style-loader": "^0.13.0",
+    "url-loader": "^0.5.8",
     "webpack": "^2.2.1"
   },
   "devDependencies": {
