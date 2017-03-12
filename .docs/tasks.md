@@ -53,9 +53,9 @@ está posicionado na posição de baixo na aplicação ("renderBottom").
 Este teste, pode se chamar "filterTop" e só pode ser ativado quando os testes "filter" e "renderBottom"
 estão ativos também. A hash da URL deve estar mais ou menos assim "index.html#filter#renderBottom#filterTop".
 
-### WEB-110
+### ~~WEB-110~~
 
-- [ ] Melhore a aparência visual da aplicação
+- [x] Melhore a aparência visual da aplicação
 
 Nosso departamento de design acredita que o design atual não é o melhor e pode ser melhorado.
 
@@ -152,9 +152,9 @@ Por favor, crie um plugin babel que pode alterar estaticamente o código `isEnab
 
 Dica: Provavelmente você pode criar um webpack loader para isso.
 
-### WEB-303
+### ~~WEB-303~~
 
-- [ ] Melhore a experiência do desenvolvedor
+- [x] Melhore a experiência do desenvolvedor
 
 Nós fomos informados que nossos desenvolvedores não estão sendo tão produtivos quanto
 poderiam e precisam constantemente atualizar a página e esperar o webpack watcher acabar

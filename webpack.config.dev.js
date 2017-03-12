@@ -9,17 +9,17 @@ module.exports = {
     entry: {
         bundle: [
             'babel-polyfill',
+            'webpack-hot-middleware/client?localhost:5000/build/public',
             'webpack/hot/only-dev-server',
-            'webpack-hot-middleware/client',
             './src/app/main.js',
-            './src/public/styles/main.css'
+            './src/public/styles/main.less'
         ],
         vendor: [
             'aphrodite' // Stylesheet Javascript for styles components
         ]
     },
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: path.join(__dirname, 'build/public'),
         filename: '[name].js',
         chunkFilename: '[id].chunk.js',
         publicPath: '/build/public/'
@@ -40,22 +40,26 @@ module.exports = {
     module: {
         rules: [{
             test: /\.js$/,
+            exclude: path.join(__dirname, 'node_modules'),
             use: 'babel-loader',
             include: path.join(__dirname, 'src/app')
         }, {
-            test: /\.css$/,
+            test: /\.less$/,
             use: [
                 'style-loader',
                 {
                     loader: 'css-loader',
                     options: {
-                        sourceMap: true,
-                        camelCase: true,
                         importLoaders: 1
                     }
+                }, {
+                    loader: 'less-loader'
                 }
             ],
             include: path.join(__dirname, 'src/public/styles')
+        }, {
+            test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+            use: 'url-loader'
         }]
     }
 };
