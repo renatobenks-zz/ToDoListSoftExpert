@@ -7,13 +7,14 @@ import webpackConfig from '../../webpack.config.dev';
 import webpackConfigProd from '../../webpack.config.prod';
 import morgan from 'morgan';
 
-import Assets from '../../assets.json';
-
 const isDeveloping = process.env.NODE_ENV === 'development';
 
-let assets = Assets;
+let assets;
 
 export default (server) => {
+    const PATH_PUBLIC = __dirname.split('server')[0].concat('public');
+    server.use('/public', express.static(PATH_PUBLIC));
+
     // Webpack (for development)
     if (isDeveloping) {
         const compiler = webpack(webpackConfig);
@@ -40,14 +41,12 @@ export default (server) => {
             log: console.log
         }));
     } else {
+        assets = require('../../assets.json');
         server.use(morgan('combined'));
         server.use('/build/public', express.static(webpackConfigProd.output.path));
     }
 
-    const PATH_PUBLIC = __dirname.split('server')[0].concat('public');
-    server.use('/public', express.static(PATH_PUBLIC));
-
     return {
         assets
-    };
+    }
 }

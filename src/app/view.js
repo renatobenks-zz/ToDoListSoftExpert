@@ -38,9 +38,16 @@ function renderTitle() {
 function renderInput() {
     return `<div class="todo__input ${css(styles.divFullWidth, styles.divAlignFlex, styles.divAddTodo)}">
         <button class="${css(styles.buttonAddTodo)}" id="addTodo">
-            <i style="font-size: 1em; color: rgb(193, 193, 193); margin: 5px 0;" class="add circle icon"></i>
+            <i class="add circle icon ${css(styles.iconAddTodoButton)}"></i>
         </button>
         <input placeholder="Add a Task" class="${css(styles.fullWidth, styles.inputAddTodo)}" type="text" id="todoInput">
+        <label class="severity">           
+            <p>Set severity</p>
+            <select id="set-severity">
+                <option value="important">important</option>
+                <option value="urgent">urgent</option>
+            </select>
+        </label>
     </div>`;
 }
 
@@ -64,7 +71,13 @@ function renderTodoItem(todo) {
                 for="task-status-${todo.id}"
                 >
                 ${todo.text}
+                <div class="${css(styles.todoItemPrioryOutstanding, styles.priority, styles['urgent'])}">
+                    <i class="circle icon"></i>
+                </div>
             </label>
+        </div>
+        <div class="${css(styles.divPriorityTodoItem)}">
+            urgent
         </div>
     </li>`;
 }

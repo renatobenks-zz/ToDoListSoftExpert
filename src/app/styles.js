@@ -51,7 +51,7 @@ const FontArimoBold = {
 
 export default StyleSheet.create({
     divTitle: {
-        margin: '0 0 4rem 0'
+        margin: '0 0 2rem 0'
     },
     imageTitle: {
         width: '25%',
@@ -110,12 +110,12 @@ export default StyleSheet.create({
         outline: 'none'
     },
     inputAddTodo: {
-        border: 'none',
+        border: '1px solid transparent',
         background: 'none',
         fontSize: '2rem',
         padding: '5px 0 5px 2em',
         outline: 'none',
-        transition: 'border 1s 0.25s ease-in-out',
+        transition: 'border 0.3s 0.15s ease-in-out',
         ':active': {
             borderBottom: '1px solid rgb(192, 192, 192)'
         },
@@ -125,5 +125,37 @@ export default StyleSheet.create({
     },
     todoListJustify: {
         textAlign: 'justify'
+    },
+    divPriorityTodoItem: {
+        width: '100%',
+        padding: '10px 0',
+        margin: '0 5rem',
+        fontSize: '1rem',
+        color: 'rgba(102, 102, 102, .6)'
+    },
+    todoItemPrioryOutstanding: {
+        position: 'absolute',
+        top: '-5px',
+        right: '5px',
+        marginRight: '-2rem'
+    },
+    priority: {
+        fontSize: '1rem'
+    },
+    urgent: {
+        color: 'red'
+    },
+    important: {
+        color: 'yellow'
+    },
+    todoItemSetSeverity: {
+        width: '20px',
+        height: '20px',
+        color: 'black'
+    },
+    iconAddTodoButton: {
+        fontSize: '1em',
+        color: 'rgb(193, 193, 193)',
+        margin: '5px 0'
     }
 });
