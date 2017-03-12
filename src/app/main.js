@@ -2,8 +2,10 @@ import { todos } from './state';
 import { render } from './view';
 import { registerEventHandlers } from './events';
 
-todos.subscribe(newState => render(document.body, newState));
+const App = document.getElementById('root');
 
-render(document.body, todos.getState());
+todos.subscribe(newState => render(App, newState));
+
+render(App, todos.getState());
 
 registerEventHandlers();

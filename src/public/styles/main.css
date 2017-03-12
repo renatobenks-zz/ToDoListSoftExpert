@@ -14,7 +14,3 @@ html, body, .todo {
 .todo__item--done {
     text-decoration: line-through;
 }
-
-#addTodo {
-    margin-left: 10px;
-}

@@ -1,3 +1,5 @@
+import path from 'path';
+import express from 'express';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
@@ -5,13 +7,14 @@ import webpackConfig from '../../webpack.config.dev';
 import webpackConfigProd from '../../webpack.config.prod';
 import morgan from 'morgan';
 
-import Assets from '../../assets.json';
-
 const isDeveloping = process.env.NODE_ENV === 'development';
 
-let assets = Assets;
+let assets;
 
 export default (server) => {
+    const PATH_PUBLIC = __dirname.split('server')[0].concat('public');
+    server.use('/public', express.static(PATH_PUBLIC));
+
     // Webpack (for development)
     if (isDeveloping) {
         const compiler = webpack(webpackConfig);
@@ -22,6 +25,8 @@ export default (server) => {
             publicPath: webpackConfig.output.publicPath,
             contentBase: './src/app',
             serverSideRender: true,
+            hot: true,
+            headers: { 'Access-Control-Allow-Origin': '*' },
             stats: {
                 colors: true,
                 hash: false,
@@ -36,9 +41,12 @@ export default (server) => {
             log: console.log
         }));
     } else {
+        assets = require('../../assets.json');
         server.use(morgan('combined'));
         server.use('/build/public', express.static(webpackConfigProd.output.path));
     }
 
-    return assets;
+    return {
+        assets
+    }
 }
