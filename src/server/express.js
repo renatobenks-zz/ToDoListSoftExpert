@@ -21,6 +21,8 @@ const renderFullPage = (assets) => {
             <meta charSet="utf-8" />
             <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel='stylesheet' href='${assets.vendor.css}'/>
+            <link rel='stylesheet' href='${assets.bundle.css}'/>
           </head>
           <body>
             <div id="root"></div>
@@ -36,13 +38,13 @@ server.get('*', (req, res) => {
 
         const getAssetConcat = (Assets, key) => {
             Assets.filter(asset => {
-                if (asset.endsWith('.js')) {
+                if (asset.endsWith('.js') || asset.endsWith('.css')) {
                     asset = '/build/public/'.concat(asset);
+                    let Asset = asset.endsWith('.js') ? { js: { value: asset }} : { css: { value: asset }};
                     let Path = path.parse(path.parse(asset).name);
-                    if (Path.base === Path.name && !Path.ext){
-                        assets[key] = {
-                            js: asset
-                        }
+                    if (Path.base === Path.name && !Path.ext) {
+                        if (!assets[key]) assets[key] = Object.create(Object.prototype);
+                        assets[key] = Object.create(assets[key], Asset);
                     }
                 }
             });
