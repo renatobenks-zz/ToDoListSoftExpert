@@ -82,9 +82,9 @@ iremos ligá-la para revisar e nos envies os fontes também.
 
 ## Level 2 (200)
 
-### WEB-201
+### ~~WEB-201~~
 
-- [ ] Extraia o CSS em um arquivo separado
+- [x] Extraia o CSS em um arquivo separado
 
 Atualmente, o CSS da aplicação está incluído no `bundle.js`.
 Entretanto, nossos usuários começaram a comentar sobre a aplicação estar
@@ -93,9 +93,9 @@ sem nenhum estilo quando inicia, e nós gostaríamos então de separar o CSS em 
 Por favor, integre o plugin `extract-text-webpack-plugin` na configuração do webpack
 e carregue o arquivo CSS separamente do bundle javascript.
 
-### WEB-202
+### ~~WEB-202~~
 
-- [ ] Otimize a geração do bundle
+- [x] Otimize a geração do bundle
 
 Atualmente nosso bundle gerado não está otimizado e está um pouco grande para uma
 aplicação pequena. Por favor, ajuste as configurações do webpack para que possamos

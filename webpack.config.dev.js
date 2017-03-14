@@ -2,6 +2,7 @@
 var path = require('path');
 var webpack = require('webpack');
 
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OccurrenceOrderPlugin = new webpack.optimize.OccurrenceOrderPlugin();
 
 module.exports = {
@@ -15,7 +16,8 @@ module.exports = {
             './src/public/styles/main.less'
         ],
         vendor: [
-            'aphrodite' // Stylesheet Javascript for styles components
+            'aphrodite', // Stylesheet Javascript for styles components
+            'semantic-ui/dist/semantic.min.css'
         ]
     },
     output: {
@@ -35,7 +37,8 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('development'),
             '__DEV__': true
-        })
+        }),
+        new ExtractTextPlugin("[name].css")
     ],
     module: {
         rules: [{
@@ -44,19 +47,21 @@ module.exports = {
             use: 'babel-loader',
             include: path.join(__dirname, 'src/app')
         }, {
-            test: /\.less$/,
-            use: [
-                'style-loader',
-                {
+            test: /\.(less|css)$/,
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: [{
                     loader: 'css-loader',
                     options: {
-                        importLoaders: 1
+                        sourceMap: true
                     }
                 }, {
-                    loader: 'less-loader'
-                }
-            ],
-            include: path.join(__dirname, 'src/public/styles')
+                    loader: 'less-loader',
+                    options: {
+                        sourceMap: true
+                    }
+                }]
+            })
         }, {
             test: /\.(png|woff|woff2|eot|ttf|svg)$/,
             use: 'url-loader'
