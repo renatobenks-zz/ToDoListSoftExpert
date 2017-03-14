@@ -1,3 +1,3 @@
-export function isEnabled(name) {
+export const isEnabled = (name) => {
     return window.location.hash.split('#').includes(name);
-}
+};

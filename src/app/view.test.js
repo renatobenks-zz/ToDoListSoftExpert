@@ -2,8 +2,7 @@ import { StyleSheetTestUtils } from 'aphrodite';
 
 import { isEnabled } from './lib/feature';
 
-import { Component } from './view';
-import { AppComponent } from './view';
+import { Component, AppComponent } from './view';
 
 global.window = {
     location: {
