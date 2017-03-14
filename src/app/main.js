@@ -1,5 +1,5 @@
 import { todos } from './state';
-import { AppComponent } from './view';
+import AppComponent from './components/App';
 import { registerEventHandlers } from './events';
 
 const root = document.getElementById('root');
