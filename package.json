@@ -58,9 +58,6 @@
     "transform": {
       ".*": "<rootDir>/node_modules/babel-jest"
     },
-    "testFileExtensions": [
-      "js"
-    ],
     "moduleFileExtensions": [
       "js",
       "json",
