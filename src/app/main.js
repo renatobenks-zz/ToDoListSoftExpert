@@ -3,8 +3,10 @@ import { AppComponent } from './view';
 import { registerEventHandlers } from './events';
 
 const root = document.getElementById('root');
-new AppComponent(root, todos.getState());
+const App = new AppComponent();
 
-todos.subscribe(newState => new AppComponent(root, newState));
+App.renderApp(root, todos.getState());
+
+todos.subscribe(newState => App.renderApp(root, newState));
 
 registerEventHandlers();

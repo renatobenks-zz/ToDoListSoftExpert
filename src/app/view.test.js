@@ -41,7 +41,7 @@ describe('Component: AppComponent', () => {
     let element = Object.prototype;
 
     StyleSheetTestUtils.suppressStyleInjection();
-    const AppViewComponent = new AppComponent(element, state);
+    const AppViewComponent = new AppComponent();
     StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
 
     test('should be imported', () => {
@@ -66,31 +66,22 @@ describe('Component: AppComponent', () => {
         test('should instance super class', () => {
             expect(AppViewComponent instanceof Component).toBe(true);
         });
-
-        test('should set the ToDo list', () => {
-            expect(AppViewComponent.TODOS).toEqual(state.todos);
-        });
-
-        test('should be rendered app with data to inner in element', () => {
-            spyOn(AppViewComponent, 'renderApp');
-            spyOn(AppViewComponent, 'renderAddToDoItemAt');
-
-            AppViewComponent.constructor(element, state);
-            expect(AppViewComponent.renderAddToDoItemAt).toHaveBeenCalledWith(isEnabled('renderBottom'));
-            expect(AppViewComponent.renderApp).toHaveBeenCalledWith(
-                element,
-                AppViewComponent.renderAddToDoItemAt(isEnabled('renderBottom'))
-            );
-        });
     });
 
     describe('Component: renderApp () =>', () => {
+        test('should be rendered the app', () => {
+
+        });
+
         test('should be render app to element', () => {
             StyleSheetTestUtils.suppressStyleInjection();
             spyOn(AppViewComponent, 'render');
 
-            AppViewComponent.renderApp(element, AppViewComponent.renderAddToDoItemAt());
-            expect(AppViewComponent.render).toHaveBeenCalledWith(element, AppViewComponent.renderAddToDoItemAt());
+            AppViewComponent.renderApp(element, state);
+            expect(AppViewComponent.render).toHaveBeenCalledWith(
+                element,
+                AppViewComponent.renderAddToDoItemAt(isEnabled('renderBottom'), state.todos)
+            );
             StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
         });
     });
@@ -104,20 +95,22 @@ describe('Component: AppComponent', () => {
             let App = String.prototype.concat(
                 AppComponent.renderTitle(),
                 AppComponent.renderInput(),
-                AppComponent.renderToDoItems(AppViewComponent.TODOS)
+                AppComponent.renderToDoItems(state.todos)
             );
 
-            expect(AppViewComponent.renderAddToDoItemAt()).toBe(`<div id="app">${App}</div>`);
+            expect(AppViewComponent.renderAddToDoItemAt(undefined, state.todos))
+                .toBe(`<div id="app">${App}</div>`);
         });
 
         test('should be render input to add todo item at bottom when renderButton is enabled', () => {
             let App = String.prototype.concat(
                 AppComponent.renderTitle(),
-                AppComponent.renderToDoItems(AppViewComponent.TODOS),
+                AppComponent.renderToDoItems(state.todos),
                 AppComponent.renderInput()
             );
 
-            expect(AppViewComponent.renderAddToDoItemAt(isEnabled('renderBottom'))).toBe(`<div id="app">${App}</div>`)
+            expect(AppViewComponent.renderAddToDoItemAt(isEnabled('renderBottom'), state.todos))
+                .toBe(`<div id="app">${App}</div>`)
         });
 
         afterEach(() => {
@@ -149,7 +142,7 @@ describe('Component: AppComponent', () => {
 
         describe('static renderToDos () =>', () => {
             test('should return all items listing on ToDo list', () => {
-                renderComponent(AppComponent.renderToDoItems(AppViewComponent.TODOS));
+                renderComponent(AppComponent.renderToDoItems(state.todos));
             });
 
             test('should get ToDo list from initial state list', () => {
@@ -163,17 +156,17 @@ describe('Component: AppComponent', () => {
                 test('should render all ToDo items to the list ToDos', () => {
                     spyOn(AppComponent, 'renderToDoItem');
 
-                    AppComponent.getToDoItems(AppViewComponent.TODOS);
+                    AppComponent.getToDoItems(state.todos);
                     expect(AppComponent.renderToDoItem).toHaveBeenCalledTimes(state.todos.length);
                 });
 
                 test('should return elements like string to the ToDo list', () => {
-                    renderComponent(AppComponent.getToDoItems(AppViewComponent.TODOS));
+                    renderComponent(AppComponent.getToDoItems(state.todos));
                 });
 
                 describe('static renderToDoItem', () => {
                     test('should return element', () => {
-                        renderComponent(AppComponent.renderToDoItem(AppViewComponent.TODOS[0]));
+                        renderComponent(AppComponent.renderToDoItem(state.todos[0]));
                     });
                 });
             });

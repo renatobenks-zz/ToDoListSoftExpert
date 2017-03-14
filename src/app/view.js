@@ -10,29 +10,27 @@ export class Component {
 }
 
 export class AppComponent extends Component {
-    constructor (el, state) {
+    constructor () {
         super();
-        this.TODOS = state.todos;
-        this.renderApp(el, this.renderAddToDoItemAt(isEnabled('renderBottom')));
     }
 
-    renderApp (el, data) {
-        this.render(el, data);
+    renderApp (el, state) {
+        this.render(el, this.renderAddToDoItemAt(isEnabled('renderBottom'), state.todos));
     }
 
-    renderAddToDoItemAt (isEnabled) {
+    renderAddToDoItemAt (isEnabled, TODOS) {
         let App;
         if (isEnabled) {
             App = String.prototype.concat(
                 AppComponent.renderTitle(),
-                AppComponent.renderToDoItems(this.TODOS),
+                AppComponent.renderToDoItems(TODOS),
                 AppComponent.renderInput()
             );
         } else {
             App = String.prototype.concat(
                 AppComponent.renderTitle(),
                 AppComponent.renderInput(),
-                AppComponent.renderToDoItems(this.TODOS)
+                AppComponent.renderToDoItems(TODOS)
             );
         }
 
