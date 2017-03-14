@@ -4,7 +4,8 @@
   "description": "A simple filterable list",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\"",
+    "test": "./node_modules/.bin/cross-env NODE_ENV=test ./node_modules/.bin/jest --colors --coverage",
+    "test:watch": "npm test -- --watch",
     "start": "./node_modules/.bin/cross-env NODE_ENV=development node ./src/server",
     "start:prod": "./node_modules/.bin/cross-env NODE_ENV=production node ./src/server",
     "build": "./node_modules/.bin/webpack -p --config webpack.config.prod.js",
@@ -39,8 +40,10 @@
   },
   "devDependencies": {
     "assets-webpack-plugin": "^3.5.1",
+    "babel-jest": "^19.0.0",
     "cross-env": "^3.2.3",
     "extract-text-webpack-plugin": "^2.1.0",
+    "jest": "^19.0.2",
     "webpack-dev-middleware": "^1.10.1",
     "webpack-hot-middleware": "^2.17.1"
   },
@@ -50,5 +53,20 @@
       "es2015",
       "stage-0"
     ]
+  },
+  "jest": {
+    "transform": {
+      ".*": "<rootDir>/node_modules/babel-jest"
+    },
+    "testFileExtensions": [
+      "js"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "es6"
+    ],
+    "testEnvironment": "node",
+    "testRegex": "\\.test\\.jsx?$"
   }
 }
