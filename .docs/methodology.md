@@ -125,3 +125,55 @@ esse script importa as tasks em markdown para issues do GitHub.
 
 - Git (bash): scripts escritos em bash script para facilitar a
 troca, o inicio de terefas e a entrega de tarefas.
+
+## TDD (*Test-Driven-Development*)
+
+O desenvolvimento das tasks foi desenvolvido pensando
+nos conceitos do TDD envolvidos dentro do
+FDD (*Feature-Driven-Development*).
+
+Todo o código alterado para o cumprimento das tasks
+foi coberto totalmente para a garantia de que o app
+cumpra com os requisitos e as specs definidas,
+e através dos builds na integração contínua com o
+Travis CI, continuamos a garantir esse cumprimento
+a pull-request aberto no GitHub.
+
+### Code coverage
+
+Como foi definido a utilização do [jest](#Jest) como
+framework de *unit tests*, através das suas features
+conseguimos facilmente configurar a cobertura do código
+implementado aonde existirem testes definidos através
+dos arquivos de teste (example.test.js).
+
+Dessa forma conseguimos ter a visualização através
+do resultado dos builds que reproduzem essa informação.
+Podemos também, através do comando `npm test` rodar
+localmente todos os testes definidos para o app e dessa
+forma vermos a cobertura de código. Ou então para uma
+representação mais ideal, podemos apés termos rodado
+o comando de teste localmente, abrir a o arquivo
+`index.html` na pasta `/coverage/Icov-report`, e
+visualizar no browser essa covertura de código com
+mais detalhes. E podemos também ver a representação
+da cobertura de código através do ícone de
+<i style="color: #ff0">code coverage</i> encontrado
+no README do projeto:
+
+[![Test Coverage](https://codeclimate.com/repos/58bddd275723fd027b003f5a/badges/b9071f9c803e247ef447/coverage.svg)](https://codeclimate.com/repos/58bddd275723fd027b003f5a/coverage)
+
+## Jest [(see about it)](https://facebook.github.io/jest/)
+
+Jest é um framework de testes unitários desenvolvido
+pelo facebook com rápida e fácil configuração e
+manuseio para o desenvolvimento de *unit tests*. Mesmo
+com tanta simplicidade, ele tem features muito
+poderosas, como a execução do teste sobre a engine
+do node.js, aumentando assim a 1000x a performance
+de execução dos testes. Com essa feature e com outras
+também, o fazem, sinceramente, um framework que
+não se compara com outros na sua categoria.
+
+Por razões óbvias ele foi escolhido para ser usado
+na execução dos testes unitários do app.
