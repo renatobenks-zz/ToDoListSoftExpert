@@ -1,11 +1,10 @@
 import { todos } from './state';
-import { render } from './view';
+import { AppComponent } from './view';
 import { registerEventHandlers } from './events';
 
-const App = document.getElementById('root');
+const root = document.getElementById('root');
+new AppComponent(root, todos.getState());
 
-todos.subscribe(newState => render(App, newState));
-
-render(App, todos.getState());
+todos.subscribe(newState => new AppComponent(root, newState));
 
 registerEventHandlers();
