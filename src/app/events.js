@@ -5,5 +5,6 @@ import { TodoItemComponent } from './components/Todo/TodoItem';
 
 export const registerEventHandlers = () => {
     listen('click', '#addTodo', InputToDoItemComponent.addTodoItem);
+    listen('keydown', '#todoInput', InputToDoItemComponent.addTodoItemWithEnter);
     listen('click', '.js_toggle_todo', TodoItemComponent.toggleStatusTodoItem);
 };

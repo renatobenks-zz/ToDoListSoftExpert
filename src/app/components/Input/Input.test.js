@@ -10,7 +10,10 @@ const event = {
         matches: selector => true,
         getAttribute: attribute => '1'
     },
-    stopPropagation: () => true
+    stopPropagation: () => true,
+    preventDefault: () => true,
+    which: 13,
+    key: 'Enter'
 };
 
 global.document = {
@@ -23,13 +26,38 @@ describe('Component: InputToDoItemComponent', () => {
     });
 
     test('should get methods of class', () => {
-        expect(InputToDoItemComponent.renderInput).toBeDefined();
-        expect(typeof InputToDoItemComponent.renderInput).toBe('function');
         expect(InputToDoItemComponent.addTodoItem).toBeDefined();
         expect(typeof InputToDoItemComponent.addTodoItem).toBe('function');
+        expect(InputToDoItemComponent.addTodoItemWithEnter).toBeDefined();
+        expect(typeof InputToDoItemComponent.addTodoItemWithEnter).toBe('function');
+        expect(InputToDoItemComponent.renderInput).toBeDefined();
+        expect(typeof InputToDoItemComponent.renderInput).toBe('function');
     });
 
-    describe('addTodoItem () =>', () => {
+    describe('static addTodoItemWithEnter', () => {
+        test('should dispatch new state with new todo item added when type enter key', () => {
+            spyOn(InputToDoItemComponent, 'addTodoItem');
+
+            InputToDoItemComponent.addTodoItemWithEnter(event);
+            expect(InputToDoItemComponent.addTodoItem).toHaveBeenCalledWith(event);
+        });
+
+        test('should not dispatch new add todo item when not type enter key', () => {
+            spyOn(InputToDoItemComponent, 'addTodoItem');
+
+            event.which = 27;
+
+            InputToDoItemComponent.addTodoItemWithEnter(event);
+            expect(InputToDoItemComponent.addTodoItem).not.toHaveBeenCalled();
+
+            event.which = 'Esc';
+
+            InputToDoItemComponent.addTodoItemWithEnter(event);
+            expect(InputToDoItemComponent.addTodoItem).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('static addTodoItem () =>', () => {
         test('should dispatch new state todo items with new todo item added', () => {
             const mockAddTodo = jest.fn(addTodo);
             spyOn(todos, 'dispatch');

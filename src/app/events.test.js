@@ -55,10 +55,12 @@ describe('Events: registerEventHandlers', () => {
 
         test('should been handler listeners', () => {
             spyOn(InputToDoItemComponent, 'addTodoItem');
+            spyOn(InputToDoItemComponent, 'addTodoItemWithEnter');
             spyOn(TodoItemComponent, 'toggleStatusTodoItem');
 
             registerEventHandlers();
             expect(InputToDoItemComponent.addTodoItem).toHaveBeenCalledWith(event);
+            expect(InputToDoItemComponent.addTodoItemWithEnter).toHaveBeenCalledWith(event);
             expect(TodoItemComponent.toggleStatusTodoItem).toHaveBeenCalledWith(event);
         });
     });

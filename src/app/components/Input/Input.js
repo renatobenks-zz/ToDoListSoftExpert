@@ -12,6 +12,13 @@ export class InputToDoItemComponent {
         event.stopPropagation();
     }
 
+    static addTodoItemWithEnter (event) {
+        if (event.key === 'Enter' && event.which === 13) {
+            event.preventDefault();
+            InputToDoItemComponent.addTodoItem(event);
+        }
+    }
+
     static renderInput () {
         return `<div class="todo__input ${css(styles.divFullWidth, styles.divAlignFlex, styles.divAddTodo)}">
             <button class="${css(styles.buttonAddTodo)}" id="addTodo">
