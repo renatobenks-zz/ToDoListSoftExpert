@@ -2,7 +2,7 @@ import {todos} from './state';
 import {listen} from './lib/events';
 import {addTodo, toggleTodoState} from './actions';
 
-export function registerEventHandlers() {
+export const registerEventHandlers = () => {
     listen('click', '#addTodo', event => {
         const todoInput = document.getElementById('todoInput');
         todos.dispatch(addTodo(todoInput.value));
@@ -13,4 +13,4 @@ export function registerEventHandlers() {
         const id = Number.parseInt(event.target.getAttribute('data-id'), 10);
         todos.dispatch(toggleTodoState(id));
     });
-}
+};
