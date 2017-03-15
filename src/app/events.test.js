@@ -2,15 +2,20 @@ import { listen } from './lib/events';
 
 import { registerEventHandlers } from './events';
 
+import { InputToDoItemComponent } from './components/Input/Input';
+import { TodoItemComponent } from './components/Todo/TodoItem';
+
+const event = {
+    target: {
+        matches: selector => true,
+        getAttribute: attribute => '1'
+    },
+    stopPropagation: () => true
+};
+
 global.document = {
     body: {
-        addEventListener: (eventName, event) => event({
-            target: {
-                matches: selector => true,
-                getAttribute: attribute => '1'
-            },
-            stopPropagation: () => true
-        })
+        addEventListener: (eventName, listener) => listener(event)
     },
     getElementById: id => { return {value: `data input ${id}`} }
 };
@@ -33,7 +38,7 @@ describe('Events: registerEventHandlers', () => {
             expect(mockRegisterEventHandlers).toHaveBeenCalled();
         });
 
-        test('should been handler listener', () => {
+        test('should been listen events', () => {
             let paramsListener = {eventName: 'click', selector: '#addTodo', handler: event => event.target};
             const mockListener = jest.fn(listen);
             const mockRegisterEventHandlers = jest.fn(() => {
@@ -46,6 +51,15 @@ describe('Events: registerEventHandlers', () => {
                 paramsListener.selector,
                 paramsListener.handler
             );
+        });
+
+        test('should been handler listeners', () => {
+            spyOn(InputToDoItemComponent, 'addTodoItem');
+            spyOn(TodoItemComponent, 'toggleStatusTodoItem');
+
+            registerEventHandlers();
+            expect(InputToDoItemComponent.addTodoItem).toHaveBeenCalledWith(event);
+            expect(TodoItemComponent.toggleStatusTodoItem).toHaveBeenCalledWith(event);
         });
     });
 });

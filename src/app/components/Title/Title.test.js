@@ -1,4 +1,4 @@
-import { AphroditeStyles } from './../mock';
+import { AphroditeStyles } from './../components.mock';
 
 import { TitleComponent } from './Title';
 

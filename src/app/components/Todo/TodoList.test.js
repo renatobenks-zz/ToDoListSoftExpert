@@ -1,4 +1,4 @@
-import { AphroditeStyles, state } from './../mock';
+import { AphroditeStyles, state } from './../components.mock';
 
 import { TodoListComponent } from './TodoList';
 import { TodoItemComponent } from './TodoItem';

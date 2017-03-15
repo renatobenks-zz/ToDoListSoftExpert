@@ -1,7 +1,16 @@
+import { todos } from './../../state';
+
+import { toggleTodoState } from './../../actions';
+
 import { css } from 'aphrodite'
 import styles from './../../styles';
 
 export class TodoItemComponent {
+    static toggleStatusTodoItem (event) {
+        const id = Number.parseInt(event.target.getAttribute('data-id'), 10);
+        todos.dispatch(toggleTodoState(id));
+    }
+
     static renderToDoItem (todo) {
         const todoClass = `todo__item todo__item--${todo.done ? 'done' : 'open'}`;
         return `<li>

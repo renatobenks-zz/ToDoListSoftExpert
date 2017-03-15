@@ -1,4 +1,4 @@
-import { state, window, AphroditeStyles } from './mock.js';
+import { state, window, AphroditeStyles } from './components.mock.js';
 
 import { isEnabled } from './../lib/feature';
 

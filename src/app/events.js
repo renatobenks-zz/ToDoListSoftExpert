@@ -1,16 +1,9 @@
-import {todos} from './state';
 import {listen} from './lib/events';
-import {addTodo, toggleTodoState} from './actions';
+
+import { InputToDoItemComponent } from './components/Input/Input';
+import { TodoItemComponent } from './components/Todo/TodoItem';
 
 export const registerEventHandlers = () => {
-    listen('click', '#addTodo', event => {
-        const todoInput = document.getElementById('todoInput');
-        todos.dispatch(addTodo(todoInput.value));
-        event.stopPropagation();
-    });
-
-    listen('click', '.js_toggle_todo', event => {
-        const id = Number.parseInt(event.target.getAttribute('data-id'), 10);
-        todos.dispatch(toggleTodoState(id));
-    });
+    listen('click', '#addTodo', InputToDoItemComponent.addTodoItem);
+    listen('click', '.js_toggle_todo', TodoItemComponent.toggleStatusTodoItem);
 };
