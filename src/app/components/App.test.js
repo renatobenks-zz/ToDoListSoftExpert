@@ -7,7 +7,7 @@ import AppComponent from './App';
 import Component from './View';
 import { TitleComponent } from './Title/Title';
 import { InputToDoItemComponent } from './Input/Input';
-import { ToDoListComponent } from './Todo/TodoList';
+import { TodoListComponent } from './Todo/TodoList';
 
 //noinspection JSAnnotator
 global.window = window;
@@ -63,13 +63,13 @@ describe('Component: AppComponent', () => {
             const components = [
                 { component: TitleComponent, method: 'renderTitle' },
                 { component: InputToDoItemComponent, method: 'renderInput' },
-                { component: ToDoListComponent, method: 'renderToDoItems' }
+                { component: TodoListComponent, method: 'renderToDoItems' }
             ];
 
             for (let component of components) {
                 spyOn(component.component, component.method);
                 AppViewComponent.renderAddToDoItemAt(false, state.todos);
-                if (component.component === ToDoListComponent) {
+                if (component.component === TodoListComponent) {
                     expect(component.component[component.method]).toHaveBeenCalledWith(state.todos);
                 } else {
                     expect(component.component[component.method]).toHaveBeenCalled();
@@ -81,7 +81,7 @@ describe('Component: AppComponent', () => {
             let App = String.prototype.concat(
                 TitleComponent.renderTitle(),
                 InputToDoItemComponent.renderInput(),
-                ToDoListComponent.renderToDoItems(state.todos)
+                TodoListComponent.renderToDoItems(state.todos)
             );
 
             expect(AppViewComponent.renderAddToDoItemAt(false, state.todos))
@@ -91,7 +91,7 @@ describe('Component: AppComponent', () => {
         test('should be render input to add todo item at bottom when renderButton is enabled', () => {
             let App = String.prototype.concat(
                 TitleComponent.renderTitle(),
-                ToDoListComponent.renderToDoItems(state.todos),
+                TodoListComponent.renderToDoItems(state.todos),
                 InputToDoItemComponent.renderInput()
             );
 

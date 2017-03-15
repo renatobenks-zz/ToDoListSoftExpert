@@ -2,7 +2,7 @@ import { isEnabled } from './../lib/feature';
 import Component from  './View';
 import { TitleComponent } from './Title/Title';
 import { InputToDoItemComponent } from './Input/Input';
-import { ToDoListComponent } from './Todo/TodoList';
+import { TodoListComponent } from './Todo/TodoList';
 
 export default class AppComponent extends Component {
     constructor () {
@@ -18,14 +18,14 @@ export default class AppComponent extends Component {
         if (isEnabled) {
             App = String.prototype.concat(
                 TitleComponent.renderTitle(),
-                ToDoListComponent.renderToDoItems(TODOS),
+                TodoListComponent.renderToDoItems(TODOS),
                 InputToDoItemComponent.renderInput()
             );
         } else {
             App = String.prototype.concat(
                 TitleComponent.renderTitle(),
                 InputToDoItemComponent.renderInput(),
-                ToDoListComponent.renderToDoItems(TODOS)
+                TodoListComponent.renderToDoItems(TODOS)
             );
         }
 

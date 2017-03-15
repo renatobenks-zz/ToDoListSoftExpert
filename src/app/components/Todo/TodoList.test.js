@@ -1,24 +1,23 @@
 import { AphroditeStyles, state } from './../mock';
 
-import { ToDoListComponent } from './TodoList';
+import { TodoListComponent } from './TodoList';
+import { TodoItemComponent } from './TodoItem';
 
-describe('Component: ToDoListComponent', () => {
-    const renderComponent = (rendered) => {
+describe('Component: TodoListComponent', () => {
+    const testComponentStaticMethod = (rendered) => {
         expect(rendered).toBeDefined();
         expect(typeof rendered).toBe('string');
     };
 
     test('should be imported', () => {
-        expect(ToDoListComponent).toBeDefined();
+        expect(TodoListComponent).toBeDefined();
     });
 
     test('should get methods of class', () => {
-        expect(ToDoListComponent.renderToDoItems).toBeDefined();
-        expect(typeof ToDoListComponent.renderToDoItems).toBe('function');
-        expect(ToDoListComponent.renderToDoItem).toBeDefined();
-        expect(typeof ToDoListComponent.renderToDoItem).toBe('function');
-        expect(ToDoListComponent.getToDoItems).toBeDefined();
-        expect(typeof ToDoListComponent.getToDoItems).toBe('function');
+        expect(TodoListComponent.renderToDoItems).toBeDefined();
+        expect(typeof TodoListComponent.renderToDoItems).toBe('function');
+        expect(TodoListComponent.getToDoItems).toBeDefined();
+        expect(typeof TodoListComponent.getToDoItems).toBe('function');
     });
 
     beforeEach(() => {
@@ -27,33 +26,27 @@ describe('Component: ToDoListComponent', () => {
 
     describe('- static renderToDoItems () =>', () => {
         test('should return all items listing on ToDo list', () => {
-            renderComponent(ToDoListComponent.renderToDoItems(state.todos));
+            testComponentStaticMethod(TodoListComponent.renderToDoItems(state.todos));
         });
 
         test('should get ToDo list from initial state list', () => {
-            spyOn(ToDoListComponent, 'getToDoItems');
+            spyOn(TodoListComponent, 'getToDoItems');
 
-            ToDoListComponent.renderToDoItems();
-            expect(ToDoListComponent.getToDoItems).toHaveBeenCalled();
+            TodoListComponent.renderToDoItems();
+            expect(TodoListComponent.getToDoItems).toHaveBeenCalled();
         });
     });
 
     describe('- static getToDos () =>', () => {
         test('should render all ToDo items to the list ToDos', () => {
-            spyOn(ToDoListComponent, 'renderToDoItem');
+            spyOn(TodoItemComponent, 'renderToDoItem');
 
-            ToDoListComponent.getToDoItems(state.todos);
-            expect(ToDoListComponent.renderToDoItem).toHaveBeenCalledTimes(state.todos.length);
+            TodoListComponent.getToDoItems(state.todos);
+            expect(TodoItemComponent.renderToDoItem).toHaveBeenCalledTimes(state.todos.length);
         });
 
         test('should return elements like string to the ToDo list', () => {
-            renderComponent(ToDoListComponent.getToDoItems(state.todos));
-        });
-    });
-
-    describe('- static renderToDoItem', () => {
-        test('should return element', () => {
-            renderComponent(ToDoListComponent.renderToDoItem(state.todos[0]));
+            testComponentStaticMethod(TodoListComponent.getToDoItems(state.todos));
         });
     });
 
