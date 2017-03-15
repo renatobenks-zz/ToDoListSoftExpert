@@ -10,7 +10,7 @@ module.exports = {
     entry: {
         bundle: [
             'babel-polyfill',
-            'webpack-hot-middleware/client?localhost:5000/build/public',
+            'webpack-hot-middleware/client',
             'webpack/hot/only-dev-server',
             './src/app/main.js',
             './src/public/styles/main.less'
