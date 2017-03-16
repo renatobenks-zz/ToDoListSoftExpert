@@ -1,16 +1,10 @@
-import {todos} from './state';
 import {listen} from './lib/events';
-import {addTodo, toggleTodoState} from './actions';
 
-export function registerEventHandlers() {
-    listen('click', '#addTodo', event => {
-        const todoInput = document.getElementById('todoInput');
-        todos.dispatch(addTodo(todoInput.value));
-        event.stopPropagation();
-    });
+import { InputToDoItemComponent } from './components/Input/Input';
+import { TodoItemComponent } from './components/Todo/TodoItem';
 
-    listen('click', '.js_toggle_todo', event => {
-        const id = Number.parseInt(event.target.getAttribute('data-id'), 10);
-        todos.dispatch(toggleTodoState(id));
-    });
-}
+export const registerEventHandlers = () => {
+    listen('click', '#addTodo', InputToDoItemComponent.addTodoItem);
+    listen('keydown', '#todoInput', InputToDoItemComponent.addTodoItemWithEnter);
+    listen('click', '.js_toggle_todo', TodoItemComponent.toggleStatusTodoItem);
+};
