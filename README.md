@@ -4,6 +4,8 @@
 
 [![Build Status](https://travis-ci.org/renatobenks/ToDoListSoftExpert.svg?branch=master)](https://travis-ci.org/renatobenks/ToDoListSoftExpert)
 
+[![Test Coverage](https://codeclimate.com/repos/58bddd275723fd027b003f5a/badges/b9071f9c803e247ef447/coverage.svg)](https://codeclimate.com/repos/58bddd275723fd027b003f5a/coverage)
+
 [![Code Climate](https://codeclimate.com/repos/58bddd275723fd027b003f5a/badges/b9071f9c803e247ef447/gpa.svg)](https://codeclimate.com/repos/58bddd275723fd027b003f5a/feed)
 [![Issue Count](https://codeclimate.com/repos/58bddd275723fd027b003f5a/badges/b9071f9c803e247ef447/issue_count.svg)](https://codeclimate.com/repos/58bddd275723fd027b003f5a/feed)
 

@@ -82,9 +82,9 @@ iremos ligá-la para revisar e nos envies os fontes também.
 
 ## Level 2 (200)
 
-### WEB-201
+### ~~WEB-201~~
 
-- [ ] Extraia o CSS em um arquivo separado
+- [x] Extraia o CSS em um arquivo separado
 
 Atualmente, o CSS da aplicação está incluído no `bundle.js`.
 Entretanto, nossos usuários começaram a comentar sobre a aplicação estar

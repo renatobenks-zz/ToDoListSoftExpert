@@ -106,8 +106,9 @@ export default StyleSheet.create({
         background: 'transparent',
         padding: '5px',
         position: 'absolute',
-        height: '1.5em',
-        outline: 'none'
+        height: 'auto',
+        outline: 'none',
+        fontSize: '2rem'
     },
     inputAddTodo: {
         border: '1px solid transparent',
@@ -152,7 +153,6 @@ export default StyleSheet.create({
         color: 'black'
     },
     iconAddTodoButton: {
-        fontSize: '1em',
         color: 'rgb(193, 193, 193)',
         margin: '5px 0'
     },
