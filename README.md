@@ -13,6 +13,8 @@ Esta é uma pequena aplicação de ToDo List, que deverá ser extendida e melhor
 
 [Leia mais sobre esse app aqui](./.docs/about.md)
 
+![Todo list](.docs/images/template.jpg)
+
 ---
 
 ## Requirements
