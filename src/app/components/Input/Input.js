@@ -7,9 +7,11 @@ import styles from './../../styles';
 
 export class InputToDoItemComponent {
     static addTodoItem (event) {
-        const todoInput = document.getElementById('todoInput');
-        todos.dispatch(addTodo(todoInput.value));
+        const todoInput = document.getElementById('todoInput').value;
+
+        todos.dispatch(addTodo(todoInput));
         event.stopPropagation();
+        document.getElementById('todoInput').focus();
     }
 
     static addTodoItemWithEnter (event) {

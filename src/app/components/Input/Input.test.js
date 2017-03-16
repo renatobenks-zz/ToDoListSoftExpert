@@ -10,14 +10,19 @@ const event = {
         matches: selector => true,
         getAttribute: attribute => '1'
     },
-    stopPropagation: () => true,
-    preventDefault: () => true,
+    stopPropagation: () => {},
+    preventDefault: () => {},
     which: 13,
     key: 'Enter'
 };
 
 global.document = {
-    getElementById: id => { return {value: `data ${id}`} }
+    getElementById: id => {
+        return {
+            value: `data ${id}`,
+            focus: () => {}
+        }
+    }
 };
 
 describe('Component: InputToDoItemComponent', () => {
@@ -60,6 +65,7 @@ describe('Component: InputToDoItemComponent', () => {
     describe('static addTodoItem () =>', () => {
         test('should dispatch new state todo items with new todo item added', () => {
             const mockAddTodo = jest.fn(addTodo);
+
             spyOn(todos, 'dispatch');
             spyOn(event, 'stopPropagation');
 

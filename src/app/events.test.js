@@ -17,7 +17,12 @@ global.document = {
     body: {
         addEventListener: (eventName, listener) => listener(event)
     },
-    getElementById: id => { return {value: `data input ${id}`} }
+    getElementById: id => {
+        return {
+            value: `data input ${id}`,
+            focus: () => {}
+        }
+    }
 };
 
 describe('Events: registerEventHandlers', () => {
