@@ -2,9 +2,9 @@
 
 ## Level 1 (100)
 
-### WEB-101
+### ~~WEB-101~~
 
-- [ ] Suportar a tecla ENTER no input para adicionar um ToDo item
+- [x] Suportar a tecla ENTER no input para adicionar um ToDo item
 
 Nós gostaríamos de poder adicionar um ToDO item, usando a tecla `enter`
 
