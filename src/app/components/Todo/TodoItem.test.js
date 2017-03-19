@@ -1,17 +1,9 @@
-import { state, AphroditeStyles } from './../components.mock';
+import { state, AphroditeStyles, event } from './../components.mock';
 
 import { todos } from './../../state';
 import { toggleTodoState } from './../../actions';
 
-import { TodoItemComponent } from './TodoItem';
-
-const event = {
-    target: {
-        matches: selector => true,
-        getAttribute: attribute => '1'
-    },
-    stopPropagation: () => true
-};
+import ToDoItemComponent, { TodoItemComponent } from './TodoItem';
 
 describe('Component: TodoItemComponent', () => {
     test('should be imported', () => {
@@ -19,8 +11,8 @@ describe('Component: TodoItemComponent', () => {
     });
 
     test('should get methods of class', () => {
-        expect(TodoItemComponent.renderToDoItem).toBeDefined();
-        expect(typeof TodoItemComponent.renderToDoItem).toBe('function');
+        expect(ToDoItemComponent.renderToDoItem).toBeDefined();
+        expect(typeof ToDoItemComponent.renderToDoItem).toBe('function');
         expect(TodoItemComponent.toggleStatusTodoItem).toBeDefined();
         expect(typeof TodoItemComponent.toggleStatusTodoItem).toBe('function');
     });
@@ -31,8 +23,8 @@ describe('Component: TodoItemComponent', () => {
             spyOn(todos, 'dispatch');
 
             TodoItemComponent.toggleStatusTodoItem(event);
-            expect(todos.dispatch).toHaveBeenCalledWith(mockToggleTodoItem(1));
-            expect(mockToggleTodoItem).toHaveBeenCalledWith(1);
+            expect(todos.dispatch).toHaveBeenCalledWith(mockToggleTodoItem(2));
+            expect(mockToggleTodoItem).toHaveBeenCalledWith(2);
         });
     });
 
@@ -42,8 +34,8 @@ describe('Component: TodoItemComponent', () => {
         });
 
         test('should return element', () => {
-            expect(TodoItemComponent.renderToDoItem(state.todos[0])).toBeDefined();
-            expect(typeof TodoItemComponent.renderToDoItem(state.todos[0])).toBe('string');
+            expect(ToDoItemComponent.renderToDoItem(state.todos[0])).toBeDefined();
+            expect(typeof ToDoItemComponent.renderToDoItem(state.todos[0])).toBe('string');
         });
 
         afterEach(() => {

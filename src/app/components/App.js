@@ -1,8 +1,11 @@
 import { isEnabled } from './../lib/feature';
+
 import Component from  './View';
-import { TitleComponent } from './Title/Title';
-import { InputToDoItemComponent } from './Input/Input';
-import { TodoListComponent } from './Todo/TodoList';
+
+import TitleComponent from './Title/Title';
+import InputToDoItemComponent from './Input/Input';
+import TodoListComponent from './Todo/TodoList';
+import FilterComponent from './Filter/Filter';
 
 export default class AppComponent extends Component {
     constructor () {
@@ -10,25 +13,21 @@ export default class AppComponent extends Component {
     }
 
     renderApp (el, state) {
-        this.render(el, this.renderAddToDoItemAt(isEnabled('renderBottom'), state.todos));
+        this.render(el, AppComponent.renderAddToDoItemAt(isEnabled('renderBottom'), state));
     }
 
-    renderAddToDoItemAt (isEnabled, TODOS) {
-        let App;
+    static joinComponents (Components) {
+        return Components.join('\n');
+    }
+
+    static renderAddToDoItemAt (isEnabled, state) {
+        let Components = [TitleComponent.renderTitle(), FilterComponent.renderFilter(state.filters)];
         if (isEnabled) {
-            App = String.prototype.concat(
-                TitleComponent.renderTitle(),
-                TodoListComponent.renderToDoItems(TODOS),
-                InputToDoItemComponent.renderInput()
-            );
+            Components.push(TodoListComponent.renderToDoItems(state.todos), InputToDoItemComponent.renderInput());
         } else {
-            App = String.prototype.concat(
-                TitleComponent.renderTitle(),
-                InputToDoItemComponent.renderInput(),
-                TodoListComponent.renderToDoItems(TODOS)
-            );
+            Components.push(InputToDoItemComponent.renderInput(), TodoListComponent.renderToDoItems(state.todos));
         }
 
-        return `<div id="app">${App}</div>`;
+        return `<div id="app">${AppComponent.joinComponents(Components)}</div>`;
     }
 }

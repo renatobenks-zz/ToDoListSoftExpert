@@ -1,53 +1,41 @@
-import{ StyleSheet } from 'aphrodite/no-important';
+import{ StyleSheet, css } from 'aphrodite';
 
-const FontRoboto = {
+export const FontRoboto = {
     fontFamily: 'Roboto',
     fontWeight: 'normal',
     fontStyle: 'normal',
     src: "url('/public/fonts/Roboto/roboto-regular.woff') format('woff2'), url('/public/fonts/Roboto/roboto-regular.woff') format('woff')"
 };
 
-const FontRobotoMedium = {
+export const FontRobotoMedium = {
     fontFamily: 'Roboto Medium',
     fontWeight: 'normal',
     fontStyle: 'normal',
     src: "url('/public/fonts/Roboto/roboto-medium.woff') format('woff2'), url('/public/fonts/Roboto/roboto-medium.woff') format('woff')"
 };
 
-const FontRobotoBlack = {
+export const FontRobotoBlack = {
     fontFamily: 'Roboto Black',
     fontWeight: 'normal',
     fontStyle: 'normal',
     src: "url('/public/fonts/Roboto/roboto-black.woff') format('woff2'), url('/public/fonts/Roboto/roboto-black.woff') format('woff')"
 };
 
-const FontRobotoCondensed = {
+export const FontRobotoCondensed = {
     fontFamily: 'Roboto Condensed',
     fontWeight: 'normal',
     fontStyle: 'normal',
     src: "url('/public/fonts/RobotoCondensed/robotocondensed-regular.woff') format('woff2'), url('/public/fonts/RobotoCondensed/robotocondensed-regular.woff') format('woff')"
 };
 
-const FontRobotoCondensedBold = {
+export const FontRobotoCondensedBold = {
     fontFamily: 'Roboto Condensed Bold',
     fontWeight: 'normal',
     fontStyle: 'normal',
     src: "url('/public/fonts/RobotoCondensed/robotocondensed-bold.woff') format('woff2'), url('/public/fonts/RobotoCondensed/robotocondensed-bold.woff') format('woff')"
 };
 
-const FontArimo = {
-    fontFamily: 'Arimo',
-    fontWeight: 'normal',
-    fontStyle: 'normal',
-    src: "url('/public/fonts/Arimo/arimo-regular.woff') format('woff2'), url('/public/fonts/Arimo/arimo-regular.woff') format('woff')"
-};
-
-const FontArimoBold = {
-    fontFamily: 'Arimo Bold',
-    fontWeight: 'normal',
-    fontStyle: 'normal',
-    src: "url('/public/fonts/Arimo/arimo-bold.woff') format('woff2'), url('/public/fonts/Arimo/arimo-bold.woff') format('woff')"
-};
+export const GetStylesComponent = styles => StyleSheet.create(styles);
 
 export default StyleSheet.create({
     divTitle: {
