@@ -79,12 +79,8 @@ export const todoChangeHandler = (state, change) => {
             break;
         case 'TOGGLE_FILTER':
             for (let filter of state.filters) {
-                if (filter.selected) {
-                    filter.selected = false;
-                }
-
-                if (filter.id === change.id) {
-                    filter.selected = true;
+                if (filter.selected || filter.id === change.id) {
+                    filter.selected = !filter.selected;
                 }
             }
     }
