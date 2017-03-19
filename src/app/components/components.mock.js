@@ -9,9 +9,32 @@ export const state = {
     ]
 };
 
+export const event = {
+    target: {
+        matches: selector => true,
+        getAttribute: attribute => '1'
+    },
+    stopPropagation: () => {},
+    preventDefault: () => {},
+    which: 13,
+    key: 'Enter'
+};
+
 export const window = {
     location: {
         hash: '#renderBottom'
+    }
+};
+
+export const document = {
+    body: {
+        addEventListener: (eventName, listener) => listener(event)
+    },
+    getElementById: id => {
+        return {
+            value: `data ${id}`,
+            focus: () => {}
+        }
     }
 };
 

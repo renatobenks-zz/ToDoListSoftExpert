@@ -1,33 +1,17 @@
-import { AphroditeStyles } from './../components.mock';
+import { AphroditeStyles, event, document } from './../components.mock';
 
 import { todos } from './../../state';
 import { addTodo } from './../../actions';
 
-import { InputToDoItemComponent } from './Input';
+import InputTodoItemComponent, { InputToDoItemComponent } from './Input';
 
-const event = {
-    target: {
-        matches: selector => true,
-        getAttribute: attribute => '1'
-    },
-    stopPropagation: () => {},
-    preventDefault: () => {},
-    which: 13,
-    key: 'Enter'
-};
-
-global.document = {
-    getElementById: id => {
-        return {
-            value: `data ${id}`,
-            focus: () => {}
-        }
-    }
-};
+//noinspection JSAnnotator
+global.document = document;
 
 describe('Component: InputToDoItemComponent', () => {
     test('should be imported', () => {
         expect(InputToDoItemComponent).toBeDefined();
+        expect(InputTodoItemComponent).toBeDefined();
     });
 
     test('should get methods of class', () => {
@@ -35,8 +19,8 @@ describe('Component: InputToDoItemComponent', () => {
         expect(typeof InputToDoItemComponent.addTodoItem).toBe('function');
         expect(InputToDoItemComponent.addTodoItemWithEnter).toBeDefined();
         expect(typeof InputToDoItemComponent.addTodoItemWithEnter).toBe('function');
-        expect(InputToDoItemComponent.renderInput).toBeDefined();
-        expect(typeof InputToDoItemComponent.renderInput).toBe('function');
+        expect(InputTodoItemComponent.renderInput).toBeDefined();
+        expect(typeof InputTodoItemComponent.renderInput).toBe('function');
     });
 
     describe('static addTodoItemWithEnter', () => {
@@ -82,8 +66,8 @@ describe('Component: InputToDoItemComponent', () => {
         });
 
         test('should return title app', () => {
-            expect(InputToDoItemComponent.renderInput()).toBeDefined();
-            expect(typeof InputToDoItemComponent.renderInput()).toBe('string');
+            expect(InputTodoItemComponent.renderInput()).toBeDefined();
+            expect(typeof InputTodoItemComponent.renderInput()).toBe('string');
         });
 
         afterEach(() => {

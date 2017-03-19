@@ -2,7 +2,7 @@ import { todos } from './../../state';
 
 import { addTodo } from './../../actions';
 
-import { css } from 'aphrodite'
+import { css } from 'aphrodite';
 import styles from './../../styles';
 
 export class InputToDoItemComponent {
@@ -21,7 +21,7 @@ export class InputToDoItemComponent {
         }
     }
 
-    static renderInput () {
+    renderInput () {
         return `<div class="todo__input ${css(styles.divFullWidth, styles.divAlignFlex, styles.divAddTodo)}">
             <button class="${css(styles.buttonAddTodo)}" id="addTodo">
                 <i class="add circle icon ${css(styles.iconAddTodoButton)}"></i>
@@ -37,3 +37,5 @@ export class InputToDoItemComponent {
         </div>`;
     }
 }
+
+export default new InputToDoItemComponent

@@ -1,16 +1,19 @@
-import { state, window, AphroditeStyles } from './components.mock.js';
+import { state, window, document, AphroditeStyles } from './components.mock.js';
 
 import { isEnabled } from './../lib/feature';
 
 import AppComponent from './App';
 
 import Component from './View';
-import { TitleComponent } from './Title/Title';
-import { InputToDoItemComponent } from './Input/Input';
-import { TodoListComponent } from './Todo/TodoList';
+import TitleComponent from './Title/Title';
+import InputToDoItemComponent from './Input/Input';
+import TodoListComponent from './Todo/TodoList';
+import FilterComponent from './Filter/Filter';
 
 //noinspection JSAnnotator
 global.window = window;
+//noinspection JSAnnotator
+global.document = document;
 
 describe('Component: AppComponent', () => {
     let element = Object.prototype;
@@ -33,20 +36,21 @@ describe('Component: AppComponent', () => {
         expect(AppViewComponent.render).toBeDefined();
     });
 
-    describe('- constructor component () =>', () => {
+    describe('constructor component () =>', () => {
         test('should instance super class', () => {
             expect(AppViewComponent instanceof Component).toBe(true);
         });
     });
 
-    describe('- renderApp () =>', () => {
+    describe('renderApp () =>', () => {
+        const mockIsEnabled = jest.fn(isEnabled);
         test('should be render app to element', () => {
             spyOn(AppViewComponent, 'render');
 
             AppViewComponent.renderApp(element, state);
             expect(AppViewComponent.render).toHaveBeenCalledWith(
                 element,
-                AppViewComponent.renderAddToDoItemAt(isEnabled('renderBottom'), state.todos)
+                AppViewComponent.renderAddToDoItemAt(mockIsEnabled('renderBottom'), state)
             );
         });
 
@@ -54,7 +58,8 @@ describe('Component: AppComponent', () => {
             spyOn(AppViewComponent, 'renderAddToDoItemAt');
 
             AppViewComponent.renderApp(element, state);
-            expect(AppViewComponent.renderAddToDoItemAt).toHaveBeenCalledWith(isEnabled('renderBottom'), state.todos)
+            expect(AppViewComponent.renderAddToDoItemAt).toHaveBeenCalledWith(mockIsEnabled('renderBottom'), state);
+            expect(mockIsEnabled).toHaveBeenCalledWith('renderBottom');
         });
     });
 
@@ -63,12 +68,13 @@ describe('Component: AppComponent', () => {
             const components = [
                 { component: TitleComponent, method: 'renderTitle' },
                 { component: InputToDoItemComponent, method: 'renderInput' },
-                { component: TodoListComponent, method: 'renderToDoItems' }
+                { component: TodoListComponent, method: 'renderToDoItems' },
+                { component: FilterComponent, method: 'renderFilter' }
             ];
 
             for (let component of components) {
                 spyOn(component.component, component.method);
-                AppViewComponent.renderAddToDoItemAt(false, state.todos);
+                AppViewComponent.renderAddToDoItemAt(false, state);
                 if (component.component === TodoListComponent) {
                     expect(component.component[component.method]).toHaveBeenCalledWith(state.todos);
                 } else {
@@ -80,22 +86,24 @@ describe('Component: AppComponent', () => {
         test('should be render input to add todo item at top when renderButton is disabled', () => {
             let App = String.prototype.concat(
                 TitleComponent.renderTitle(),
+                FilterComponent.renderFilter(),
                 InputToDoItemComponent.renderInput(),
                 TodoListComponent.renderToDoItems(state.todos)
             );
 
-            expect(AppViewComponent.renderAddToDoItemAt(false, state.todos))
+            expect(AppViewComponent.renderAddToDoItemAt(false, state))
                 .toBe(`<div id="app">${App}</div>`);
         });
 
         test('should be render input to add todo item at bottom when renderButton is enabled', () => {
             let App = String.prototype.concat(
                 TitleComponent.renderTitle(),
+                FilterComponent.renderFilter(),
                 TodoListComponent.renderToDoItems(state.todos),
                 InputToDoItemComponent.renderInput()
             );
 
-            expect(AppViewComponent.renderAddToDoItemAt(true, state.todos))
+            expect(AppViewComponent.renderAddToDoItemAt(true, state))
                 .toBe(`<div id="app">${App}</div>`)
         });
     });

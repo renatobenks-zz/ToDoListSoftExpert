@@ -1,4 +1,4 @@
-import {createStore} from './lib/state';
+import { createStore } from './lib/state';
 
 const initialState = {
     todos: [
@@ -25,7 +25,9 @@ const initialState = {
     ]
 };
 
-function todoChangeHandler(state, change) {
+const TODOS = initialState.todos;
+
+export const todoChangeHandler = (state, change) => {
     switch(change.type) {
         case 'ADD_TODO':
             state.todos.push({
@@ -42,7 +44,22 @@ function todoChangeHandler(state, change) {
                 }
             }
             break;
+        case 'FILTER_TODO':
+            if (change.status == null) {
+                state.todos = TODOS;
+                break;
+            } else {
+                let todos = [];
+                for (let todo of TODOS) {
+                    if (todo.done === change.status) {
+                        todos.push(todo);
+                    }
+                }
+                state.todos = todos;
+                break;
+            }
+            break;
     }
-}
+};
 
 export const todos = createStore(todoChangeHandler, initialState);

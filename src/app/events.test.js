@@ -1,29 +1,14 @@
+import { event, document } from './components/components.mock';
 import { listen } from './lib/events';
 
 import { registerEventHandlers } from './events';
 
 import { InputToDoItemComponent } from './components/Input/Input';
 import { TodoItemComponent } from './components/Todo/TodoItem';
+import { FilterComponent } from './components/Filter/Filter';
 
-const event = {
-    target: {
-        matches: selector => true,
-        getAttribute: attribute => '1'
-    },
-    stopPropagation: () => true
-};
-
-global.document = {
-    body: {
-        addEventListener: (eventName, listener) => listener(event)
-    },
-    getElementById: id => {
-        return {
-            value: `data input ${id}`,
-            focus: () => {}
-        }
-    }
-};
+//noinspection JSAnnotator
+global.document = document;
 
 describe('Events: registerEventHandlers', () => {
     test('should be imported register of events handlers', () => {
@@ -62,11 +47,13 @@ describe('Events: registerEventHandlers', () => {
             spyOn(InputToDoItemComponent, 'addTodoItem');
             spyOn(InputToDoItemComponent, 'addTodoItemWithEnter');
             spyOn(TodoItemComponent, 'toggleStatusTodoItem');
+            spyOn(FilterComponent, 'filterTodoList');
 
             registerEventHandlers();
             expect(InputToDoItemComponent.addTodoItem).toHaveBeenCalledWith(event);
             expect(InputToDoItemComponent.addTodoItemWithEnter).toHaveBeenCalledWith(event);
             expect(TodoItemComponent.toggleStatusTodoItem).toHaveBeenCalledWith(event);
+            expect(FilterComponent.filterTodoList).toHaveBeenCalledWith(event);
         });
     });
 });
