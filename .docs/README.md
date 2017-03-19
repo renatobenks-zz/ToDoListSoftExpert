@@ -1,9 +1,11 @@
-# Documentation about it:
+# Documentation about:
 
-> Escrevi essa documentação o auxílio do entendimento dos motivos
-da tomadas de decisões. Assim, que fique explicito o que foi feito,
-por que foi feito e como foi feito.
+> *Documentação escrita para auxiliar o entendimento dos motivos
+da tomadas de decisões. Para que dessa forma,
+fique explicito o que, por que e como foram feitas as implementações
+no app.*
 
 - ### [Leia sobre](about.md)
-- ### [Veja a metodologia](methodology.md)
-- ### [Veja as tarefas](tasks.md)
+- ### [Metodologia](methodology.md)
+- ### [Tecnoloigas implementadas](tech.md)
+- ### [Tarefas](tasks.md)
