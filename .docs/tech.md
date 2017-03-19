@@ -99,3 +99,41 @@ execução do app com o node.js, mas a fim de representação,
 achei melhor ilustrar com dois arquivos distintos separados.
 
 ---
+
+## Stylesheet
+
+O layout da aplicação foi definido pelo template de um app TodoList
+passado na task
+[WEB-110](https://github.com/renatobenks/ToDoListSoftExpert/issues/7).
+
+### Aphrodite
+
+Como a aplicação foi desenvolvida na arquitetura de
+componentização, foi usado a lib open-source
+[Aphrodite](https://github.com/Khan/aphrodite) para dar estilo
+aos componentes criados. A estilização dos componentes é escrita
+em Javascript e passada na renderização de cada componente, onde
+ela é transpilada através do aphrodite para css.
+
+Trabalhando com componentização, foi uma forma ideal para dar
+forma aos componentes, por facilitar também a mudança de estado
+das classes deles.
+
+Na arquitetura de componentes montada, os estilos dos componentes
+podem ser encontrados na pasta de cada componente, com a
+nomenclatura padrão do projeto para `styles`, ou seja:
+
+    ./src/app/
+    ├── styles.js
+    ├── components
+        ├── Component
+            ├── [component].js
+            ├── [component].styles.js
+
+Onde neste formato, num contexto de dependencia na arvore da
+aplicação, cada `[component].styles.js` depende do método
+`GetStylesComponent` em `styles.js`, para através do aphrodite
+criar o objeto css, para no método render do componente,
+em `[component].js`, poder compilar o objeto para css da aplicação.
+
+### Less (pré-processor)
