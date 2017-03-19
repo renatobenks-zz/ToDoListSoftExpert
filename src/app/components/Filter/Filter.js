@@ -8,7 +8,7 @@ export class FilterComponent {
     static filterTodoList (event) {
         event.preventDefault();
         todos.dispatch(filterTodoList(FilterComponent.todoShouldFilter(event.target.value)));
-        todos.dispatch(toggleFilter(parseInt(event.target.getAttribute('data-id'))));
+        todos.dispatch(toggleFilter(parseInt(event.target.getAttribute('data-id'), 10)));
     }
 
     static todoShouldFilter (value) {

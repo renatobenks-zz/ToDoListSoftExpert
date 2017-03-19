@@ -37,11 +37,23 @@ describe('State: App', () => {
     });
 
     describe('todoChangeHandler () =>', () => {
+        describe('change: FILTER_TODO', () => {
+            test('should filter for all todo items', () => {
+                expect(state.todos.length).toBe(3);
+                mockReducer(state, filterTodoList(false));
+                expect(state.todos.length).toBe(2);
+                mockReducer(state, filterTodoList(true));
+                expect(state.todos.length).toBe(1);
+                mockReducer(state, filterTodoList(null));
+                expect(state.todos.length).toBe(3);
+            });
+        });
+
         describe('change: ADD_TODO', () => {
             test('should add new todo to state todo list', () => {
-                expect(state.todos.length).toBe(4);
+                expect(state.todos.length).toBe(3);
                 mockReducer(state, addTodo('my task'));
-                expect(state.todos.length).toBe(5);
+                expect(state.todos.length).toBe(4);
                 expect(state.todos[state.todos.length-1]).toEqual({
                     id: state.todos.length-1,
                     text: 'my task',
@@ -58,16 +70,6 @@ describe('State: App', () => {
                 expect(state.todos[1].done).toBe(false);
                 mockReducer(state, toggleTodoState(1));
                 expect(state.todos[1].done).toBe(true);
-            });
-        });
-
-        describe('change: FILTER_TODO', () => {
-            test('should filter for all todo items', () => {
-                expect(state.todos.length).toBe(5);
-                mockReducer(state, filterTodoList(false));
-                expect(state.todos.length).toBe(4);
-                mockReducer(state, filterTodoList(true));
-                expect(state.todos.length).toBe(1);
             });
         });
 

@@ -16,11 +16,6 @@ const initialState = {
             id: 2,
             text: 'Filter todos by status',
             done: false
-        },
-        {
-            id: 3,
-            text: 'Filter todos by text',
-            done: false
         }
     ],
     filters: [
@@ -63,19 +58,15 @@ export const todoChangeHandler = (state, change) => {
             }
             break;
         case 'FILTER_TODO':
-            if (change.status === null) {
-                state.todos = TODOS;
-                break;
-            } else {
-                let todos = [];
+            let todos = change.status === null ? TODOS : [];
+            if (todos.length === 0) {
                 for (let todo of TODOS) {
                     if (todo.done === change.status) {
                         todos.push(todo);
                     }
                 }
-                state.todos = todos;
-                break;
             }
+            state.todos = todos;
             break;
         case 'TOGGLE_FILTER':
             for (let filter of state.filters) {
