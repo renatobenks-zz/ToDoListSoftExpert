@@ -1,14 +1,13 @@
-
-export function toggleTodoState(id) {
+export const toggleTodoState = (id) => {
     return {
         type: 'TODO_TOGGLE_DONE',
         id
     };
-}
+};
 
-export function addTodo(text) {
+export const addTodo = (text) => {
     return {
         type: 'ADD_TODO',
         text
     }
-}
+};

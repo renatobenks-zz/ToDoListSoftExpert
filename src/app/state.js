@@ -1,4 +1,4 @@
-import {createStore} from './lib/state';
+import { createStore } from './lib/state';
 
 const initialState = {
     todos: [
@@ -16,16 +16,31 @@ const initialState = {
             id: 2,
             text: 'Filter todos by status',
             done: false
-        },
+        }
+    ],
+    filters: [
         {
+            id: 1,
+            name: 'Mostrar ToDos',
+            selected: true,
+            value: null
+        }, {
+            id: 2,
+            name: 'Somente abertos',
+            selected: false,
+            value: false
+        }, {
             id: 3,
-            text: 'Filter todos by text',
-            done: false
+            name: 'Somente fechados',
+            value: true,
+            selected: false
         }
     ]
 };
 
-function todoChangeHandler(state, change) {
+const TODOS = initialState.todos;
+
+export const todoChangeHandler = (state, change) => {
     switch(change.type) {
         case 'ADD_TODO':
             state.todos.push({
@@ -42,7 +57,24 @@ function todoChangeHandler(state, change) {
                 }
             }
             break;
+        case 'FILTER_TODO':
+            let todos = change.status === null ? TODOS : [];
+            if (todos.length === 0) {
+                for (let todo of TODOS) {
+                    if (todo.done === change.status) {
+                        todos.push(todo);
+                    }
+                }
+            }
+            state.todos = todos;
+            break;
+        case 'TOGGLE_FILTER':
+            for (let filter of state.filters) {
+                if (filter.selected || filter.id === change.id) {
+                    filter.selected = !filter.selected;
+                }
+            }
     }
-}
+};
 
 export const todos = createStore(todoChangeHandler, initialState);
