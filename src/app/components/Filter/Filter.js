@@ -2,12 +2,13 @@ import { css } from 'aphrodite';
 import StylesFilterComponent from './Filter.styles';
 
 import { todos } from './../../state';
-import { filterTodoList } from './Filter.actions';
+import { filterTodoList, toggleFilter } from './Filter.actions';
 
 export class FilterComponent {
     static filterTodoList (event) {
         event.preventDefault();
         todos.dispatch(filterTodoList(FilterComponent.todoShouldFilter(event.target.value)));
+        todos.dispatch(toggleFilter(parseInt(event.target.getAttribute('data-id'))));
     }
 
     static todoShouldFilter (value) {
@@ -15,21 +16,26 @@ export class FilterComponent {
         return null;
     }
 
-    renderFilter () {
+    getFilters (FILTERS) {
+        return FILTERS.map((filter) => {
+            return `<label class="${css(StylesFilterComponent.filterOptions)}" for="filter-${filter.id}">
+                <i class="${css(StylesFilterComponent.filterOptionText)}">${filter.name}</i>
+                <input 
+                    type="radio" 
+                    name="filter" 
+                    id="filter-${filter.id}" 
+                    data-id="${filter.id}" 
+                    value="${filter.value}"
+                    ${filter.selected ? 'checked' : ''}
+                    >
+            </label>`
+        }).join('');
+    }
+
+    renderFilter (FILTERS) {
         return `<div id="filter" class="${css(StylesFilterComponent.filter)}">
             <h1 class="${css(StylesFilterComponent.filterTitle)}">Filter your tasks:</h1>
-            <label class="${css(StylesFilterComponent.filterOptions)}" for="filter-all">
-                <i class="${css(StylesFilterComponent.filterOptionText)}">all</i>
-                <input type="radio" name="filter" id="filter-all" value="${null}">
-            </label>
-            <label class="${css(StylesFilterComponent.filterOptions)}" for="filter-doing">
-                <i class="${css(StylesFilterComponent.filterOptionText)}">doing</i>
-                <input type="radio" name="filter" id="filter-doing" value="${false}">
-            </label>
-            <label class="${css(StylesFilterComponent.filterOptions)}" for="filter-done">
-                <i class="${css(StylesFilterComponent.filterOptionText)}">done</i>
-                <input type="radio" name="filter" id="filter-done" value="${true}">
-            </label>
+            ${this.getFilters(FILTERS)}
         </div>`;
     }
 }

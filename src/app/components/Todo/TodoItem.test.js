@@ -1,17 +1,9 @@
-import { state, AphroditeStyles } from './../components.mock';
+import { state, AphroditeStyles, event } from './../components.mock';
 
 import { todos } from './../../state';
 import { toggleTodoState } from './../../actions';
 
 import ToDoItemComponent, { TodoItemComponent } from './TodoItem';
-
-const event = {
-    target: {
-        matches: selector => true,
-        getAttribute: attribute => '1'
-    },
-    stopPropagation: () => true
-};
 
 describe('Component: TodoItemComponent', () => {
     test('should be imported', () => {
@@ -31,8 +23,8 @@ describe('Component: TodoItemComponent', () => {
             spyOn(todos, 'dispatch');
 
             TodoItemComponent.toggleStatusTodoItem(event);
-            expect(todos.dispatch).toHaveBeenCalledWith(mockToggleTodoItem(1));
-            expect(mockToggleTodoItem).toHaveBeenCalledWith(1);
+            expect(todos.dispatch).toHaveBeenCalledWith(mockToggleTodoItem(2));
+            expect(mockToggleTodoItem).toHaveBeenCalledWith(2);
         });
     });
 

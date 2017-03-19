@@ -3,7 +3,7 @@ import { createStore } from './lib/state';
 import { todos, todoChangeHandler } from './state';
 
 import { addTodo, toggleTodoState } from './actions';
-import { filterTodoList } from './components/Filter/Filter.actions';
+import { filterTodoList, toggleFilter } from './components/Filter/Filter.actions';
 
 import { state } from './components/components.mock';
 
@@ -68,6 +68,15 @@ describe('State: App', () => {
                 expect(state.todos.length).toBe(4);
                 mockReducer(state, filterTodoList(true));
                 expect(state.todos.length).toBe(1);
+            });
+        });
+
+        describe('change: TOGGLE_FILTER', () => {
+            test('should update filter selected', () => {
+                expect(state.filters[0].selected).toBe(true);
+                mockReducer(state, toggleFilter(2));
+                expect(state.filters[0].selected).toBe(false);
+                expect(state.filters[1].selected).toBe(true);
             });
         });
     });

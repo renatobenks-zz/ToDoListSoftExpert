@@ -4,3 +4,10 @@ export const filterTodoList = (status) => {
         status
     }
 };
+
+export const toggleFilter = (id) => {
+    return {
+        type: 'TOGGLE_FILTER',
+        id
+    }
+};

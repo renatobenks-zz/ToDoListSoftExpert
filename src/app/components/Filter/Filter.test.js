@@ -1,8 +1,8 @@
-import { AphroditeStyles, event } from './../components.mock';
+import { AphroditeStyles, event, state } from './../components.mock';
 import { css } from 'aphrodite';
 
 import { todos } from './../../state';
-import { filterTodoList } from './Filter.actions';
+import { filterTodoList, toggleFilter } from './Filter.actions';
 
 import filterComponent, { FilterComponent } from './Filter';
 
@@ -18,14 +18,17 @@ describe('Component: FilterComponent', () => {
     test('should get methods of class', () => {
         expect(filterComponent.renderFilter).toBeDefined();
         expect(typeof filterComponent.renderFilter).toBe('function');
+        expect(filterComponent.getFilters).toBeDefined();
+        expect(typeof filterComponent.getFilters).toBe('function');
         expect(FilterComponent.filterTodoList).toBeDefined();
         expect(typeof FilterComponent.filterTodoList).toBe('function');
         expect(FilterComponent.todoShouldFilter).toBeDefined();
         expect(typeof FilterComponent.todoShouldFilter).toBe('function');
     });
 
-    describe('filterTodoList () =>', () => {
+    describe('static filterTodoList () =>', () => {
         const mockFilterTodoList = jest.fn(filterTodoList);
+        const mockToggleFilterSelected = jest.fn(toggleFilter);
         beforeEach(() => {
             spyOn(todos, 'dispatch');
         });
@@ -53,6 +56,12 @@ describe('Component: FilterComponent', () => {
             expect(todos.dispatch).toHaveBeenCalledWith(mockFilterTodoList(null));
             expect(mockFilterTodoList).toHaveBeenCalledWith(null);
         });
+
+        test('should update state filter selected', () => {
+            FilterComponent.filterTodoList(event);
+            expect(todos.dispatch).toHaveBeenCalledWith(mockToggleFilterSelected(2));
+            expect(mockToggleFilterSelected).toHaveBeenCalledWith(2);
+        });
     });
 
     describe('static todoShouldFilter () =>', () => {
@@ -66,10 +75,24 @@ describe('Component: FilterComponent', () => {
         });
     });
 
-    describe('static renderFilter () =>', () => {
+    describe('getFilters () =>', () => {
+        test('should get filters', () => {
+            expect(filterComponent.getFilters(state.filters)).toBeDefined();
+            expect(typeof filterComponent.getFilters(state.filters)).toBe('string');
+        });
+    });
+
+    describe('renderFilter () =>', () => {
         test('should be render filter to app', () => {
-            expect(filterComponent.renderFilter()).toBeDefined();
-            expect(typeof filterComponent.renderFilter()).toBe('string');
+            expect(filterComponent.renderFilter(state.filters)).toBeDefined();
+            expect(typeof filterComponent.renderFilter(state.filters)).toBe('string');
+        });
+
+        test('should render got filters for todo list', () => {
+            spyOn(filterComponent, 'getFilters');
+
+            filterComponent.renderFilter(state.filters);
+            expect(filterComponent.getFilters).toHaveBeenCalledWith(state.filters);
         });
     });
 

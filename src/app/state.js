@@ -22,6 +22,24 @@ const initialState = {
             text: 'Filter todos by text',
             done: false
         }
+    ],
+    filters: [
+        {
+            id: 1,
+            name: 'Mostrar ToDos',
+            selected: true,
+            value: null
+        }, {
+            id: 2,
+            name: 'Somente abertos',
+            selected: false,
+            value: false
+        }, {
+            id: 3,
+            name: 'Somente fechados',
+            value: true,
+            selected: false
+        }
     ]
 };
 
@@ -45,7 +63,7 @@ export const todoChangeHandler = (state, change) => {
             }
             break;
         case 'FILTER_TODO':
-            if (change.status == null) {
+            if (change.status === null) {
                 state.todos = TODOS;
                 break;
             } else {
@@ -59,6 +77,16 @@ export const todoChangeHandler = (state, change) => {
                 break;
             }
             break;
+        case 'TOGGLE_FILTER':
+            for (let filter of state.filters) {
+                if (filter.selected) {
+                    filter.selected = false;
+                }
+
+                if (filter.id === change.id) {
+                    filter.selected = true;
+                }
+            }
     }
 };
 

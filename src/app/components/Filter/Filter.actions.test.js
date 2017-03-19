@@ -1,8 +1,9 @@
-import { filterTodoList } from './Filter.actions';
+import { filterTodoList, toggleFilter } from './Filter.actions';
 
 describe('Actions: FilterComponent', () => {
     test('should be imported', () => {
         expect(filterTodoList).toBeDefined();
+        expect(toggleFilter).toBeDefined();
     });
 
     describe('filterTodoList', () => {
@@ -15,6 +16,15 @@ describe('Actions: FilterComponent', () => {
             expect(filterTodoList(false)).toEqual({
                 type: 'FILTER_TODO',
                 status: false
+            });
+        });
+    });
+
+    describe('toggleFilter', () => {
+        test('should change selected filter', () => {
+            expect(toggleFilter(1)).toEqual({
+                type: 'TOGGLE_FILTER',
+                id: 1
             });
         });
     });
