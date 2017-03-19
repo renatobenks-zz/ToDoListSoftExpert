@@ -2,7 +2,6 @@
 var path = require('path');
 var webpack = require('webpack');
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OccurrenceOrderPlugin = new webpack.optimize.OccurrenceOrderPlugin();
 
 module.exports = {
@@ -37,8 +36,7 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('development'),
             '__DEV__': true
-        }),
-        new ExtractTextPlugin("[name].css")
+        })
     ],
     module: {
         rules: [{
@@ -46,22 +44,24 @@ module.exports = {
             exclude: path.join(__dirname, 'node_modules'),
             use: 'babel-loader',
             include: path.join(__dirname, 'src/app')
-        }, {
+        },  {
             test: /\.(less|css)$/,
-            use: ExtractTextPlugin.extract({
-                fallback: 'style-loader',
-                use: [{
+            use: [
+                'style-loader',
+                {
                     loader: 'css-loader',
                     options: {
-                        sourceMap: true
+                        sourceMap: true,
+                        camelCase: true,
+                        importLoaders: 1
                     }
                 }, {
                     loader: 'less-loader',
                     options: {
                         sourceMap: true
                     }
-                }]
-            })
+                }
+            ]
         }, {
             test: /\.(png|woff|woff2|eot|ttf|svg)$/,
             use: 'url-loader'

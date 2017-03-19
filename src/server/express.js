@@ -13,7 +13,7 @@ let assets = environment.assets;
 config(server);
 
 // Render Document
-const renderFullPage = (assets) => {
+const renderPage = (assets) => {
     return `
         <!DOCTYPE html>
         <html lang="en">
@@ -21,8 +21,11 @@ const renderFullPage = (assets) => {
             <meta charSet="utf-8" />
             <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <link rel='stylesheet' href='${assets.vendor.css}'/>
-            <link rel='stylesheet' href='${assets.bundle.css}'/>
+            ${process.env.NODE_ENV === 'production' ?
+                `<link rel='stylesheet' href='${assets.vendor.css}'/>
+                <link rel='stylesheet' href='${assets.bundle.css}'/>` :
+                ''
+            }
           </head>
           <body>
             <div id="root"></div>
@@ -57,7 +60,7 @@ server.get('*', (req, res) => {
         }
     }
 
-    res.status(200).send(renderFullPage(assets));
+    res.status(200).send(renderPage(assets));
 });
 
 export default server
