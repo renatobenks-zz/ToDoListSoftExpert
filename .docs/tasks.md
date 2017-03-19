@@ -18,9 +18,9 @@ Nós gostaríamos de poder adicionar um ToDO item, usando a tecla `enter`
 
  Por favor, garanta que ao adicionar um ToDo item, o foco irá voltar (ou manter-se) ao text field.
 
-### WEB-103
+### ~~WEB-103~~
 
-- [ ] Adicione um filtro de status como TESTE
+- [x] Adicione um filtro de status como TESTE
 
 Como um usuário, eu quero ter uma opção para esconder itens que não me interessam
 baseado nos seus status.
