@@ -8,9 +8,9 @@
 
 Nós gostaríamos de poder adicionar um ToDO item, usando a tecla `enter`
 
-### WEB-102
+### ~~WEB-102~~
 
-- [ ] Adicionar um ToDO item causa perca de foco no text field
+- [x] Adicionar um ToDO item causa perca de foco no text field
 
  Como nós habilitamos a tecla `enter` para adicionar um ToDo item, nossos usuários
  notaram que ao adicionar, o text field perde o foco e eles precisam clicar manualmente no input
