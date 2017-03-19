@@ -1,6 +1,6 @@
 import { AphroditeStyles } from './../components.mock';
 
-import { TitleComponent } from './Title';
+import TitleComponent from './Title';
 
 describe('Component: TitleComponent', () => {
     test('should be imported', () => {

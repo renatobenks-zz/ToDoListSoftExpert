@@ -11,7 +11,7 @@ export class TodoItemComponent {
         todos.dispatch(toggleTodoState(id));
     }
 
-    static renderToDoItem (todo) {
+    renderToDoItem (todo) {
         const todoClass = `todo__item todo__item--${todo.done ? 'done' : 'open'}`;
         return `<li>
             <div class="ui checkbox">
@@ -38,3 +38,5 @@ export class TodoItemComponent {
         </li>`;
     }
 }
+
+export default new TodoItemComponent
