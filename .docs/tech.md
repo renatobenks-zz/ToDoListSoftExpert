@@ -137,3 +137,19 @@ criar o objeto css, para no método render do componente,
 em `[component].js`, poder compilar o objeto para css da aplicação.
 
 ### Less (pré-processor)
+
+> Leia sobre, [aqui](http://lesscss.org/)
+
+A escolha de usar também um pré-processor para a aplicação foi
+num designo de responsabilidades de layout para o app. Ou seja,
+se o propósito do uso do [aphrodite](#Stylesheet#Aphrodite) foi
+dar forma aos componentes, usar less na aplicação, tem seu
+propósito também!
+
+Neste sentido, o uso do less veio como forma de controlar o
+layout da aplicação em geral, não da árvore de componentes em
+si, mas sim de elementos pais específicos e de algumas
+especificações, onde com o aphrodite, existem limitações.
+
+*Obs.: O uso do less permitiu também aproveitar o css já escrito
+através da importação do css no arquivo less.*
