@@ -1,23 +1,26 @@
 {
-  "data": {
-    "todos": [
-      {
-        "id": 0,
-        "text": "Take a look at the application",
-        "done": true
-      },
-      {
-        "id": 1,
-        "text": "Add ability to filter todos",
-        "done": false
-      },
-      {
-        "id": 2,
-        "text": "Filter todos by status",
-        "done": false
-      }
-    ],
-    "filters": [
+  "todos": [
+    {
+      "id": 0,
+      "text": "Take a look at the application",
+      "done": true,
+      "severity": "important"
+    },
+    {
+      "id": 1,
+      "text": "Add ability to filter todos",
+      "done": false,
+      "severity": "urgent"
+    },
+    {
+      "id": 2,
+      "text": "Filter todos by status",
+      "done": false,
+      "severity": "normal"
+    }
+  ],
+  "filters": {
+    "status": [
       {
         "id": 1,
         "name": "Mostrar ToDos",
@@ -33,6 +36,18 @@
         "name": "Somente fechados",
         "value": true,
         "selected": false
+      }
+    ],
+    "severities": [
+      {
+        "id": 1,
+        "priority": "urgent"
+      }, {
+        "id": 2,
+        "priority": "important"
+      }, {
+        "id": 3,
+        "priority": "normal"
       }
     ]
   }
