@@ -3,10 +3,7 @@ import express from 'express';
 
 import config from './config';
 import env from './env';
-
 import API from './api';
-
-import data from './data.json';
 
 const server = express();
 
@@ -14,10 +11,9 @@ const environment = env(server);
 let assets = environment.assets;
 
 config(server);
-
 server.use('/api/v1/',
-    API.APITodoList(data.todos),
-    API.APIFilters(data.filters)
+    API.APITodoList(),
+    API.APIFilters()
 );
 
 // Render Document

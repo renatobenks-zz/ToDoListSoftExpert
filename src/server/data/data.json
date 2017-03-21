@@ -17,6 +17,24 @@
       "text": "Filter todos by status",
       "done": false,
       "severity": "normal"
+    },
+    {
+      "id": 3,
+      "text": "New todo",
+      "done": true,
+      "severity": "important"
+    },
+    {
+      "id": 4,
+      "text": "New todo",
+      "done": true,
+      "severity": "important"
+    },
+    {
+      "id": 5,
+      "text": "More new todo item task",
+      "done": false,
+      "severity": "urgent"
     }
   ],
   "filters": [
@@ -25,12 +43,14 @@
       "name": "Mostrar ToDos",
       "selected": true,
       "value": null
-    }, {
+    },
+    {
       "id": 2,
       "name": "Somente abertos",
       "selected": false,
       "value": false
-    }, {
+    },
+    {
       "id": 3,
       "name": "Somente fechados",
       "value": true,
@@ -41,10 +61,12 @@
     {
       "id": 1,
       "priority": "urgent"
-    }, {
+    },
+    {
       "id": 2,
       "priority": "important"
-    }, {
+    },
+    {
       "id": 3,
       "priority": "normal"
     }
