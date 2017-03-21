@@ -78,16 +78,19 @@ describe('Component: InputToDoItemComponent', () => {
         });
 
         test('should dispatch new state todo items with new todo item added', () => {
+            const mockAddTodo = jest.fn(addTodo);
             return getInitialState()
                 .then(() => {
-                    const mockAddTodo = jest.fn(addTodo);
                     spyOn(event, 'stopPropagation');
                     spyOn(store, 'dispatch');
                     InputToDoItemComponent.addTodoItem(event);
                     return mockFetch()
+                        .then(data => {
+                            return data.json();
+                        })
                         .then((data) => {
-                            expect(store.dispatch).toHaveBeenCalledWith(mockAddTodo(data.json()));
-                            expect(mockAddTodo).toHaveBeenCalledWith(data.json());
+                            expect(store.dispatch).toHaveBeenCalledWith(mockAddTodo(data));
+                            expect(mockAddTodo).toHaveBeenCalledWith(data);
                             expect(event.stopPropagation).toHaveBeenCalled();
                         });
                 });
