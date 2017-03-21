@@ -5,7 +5,7 @@ const router = new Router;
 export const APITodoList = (TODOS) => {
     router.get('/todos', (request, response) => {
         response.statusCode = 200;
-        response.json({data: TODOS});
+        response.json({todos: TODOS});
     });
 
     return router
@@ -14,7 +14,7 @@ export const APITodoList = (TODOS) => {
 export const APIFilters = (FILTERS) => {
     router.get('/filters', (request, response) => {
         response.statusCode = 200;
-        response.json({data: FILTERS});
+        response.json({filters: FILTERS});
     });
 
     return router
