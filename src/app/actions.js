@@ -5,9 +5,9 @@ export const toggleTodoState = (id) => {
     };
 };
 
-export const addTodo = (text) => {
+export const addTodo = (todo) => {
     return {
         type: 'ADD_TODO',
-        text
+        todo
     }
 };

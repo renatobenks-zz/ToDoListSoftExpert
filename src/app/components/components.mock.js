@@ -1,14 +1,23 @@
 import { StyleSheetTestUtils } from 'aphrodite';
 
-export const fetch = (url) => {
+export const fetch = (url, params) => {
     // get url from fetch data
     url = url.split('/api/v1')[1].split('/');
+    let data;
+    if (params) {
+        
+    } else {
+        if (state[url[1]]) {
+            data = state
+        }
+    }
+
     return new Promise((resolve, reject) => {
         process.nextTick(() => {
-            if (state[url[1]]) {
+            if (data) {
                 resolve({
                     json () {
-                        return state
+                        return data
                     }
                 });
             } else {

@@ -20,29 +20,28 @@ export const APITodoList = () => {
 
     router.post('/todos', (request, response) => {
         manipulationFileSystem.getJSONFile((err, data) => {
-            let todo;
             if (err) {
                 console.error(err);
+                data = {error: 'Server error for save todo item!'};
                 response.statusCode = 500;
-                todo = {error: 'Server error for save todo item!'};
+            } else {
+                response.statusCode = 200;
+                let body = {
+                    id: JSON.parse(data).todos.length,
+                    text: request.body.text,
+                    done: false,
+                    severity: request.body.severity
+                };
+
+                data = manipulationFileSystem.updateJSONFile(body, (err) => {
+                    if (err) {
+                        console.error(err);
+                        response.statusCode = 500;
+                    }
+                });
             }
 
-            let todos = JSON.parse(data).todos.filter(todo => request.body.id === todo.id);
-            if (!todo) {
-                if (todos.length > 0) {
-                    response.statusCode = 500;
-                    todo = {error: 'Todo already created!'};
-                } else {
-                    response.statusCode = 200;
-                    todo = manipulationFileSystem.updateJSONFile(request.body, (err) => {
-                        if (err) {
-                            throw err;
-                        }
-                    });
-                }
-            }
-
-            response.json(todo);
+            response.json(data);
         });
     });
 

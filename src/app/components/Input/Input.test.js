@@ -1,4 +1,4 @@
-import { AphroditeStyles, event, document, fetch } from './../components.mock';
+import { AphroditeStyles, event, document, fetch, state } from './../components.mock';
 
 import { store, getInitialState } from './../../state';
 import { addTodo } from './../../actions';
@@ -50,6 +50,10 @@ describe('Component: InputToDoItemComponent', () => {
     });
 
     describe('static addTodoItem () =>', () => {
+        test.skip('should fetch to api the new todo item', () => {
+            const mockFetch = jest.fn(fetch);
+        });
+
         test('should dispatch new state todo items with new todo item added', () => {
             const mockAddTodo = jest.fn(addTodo);
             spyOn(event, 'stopPropagation');

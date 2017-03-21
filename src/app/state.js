@@ -7,11 +7,7 @@ export let store;
 export const todoChangeHandler = (state, change) => {
     switch(change.type) {
         case 'ADD_TODO':
-            state.todos.push({
-                id: state.todos.length,
-                text: change.text,
-                done: false
-            });
+            state.todos.push(change.todo);
             break;
         case 'TODO_TOGGLE_DONE':
             for(let todo of state.todos) {

@@ -66,14 +66,16 @@ describe('State: App', () => {
 
         describe('change: ADD_TODO', () => {
             test('should add new todo to state todo list', () => {
-                expect(state.todos.length).toBe(4);
-                mockReducer(state, addTodo('my task'));
-                expect(state.todos.length).toBe(5);
-                expect(state.todos[state.todos.length-1]).toEqual({
-                    id: state.todos.length-1,
+                let todo = {
+                    id: 4,
                     text: 'my task',
-                    done: false
-                });
+                    done: false,
+                    severity: 'normal'
+                };
+                expect(state.todos.length).toBe(4);
+                mockReducer(state, addTodo(todo));
+                expect(state.todos.length).toBe(5);
+                expect(state.todos[state.todos.length-1]).toEqual(todo);
             });
         });
 
@@ -128,7 +130,7 @@ describe('State: App', () => {
             });
 
             return mockGetInitialState()
-                .catch((e) => {
+                .catch(() => {
                     expect(mockGetInitialState()).toThrow();
                 });
         });

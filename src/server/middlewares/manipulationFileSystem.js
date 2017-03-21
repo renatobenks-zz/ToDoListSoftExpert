@@ -3,8 +3,9 @@ import fs from 'fs';
 let file = __dirname.split('middlewares')[0].concat('data/data.json');
 
 const updateJSONFile = (todo, callback) => {
-    fs.readFile(file, 'utf-8', (err, data) => {
-        if (err) throw err;
+    getJSONFile((err, data) => {
+        if (err) console.error(err);
+
         data = JSON.parse(data);
         data.todos.push(todo);
 

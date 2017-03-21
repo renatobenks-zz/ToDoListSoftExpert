@@ -9,9 +9,18 @@ export class InputToDoItemComponent {
     static addTodoItem (event) {
         const todoInput = document.getElementById('todoInput').value;
 
-        store.dispatch(addTodo(todoInput));
-        event.stopPropagation();
-        document.getElementById('todoInput').focus();
+        if (todoInput) {
+            fetch('/api/v1/todos', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: {}
+            }).then((data) => {});
+            store.dispatch(addTodo(todoInput));
+            event.stopPropagation();
+            document.getElementById('todoInput').focus();
+        }
     }
 
     static addTodoItemWithEnter (event) {
