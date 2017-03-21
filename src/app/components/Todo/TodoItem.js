@@ -1,6 +1,6 @@
 import { store } from './../../state';
 
-import { toggleTodoState } from './../../actions';
+import { toggleTodoState } from './TodoItem.actions';
 
 import { css } from 'aphrodite'
 import styles from './../../styles';

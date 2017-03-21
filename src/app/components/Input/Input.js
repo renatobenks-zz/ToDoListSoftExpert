@@ -1,9 +1,8 @@
-import { store } from './../../state';
-
-import { addTodo } from './../../actions';
-
 import { css } from 'aphrodite';
-import styles from './../../styles';
+import StylesInputToDoItemComponent from './Input.styles';
+
+import { store } from './../../state';
+import { addTodo } from './Input.actions';
 
 export class InputToDoItemComponent {
     static addTodoItem (event) {
@@ -45,14 +44,14 @@ export class InputToDoItemComponent {
     }
 
     renderInput () {
-        return `<div class="todo__input ${css(styles.divFullWidth, styles.divAlignFlex, styles.divAddTodo)}">
-            <button class="${css(styles.buttonAddTodo)}" id="addTodo">
-                <i class="add circle icon ${css(styles.iconAddTodoButton)}"></i>
+        return `<div class="todo__input ${css(StylesInputToDoItemComponent.inputComponent)}">
+            <button class="${css(StylesInputToDoItemComponent.inputButtonAddInputText)}" id="addTodo">
+                <i class="add circle icon ${css(StylesInputToDoItemComponent.inputIconInButton)}"></i>
             </button>
-            <input placeholder="Add a Task" class="${css(styles.fullWidth, styles.inputAddTodo)}" type="text" id="todoInput">
-            <label class="${css(styles.fieldSelectSeverity)} severity">
-                <p class="${css(styles.textSeveritySelected)}">Set severity</p>
-                <select class="${css(styles.selectSeverity)}" id="set-severity">
+            <input placeholder="Add a Task" class="${css(StylesInputToDoItemComponent.input)}" type="text" id="todoInput">
+            <label class="${css(StylesInputToDoItemComponent.severity)} severity">
+                <p class="${css(StylesInputToDoItemComponent.labelSeverity)}">Set severity</p>
+                <select class="${css(StylesInputToDoItemComponent.selectSeverity)}" id="set-severity">
                     <option value="important">important</option>
                     <option value="urgent">urgent</option>
                 </select>

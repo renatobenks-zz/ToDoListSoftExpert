@@ -4,10 +4,3 @@ export const toggleTodoState = (id) => {
         id
     };
 };
-
-export const addTodo = (todo) => {
-    return {
-        type: 'ADD_TODO',
-        todo
-    }
-};

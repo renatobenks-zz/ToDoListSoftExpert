@@ -1,7 +1,7 @@
 import { state, AphroditeStyles, event, fetch } from './../components.mock';
 
 import { store, getInitialState } from './../../state';
-import { toggleTodoState } from './../../actions';
+import { toggleTodoState } from './TodoItem.actions';
 
 import ToDoItemComponent, { TodoItemComponent } from './TodoItem';
 

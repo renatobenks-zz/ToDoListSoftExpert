@@ -29,6 +29,12 @@
       "text": "new task",
       "done": false,
       "severity": "normal"
+    },
+    {
+      "id": 5,
+      "text": "my new task",
+      "done": false,
+      "severity": "normal"
     }
   ],
   "filters": [

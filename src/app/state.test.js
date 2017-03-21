@@ -2,7 +2,8 @@ import { createStore } from './lib/state';
 
 import { todoChangeHandler, store, getInitialState } from './state';
 
-import { addTodo, toggleTodoState } from './actions';
+import { addTodo } from './components/Input/Input.actions';
+import { toggleTodoState } from './components/Todo/TodoItem.actions';
 import { filterTodoList, toggleFilter } from './components/Filter/Filter.actions';
 
 import { state, fetch } from './components/components.mock';
