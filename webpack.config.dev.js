@@ -8,7 +8,6 @@ module.exports = {
     devtool: 'cheap-module-source-map',
     entry: {
         bundle: [
-            'babel-polyfill',
             'webpack-hot-middleware/client',
             'webpack/hot/only-dev-server',
             './src/app/main.js',
@@ -42,7 +41,12 @@ module.exports = {
         rules: [{
             test: /\.js$/,
             exclude: path.join(__dirname, 'node_modules'),
-            use: 'babel-loader',
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: ['env', 'es2015', 'stage-0']
+                }
+            },
             include: path.join(__dirname, 'src/app')
         },  {
             test: /\.(less|css)$/,
