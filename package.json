@@ -34,7 +34,7 @@
     "less": "^2.7.2",
     "less-loader": "^3.0.0",
     "morgan": "^1.8.1",
-    "semantic-ui": "^2.1.8",
+    "semantic-ui-css": "^2.2.9",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.8",
     "webpack": "^2.2.1"
