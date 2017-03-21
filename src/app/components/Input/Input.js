@@ -7,26 +7,33 @@ import styles from './../../styles';
 
 export class InputToDoItemComponent {
     static addTodoItem (event) {
-        const todoInput = document.getElementById('todoInput').value;
-
-        if (todoInput) {
+        const todoInputValue = document.getElementById('todoInput').value;
+        if (todoInputValue) {
             fetch('/api/v1/todos', {
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 method: 'POST',
                 body: JSON.stringify({
-                    text: todoInput,
+                    text: todoInputValue,
                     severity: 'normal'
                 })
             }).then((data) => {
                 return data.json();
             }).then((todo) => {
-                store.dispatch(addTodo(todo));
-                event.stopPropagation();
-                document.getElementById('todoInput').focus();
+                if (!todo.error){
+                    store.dispatch(addTodo(todo));
+                    event.stopPropagation();
+                    document.getElementById('todoInput').focus();
+                } else {
+                    console.error(todo.error);
+                    throw todo.error;
+                }
             });
         } else {
+            styles.inputAddTodo._definition.borderColor = 'red';
+            styles.inputAddTodo._definition.boxShadow = '0 0 10px red';
+            event.target.classList.add(css(styles.inputAddTodo));
         }
     }
 

@@ -23,6 +23,12 @@
       "text": "More new todo item task",
       "done": false,
       "severity": "urgent"
+    },
+    {
+      "id": 4,
+      "text": "new task",
+      "done": false,
+      "severity": "normal"
     }
   ],
   "filters": [

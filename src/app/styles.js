@@ -106,6 +106,8 @@ export default StyleSheet.create({
         outline: 'none',
         transition: 'border 0.3s 0.15s ease-in-out',
         ':active': {
+            borderColor: 'transparent',
+            boxShadow: 'none',
             borderBottom: '1px solid rgb(192, 192, 192)'
         },
         ':focus': {
@@ -142,15 +144,15 @@ export default StyleSheet.create({
     },
     iconAddTodoButton: {
         color: 'rgb(193, 193, 193)',
-        margin: '5px 0'
+        margin: '10px 0'
     },
     fieldSelectSeverity: {
         position: 'relative',
         width: '120px',
         minWidth: '120px',
         height: '30px',
-        right: '120px',
-        bottom: '-15px',
+        right: '130px',
+        bottom: '-12.5px',
         overflow: 'hidden'
     },
     textSeveritySelected: {
