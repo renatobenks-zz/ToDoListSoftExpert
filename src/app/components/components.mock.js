@@ -50,7 +50,8 @@ export const state = {
 export const event = {
     target: {
         matches: selector => true,
-        getAttribute: attribute => '2'
+        getAttribute: attribute => '2',
+        classList: Array.prototype
     },
     stopPropagation: () => {},
     preventDefault: () => {},

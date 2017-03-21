@@ -1,4 +1,4 @@
-import { AphroditeStyles, event, document, fetch, state } from './../components.mock';
+import { AphroditeStyles, event, document, fetch } from './../components.mock';
 
 import { store, getInitialState } from './../../state';
 import { addTodo } from './../../actions';
