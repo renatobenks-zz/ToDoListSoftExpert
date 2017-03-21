@@ -1,5 +1,15 @@
 import { StyleSheetTestUtils } from 'aphrodite';
 
+export const fetch = (url) => {
+    // get url from fetch data
+    url = url.split('/api/v1')[1].split('/');
+    return Promise.resolve({
+        json () {
+            return state
+        }
+    });
+};
+
 export const state = {
     todos: [
         { id: 0, text: 'Take a look at the application', done: true },

@@ -1,4 +1,4 @@
-import { todos } from './../../state';
+import { store } from './../../state';
 
 import { addTodo } from './../../actions';
 
@@ -9,7 +9,7 @@ export class InputToDoItemComponent {
     static addTodoItem (event) {
         const todoInput = document.getElementById('todoInput').value;
 
-        todos.dispatch(addTodo(todoInput));
+        store.dispatch(addTodo(todoInput));
         event.stopPropagation();
         document.getElementById('todoInput').focus();
     }

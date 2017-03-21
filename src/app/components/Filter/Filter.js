@@ -1,14 +1,14 @@
 import { css } from 'aphrodite';
 import StylesFilterComponent from './Filter.styles';
 
-import { todos } from './../../state';
+import { store } from './../../state';
 import { filterTodoList, toggleFilter } from './Filter.actions';
 
 export class FilterComponent {
     static filterTodoList (event) {
         event.preventDefault();
-        todos.dispatch(filterTodoList(FilterComponent.todoShouldFilter(event.target.value)));
-        todos.dispatch(toggleFilter(parseInt(event.target.getAttribute('data-id'), 10)));
+        store.dispatch(filterTodoList(FilterComponent.todoShouldFilter(event.target.value)));
+        store.dispatch(toggleFilter(parseInt(event.target.getAttribute('data-id'), 10)));
     }
 
     static todoShouldFilter (value) {

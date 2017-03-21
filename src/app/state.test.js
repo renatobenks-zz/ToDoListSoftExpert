@@ -1,11 +1,14 @@
 import { createStore } from './lib/state';
 
-import { todos, todoChangeHandler } from './state';
+import { todoChangeHandler, store, getInitialState } from './state';
 
 import { addTodo, toggleTodoState } from './actions';
 import { filterTodoList, toggleFilter } from './components/Filter/Filter.actions';
 
-import { state } from './components/components.mock';
+import { state, fetch } from './components/components.mock';
+
+//noinspection JSAnnotator
+global.fetch = fetch;
 
 describe('State: App', () => {
     test('should be imported reducer', () => {
@@ -14,46 +17,58 @@ describe('State: App', () => {
     });
 
     test('should be created store', () => {
-        expect(todos).toBeDefined();
-        expect(typeof todos).toBe('object');
+        getInitialState()
+            .then(() => {
+                expect(store).toBeDefined();
+                expect(typeof store).toBe('object');
+                expect(store.dispatch).toBeDefined();
+                expect(store.subscribe).toBeDefined();
+                expect(store.getState).toBeDefined();
+            });
     });
 
     const mockReducer = jest.fn(todoChangeHandler);
     const mockCreateStore = jest.fn(createStore);
 
-    let store = mockCreateStore(mockReducer, state);
+    let STORE = mockCreateStore(mockReducer, state);
 
     describe('createStore () =>', () => {
         test('should be created the store for control app state', () => {
-            expect(store.dispatch).toBeDefined();
-            expect(store.subscribe).toBeDefined();
-            expect(store.getState).toBeDefined();
+            expect(STORE.dispatch).toBeDefined();
+            expect(STORE.subscribe).toBeDefined();
+            expect(STORE.getState).toBeDefined();
         });
 
         test('should use reducer for update store state', () => {
-            store.dispatch(filterTodoList(null));
-            expect(mockReducer).toHaveBeenCalledWith(state, filterTodoList(null));
+            return getInitialState()
+                .then(() => {
+                    STORE.dispatch(filterTodoList(null));
+                    expect(mockReducer).toHaveBeenCalledWith(state, filterTodoList(null));
+                });
         });
     });
 
     describe('todoChangeHandler () =>', () => {
         describe('change: FILTER_TODO', () => {
             test('should filter for all todo items', () => {
-                expect(state.todos.length).toBe(3);
-                mockReducer(state, filterTodoList(false));
-                expect(state.todos.length).toBe(2);
-                mockReducer(state, filterTodoList(true));
-                expect(state.todos.length).toBe(1);
-                mockReducer(state, filterTodoList(null));
-                expect(state.todos.length).toBe(3);
+                expect(state.todos.length).toBe(4);
+                return getInitialState()
+                    .then(() => {
+                        mockReducer(state, filterTodoList(false));
+                        expect(state.todos.length).toBe(3);
+                        mockReducer(state, filterTodoList(true));
+                        expect(state.todos.length).toBe(1);
+                        mockReducer(state, filterTodoList(null));
+                        expect(state.todos.length).toBe(4);
+                    });
             });
         });
 
         describe('change: ADD_TODO', () => {
             test('should add new todo to state todo list', () => {
-                expect(state.todos.length).toBe(3);
-                mockReducer(state, addTodo('my task'));
                 expect(state.todos.length).toBe(4);
+                mockReducer(state, addTodo('my task'));
+                expect(state.todos.length).toBe(5);
                 expect(state.todos[state.todos.length-1]).toEqual({
                     id: state.todos.length-1,
                     text: 'my task',

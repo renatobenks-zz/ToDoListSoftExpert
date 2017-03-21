@@ -1,44 +1,8 @@
+import 'babel-polyfill';
 import { createStore } from './lib/state';
 
-const initialState = {
-    todos: [
-        {
-            id: 0,
-            text: 'Take a look at the application',
-            done: true
-        },
-        {
-            id: 1,
-            text: 'Add ability to filter todos',
-            done: false
-        },
-        {
-            id: 2,
-            text: 'Filter todos by status',
-            done: false
-        }
-    ],
-    filters: [
-        {
-            id: 1,
-            name: 'Mostrar ToDos',
-            selected: true,
-            value: null
-        }, {
-            id: 2,
-            name: 'Somente abertos',
-            selected: false,
-            value: false
-        }, {
-            id: 3,
-            name: 'Somente fechados',
-            value: true,
-            selected: false
-        }
-    ]
-};
-
-const TODOS = initialState.todos;
+let TODOS;
+export let store;
 
 export const todoChangeHandler = (state, change) => {
     switch(change.type) {
@@ -77,4 +41,30 @@ export const todoChangeHandler = (state, change) => {
     }
 };
 
-export const todos = createStore(todoChangeHandler, initialState);
+export const getInitialState = async () => {
+    try {
+        const todos = await fetch('/api/v1/todos')
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                TODOS = data.todos;
+                return data.todos;
+            });
+
+        const filters = await fetch('/api/v1/filters')
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                return data.filters;
+            });
+
+        store = await createStore(todoChangeHandler, {
+            todos,
+            filters
+        });
+    } catch (error) {
+        throw error;
+    }
+};

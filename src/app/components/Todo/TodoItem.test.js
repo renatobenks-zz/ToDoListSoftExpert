@@ -1,9 +1,12 @@
-import { state, AphroditeStyles, event } from './../components.mock';
+import { state, AphroditeStyles, event, fetch } from './../components.mock';
 
-import { todos } from './../../state';
+import { store, getInitialState } from './../../state';
 import { toggleTodoState } from './../../actions';
 
 import ToDoItemComponent, { TodoItemComponent } from './TodoItem';
+
+//noinspection JSAnnotator
+global.fetch = fetch;
 
 describe('Component: TodoItemComponent', () => {
     test('should be imported', () => {
@@ -20,11 +23,14 @@ describe('Component: TodoItemComponent', () => {
     describe('toggleStatusTodoItem () =>', () => {
         test('should toggle status todo item', () => {
             const mockToggleTodoItem = jest.fn(toggleTodoState);
-            spyOn(todos, 'dispatch');
+            return getInitialState()
+                .then(() => {
+                    spyOn(store, 'dispatch');
 
-            TodoItemComponent.toggleStatusTodoItem(event);
-            expect(todos.dispatch).toHaveBeenCalledWith(mockToggleTodoItem(2));
-            expect(mockToggleTodoItem).toHaveBeenCalledWith(2);
+                    TodoItemComponent.toggleStatusTodoItem(event);
+                    expect(store.dispatch).toHaveBeenCalledWith(mockToggleTodoItem(2));
+                    expect(mockToggleTodoItem).toHaveBeenCalledWith(2);
+                });
         });
     });
 

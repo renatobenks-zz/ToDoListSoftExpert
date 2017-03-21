@@ -1,12 +1,15 @@
-import { AphroditeStyles, event, document } from './../components.mock';
+import { AphroditeStyles, event, document, fetch } from './../components.mock';
 
-import { todos } from './../../state';
+import { store, getInitialState } from './../../state';
 import { addTodo } from './../../actions';
 
 import InputTodoItemComponent, { InputToDoItemComponent } from './Input';
 
 //noinspection JSAnnotator
 global.document = document;
+
+//noinspection JSAnnotator
+global.fetch = fetch;
 
 describe('Component: InputToDoItemComponent', () => {
     test('should be imported', () => {
@@ -49,14 +52,15 @@ describe('Component: InputToDoItemComponent', () => {
     describe('static addTodoItem () =>', () => {
         test('should dispatch new state todo items with new todo item added', () => {
             const mockAddTodo = jest.fn(addTodo);
-
-            spyOn(todos, 'dispatch');
             spyOn(event, 'stopPropagation');
-
-            InputToDoItemComponent.addTodoItem(event);
-            expect(todos.dispatch).toHaveBeenCalledWith(mockAddTodo('data todoInput'));
-            expect(mockAddTodo).toHaveBeenCalledWith('data todoInput');
-            expect(event.stopPropagation).toHaveBeenCalled();
+            return getInitialState()
+                .then(() => {
+                    spyOn(store, 'dispatch');
+                    InputToDoItemComponent.addTodoItem(event);
+                    expect(store.dispatch).toHaveBeenCalledWith(mockAddTodo('data todoInput'));
+                    expect(mockAddTodo).toHaveBeenCalledWith('data todoInput');
+                    expect(event.stopPropagation).toHaveBeenCalled();
+                });
         });
     });
 

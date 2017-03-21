@@ -3,6 +3,8 @@ import { listen } from './lib/events';
 
 import { registerEventHandlers } from './events';
 
+import { getInitialState } from './state';
+
 import { InputToDoItemComponent } from './components/Input/Input';
 import { TodoItemComponent } from './components/Todo/TodoItem';
 import { FilterComponent } from './components/Filter/Filter';
@@ -24,8 +26,11 @@ describe('Events: registerEventHandlers', () => {
         test('should register the handlers events in the app', () => {
             const mockRegisterEventHandlers = jest.fn(registerEventHandlers);
 
-            mockRegisterEventHandlers();
-            expect(mockRegisterEventHandlers).toHaveBeenCalled();
+            getInitialState()
+                .then(() => {
+                    mockRegisterEventHandlers();
+                    expect(mockRegisterEventHandlers).toHaveBeenCalled();
+                });
         });
 
         test('should been listen events', () => {

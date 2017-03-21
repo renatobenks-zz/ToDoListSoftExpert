@@ -1,4 +1,4 @@
-import { todos } from './../../state';
+import { store } from './../../state';
 
 import { toggleTodoState } from './../../actions';
 
@@ -8,7 +8,7 @@ import styles from './../../styles';
 export class TodoItemComponent {
     static toggleStatusTodoItem (event) {
         const id = Number.parseInt(event.target.getAttribute('data-id'), 10);
-        todos.dispatch(toggleTodoState(id));
+        store.dispatch(toggleTodoState(id));
     }
 
     renderToDoItem (todo) {
