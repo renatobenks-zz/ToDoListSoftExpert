@@ -50,20 +50,46 @@ describe('Component: InputToDoItemComponent', () => {
     });
 
     describe('static addTodoItem () =>', () => {
-        test.skip('should fetch to api the new todo item', () => {
-            const mockFetch = jest.fn(fetch);
+        let todo = {text: 'data todoInput', severity: 'normal'};
+        const mockFetch = jest.fn(() => {
+            return fetch('/api/v1/todos', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(todo)
+            })
+        });
+
+        test('should fetch to api the new todo item', () => {
+            return getInitialState()
+                .then(() => {
+                    return mockFetch()
+                        .then((data) => {
+                            InputToDoItemComponent.addTodoItem(event);
+                            expect(data.json()).toEqual({
+                                id: 4,
+                                text: todo.text,
+                                severity: todo.severity,
+                                done: false
+                            });
+                        });
+                });
         });
 
         test('should dispatch new state todo items with new todo item added', () => {
-            const mockAddTodo = jest.fn(addTodo);
-            spyOn(event, 'stopPropagation');
             return getInitialState()
                 .then(() => {
+                    const mockAddTodo = jest.fn(addTodo);
+                    spyOn(event, 'stopPropagation');
                     spyOn(store, 'dispatch');
                     InputToDoItemComponent.addTodoItem(event);
-                    expect(store.dispatch).toHaveBeenCalledWith(mockAddTodo('data todoInput'));
-                    expect(mockAddTodo).toHaveBeenCalledWith('data todoInput');
-                    expect(event.stopPropagation).toHaveBeenCalled();
+                    return mockFetch()
+                        .then((data) => {
+                            expect(store.dispatch).toHaveBeenCalledWith(mockAddTodo(data.json()));
+                            expect(mockAddTodo).toHaveBeenCalledWith(data.json());
+                            expect(event.stopPropagation).toHaveBeenCalled();
+                        });
                 });
         });
     });

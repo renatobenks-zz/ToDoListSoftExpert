@@ -5,7 +5,13 @@ export const fetch = (url, params) => {
     url = url.split('/api/v1')[1].split('/');
     let data;
     if (params) {
-        
+        let response = JSON.parse(params.body);
+        data = {
+            id: state.todos.length,
+            text:  response.text,
+            severity: response.severity,
+            done: false
+        };
     } else {
         if (state[url[1]]) {
             data = state

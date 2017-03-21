@@ -15,11 +15,18 @@ export class InputToDoItemComponent {
                     'Content-Type': 'application/json'
                 },
                 method: 'POST',
-                body: {}
-            }).then((data) => {});
-            store.dispatch(addTodo(todoInput));
-            event.stopPropagation();
-            document.getElementById('todoInput').focus();
+                body: JSON.stringify({
+                    text: todoInput,
+                    severity: 'normal'
+                })
+            }).then((data) => {
+                return data.json();
+            }).then((todo) => {
+                store.dispatch(addTodo(todo));
+                event.stopPropagation();
+                document.getElementById('todoInput').focus();
+            });
+        } else {
         }
     }
 

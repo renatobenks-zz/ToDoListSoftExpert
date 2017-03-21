@@ -19,18 +19,6 @@
       "severity": "normal"
     },
     {
-      "id": 3,
-      "text": "New todo",
-      "done": true,
-      "severity": "important"
-    },
-    {
-      "id": 4,
-      "text": "New todo",
-      "done": true,
-      "severity": "important"
-    },
-    {
       "id": 5,
       "text": "More new todo item task",
       "done": false,
