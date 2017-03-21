@@ -3,10 +3,18 @@ import { StyleSheetTestUtils } from 'aphrodite';
 export const fetch = (url) => {
     // get url from fetch data
     url = url.split('/api/v1')[1].split('/');
-    return Promise.resolve({
-        json () {
-            return state
-        }
+    return new Promise((resolve, reject) => {
+        process.nextTick(() => {
+            if (state[url[1]]) {
+                resolve({
+                    json () {
+                        return state
+                    }
+                });
+            } else {
+                reject('Error on request fetching');
+            }
+        });
     });
 };
 

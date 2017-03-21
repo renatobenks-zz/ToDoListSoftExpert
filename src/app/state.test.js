@@ -97,4 +97,40 @@ describe('State: App', () => {
             });
         });
     });
+
+    describe('async getInitialState () =>', () => {
+        const mockGetInitialState = jest.fn(getInitialState);
+        test('should try fetch data state from api', () => {
+            try {
+                mockGetInitialState()
+                    .then((data) => {
+                        expect(data).toEqual(state);
+                    });
+            } catch (e) {
+                expect(e).toBe('Error on request fetching');
+            }
+        });
+
+        test('should create store from data state fetched from api', () => {
+            return mockGetInitialState()
+                .then(() => {
+                    expect(mockCreateStore).toHaveBeenCalledWith(mockReducer, state);
+                });
+        });
+
+        test('should handler error and throw him when catch fetch', () => {
+            const mockGetInitialState = jest.fn(async () => {
+                try {
+                    return await fetch('/api/v1/data');
+                } catch (e) {
+                    throw e;
+                }
+            });
+
+            return mockGetInitialState()
+                .catch((e) => {
+                    expect(mockGetInitialState()).toThrow();
+                });
+        });
+    });
 });

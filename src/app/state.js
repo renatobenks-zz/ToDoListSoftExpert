@@ -43,27 +43,26 @@ export const todoChangeHandler = (state, change) => {
 
 export const getInitialState = async () => {
     try {
-        const todos = await fetch('/api/v1/todos')
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                TODOS = data.todos;
-                return data.todos;
-            });
+        const initialState = {
+            todos: await fetch('/api/v1/todos')
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    TODOS = data.todos;
+                    return data.todos;
+                }),
+            filters: await fetch('/api/v1/filters')
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    return data.filters;
+                })
+        };
 
-        const filters = await fetch('/api/v1/filters')
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                return data.filters;
-            });
-
-        store = await createStore(todoChangeHandler, {
-            todos,
-            filters
-        });
+        store = await createStore(todoChangeHandler, initialState);
+        return initialState
     } catch (error) {
         throw error;
     }
