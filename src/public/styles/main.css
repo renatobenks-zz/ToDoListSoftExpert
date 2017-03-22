@@ -11,6 +11,10 @@ html, body, .todo {
     margin: 10px;
 }
 
+.todo__item {
+    padding: 10px 0;
+}
+
 .todo__item--done {
     text-decoration: line-through;
 }
