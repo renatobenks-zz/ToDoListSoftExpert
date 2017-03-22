@@ -6,10 +6,16 @@ import { css } from 'aphrodite'
 import StylesTodoItemComponent from './TodoItem.styles';
 import styles from './../../styles';
 
+import callAPIMiddleware from '../../middlewares/callAPImiddleware';
+
 export class TodoItemComponent {
     static toggleStatusTodoItem (event) {
         const id = Number.parseInt(event.target.getAttribute('data-id'), 10);
-        store.dispatch(toggleTodoState(id));
+        const done = event.target.checked;
+        callAPIMiddleware.FETCH_REQUEST('/todos/'.concat(id), 'PUT', {done: done})
+            .then((todo) => {
+                store.dispatch(toggleTodoState(todo.id));
+            });
     }
 
     renderToDoItem (todo) {

@@ -4,34 +4,25 @@ import StylesInputToDoItemComponent from './Input.styles';
 import { store } from './../../state';
 import { addTodo } from './Input.actions';
 
+import callAPIMiddleware from '../../middlewares/callAPImiddleware';
+
 export class InputToDoItemComponent {
     static addTodoItem (event) {
-        const todoInputValue = document.getElementById('todoInput').value;
+        const todoInputValue = event.target.value;
         if (todoInputValue) {
-            fetch('/api/v1/todos', {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                method: 'POST',
-                body: JSON.stringify({
-                    text: todoInputValue,
-                    severity: 'normal'
-                })
-            }).then((data) => {
-                return data.json();
-            }).then((todo) => {
-                if (!todo.error){
+            callAPIMiddleware.FETCH_REQUEST('/todos', 'POST', {text: todoInputValue, severity: 'normal'})
+                .then(todo => {
+                    if (todo.error) {
+                        console.error(todo.error);
+                        throw todo.error;
+                    }
+
                     store.dispatch(addTodo(todo));
                     event.stopPropagation();
                     document.getElementById('todoInput').focus();
-                } else {
-                    console.error(todo.error);
-                    throw todo.error;
-                }
-            });
+                });
         } else {
             event.target.classList.add(css(StylesInputToDoItemComponent.inputError));
-
             setTimeout(() => {
                 event.target.classList.remove(StylesInputToDoItemComponent.inputError._name);
             }, 1000);

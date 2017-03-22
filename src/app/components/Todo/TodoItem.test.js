@@ -1,7 +1,9 @@
-import { state, AphroditeStyles, event, fetch } from './../components.mock';
+import { state, AphroditeStyles, event, fetch } from '../components.mock';
 
-import { store, getInitialState } from './../../state';
+import { store, getInitialState } from '../../state';
 import { toggleTodoState } from './TodoItem.actions';
+
+import callAPIMiddleware from '../../middlewares/callAPImiddleware';
 
 import ToDoItemComponent, { TodoItemComponent } from './TodoItem';
 
@@ -21,6 +23,21 @@ describe('Component: TodoItemComponent', () => {
     });
 
     describe('toggleStatusTodoItem () =>', () => {
+        beforeEach(() => {
+            spyOn(callAPIMiddleware, 'FETCH_REQUEST').and.callThrough((endpoint, method, data) => {
+                return fetch('/api/v1'.concat(endpoint), {
+                    method: method,
+                    body: data
+                }).then(data => data.json());
+            });
+        });
+
+        test('should fetch params todo item to update', () => {
+            event.target.checked = true;
+            TodoItemComponent.toggleStatusTodoItem(event);
+            expect(callAPIMiddleware.FETCH_REQUEST).toHaveBeenCalledWith('/todos/2', 'PUT', {done: true});
+        });
+
         test('should toggle status todo item', () => {
             const mockToggleTodoItem = jest.fn(toggleTodoState);
             return getInitialState()
@@ -28,8 +45,11 @@ describe('Component: TodoItemComponent', () => {
                     spyOn(store, 'dispatch');
 
                     TodoItemComponent.toggleStatusTodoItem(event);
-                    expect(store.dispatch).toHaveBeenCalledWith(mockToggleTodoItem(2));
-                    expect(mockToggleTodoItem).toHaveBeenCalledWith(2);
+                    return callAPIMiddleware.FETCH_REQUEST('/todos/2', 'PUT', {done: true})
+                        .then(todo => {
+                            expect(store.dispatch).toHaveBeenCalledWith(mockToggleTodoItem(todo.id));
+                            expect(mockToggleTodoItem).toHaveBeenCalledWith(todo.id);
+                        });
                 });
         });
     });

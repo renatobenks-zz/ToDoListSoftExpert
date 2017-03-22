@@ -8,14 +8,11 @@ export const APITodoList = () => {
         .get('/todos', (request, response) => {
             manipulationFileSystem.getJSONFile((err, data) => {
                 if (err) {
-                    data = {error: 'Server error for save todo item!'};
-                    response.statusCode = 500;
-                } else {
-                    data = {todos: JSON.parse(data).todos};
-                    response.statusCode = 200;
+                    response.status(500);
                 }
 
-                response.json(data);
+                response.statusCode = 200;
+                response.json({todos: JSON.parse(data).todos});
             });
         })
         .post('/todos', (request, response) => {
@@ -77,7 +74,7 @@ export const APITodoList = () => {
                 data = manipulationFileSystem.updateJSONFile(data);
                 if (data.error) response.status(500);
 
-                data = data.todos.filter(todo => todo.id === id);
+                data = data.todos.filter(todo => todo.id === id)[0];
 
                 response.statusCode = 200;
                 response.json(data);

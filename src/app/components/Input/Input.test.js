@@ -3,6 +3,10 @@ import { AphroditeStyles, event, document, fetch } from './../components.mock';
 import { store, getInitialState } from './../../state';
 import { addTodo } from './Input.actions';
 
+import callAPIMiddleware from '../../middlewares/callAPImiddleware';
+
+import StylesInputToDoItemComponent from './Input.styles';
+
 import InputTodoItemComponent, { InputToDoItemComponent } from './Input';
 
 //noinspection JSAnnotator
@@ -12,6 +16,10 @@ global.document = document;
 global.fetch = fetch;
 
 describe('Component: InputToDoItemComponent', () => {
+    beforeEach(() => {
+        AphroditeStyles.before();
+    });
+
     test('should be imported', () => {
         expect(InputToDoItemComponent).toBeDefined();
         expect(InputTodoItemComponent).toBeDefined();
@@ -50,31 +58,18 @@ describe('Component: InputToDoItemComponent', () => {
     });
 
     describe('static addTodoItem () =>', () => {
-        let todo = {text: 'data todoInput', severity: 'normal'};
-        const mockFetch = jest.fn(() => {
-            return fetch('/api/v1/todos', {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                method: 'POST',
-                body: JSON.stringify(todo)
-            })
+        let todo = {text: 'data value', severity: 'normal'};
+
+        beforeEach(() => {
+            spyOn(callAPIMiddleware, 'FETCH_REQUEST').and.callThrough();
         });
 
         test('should fetch to api the new todo item', () => {
-            return getInitialState()
-                .then(() => {
-                    return mockFetch()
-                        .then((data) => {
-                            InputToDoItemComponent.addTodoItem(event);
-                            expect(data.json()).toEqual({
-                                id: 4,
-                                text: todo.text,
-                                severity: todo.severity,
-                                done: false
-                            });
-                        });
-                });
+            InputToDoItemComponent.addTodoItem(event);
+            expect(callAPIMiddleware.FETCH_REQUEST).toHaveBeenCalledWith('/todos', 'POST', {
+                text: 'data value',
+                severity: 'normal'
+            });
         });
 
         test('should dispatch new state todo items with new todo item added', () => {
@@ -84,31 +79,55 @@ describe('Component: InputToDoItemComponent', () => {
                     spyOn(event, 'stopPropagation');
                     spyOn(store, 'dispatch');
                     InputToDoItemComponent.addTodoItem(event);
-                    return mockFetch()
-                        .then(data => {
-                            return data.json();
-                        })
-                        .then((data) => {
-                            expect(store.dispatch).toHaveBeenCalledWith(mockAddTodo(data));
-                            expect(mockAddTodo).toHaveBeenCalledWith(data);
+                    return callAPIMiddleware.FETCH_REQUEST('/todos', 'POST', todo)
+                        .then((todo) => {
+                            expect(store.dispatch).toHaveBeenCalledWith(mockAddTodo(todo));
+                            expect(mockAddTodo).toHaveBeenCalledWith(todo);
                             expect(event.stopPropagation).toHaveBeenCalled();
                         });
                 });
         });
+
+        test('should be throw and console error when error happen on fetch', () => {
+            return getInitialState()
+                .then(() => {
+                    todo.text = true;
+                    event.target.value = true;
+                    spyOn(console, 'error');
+
+                    InputToDoItemComponent.addTodoItem(event);
+                    return callAPIMiddleware.FETCH_REQUEST('/todos', 'POST', todo)
+                        .then(todo => {
+                            expect(todo.error).toBeDefined();
+                            expect(console.error).toHaveBeenCalledWith(todo.error);
+                            expect(todo.error).toThrow();
+                        });
+                });
+        });
+
+        test('should add error class for input when was empty', () => {
+            jest.useFakeTimers();
+            let inputErrorClass = StylesInputToDoItemComponent.inputError._name;
+            event.target.value = '';
+            spyOn(event.target.classList, 'add');
+            spyOn(event.target.classList, 'remove');
+
+            InputToDoItemComponent.addTodoItem(event);
+            let mockTimeOut = setTimeout.mock.calls[0][0];
+            expect(event.target.classList.add).toHaveBeenCalledWith(inputErrorClass);
+            mockTimeOut();
+            expect(event.target.classList.remove).toHaveBeenCalledWith(inputErrorClass);
+        });
     });
 
     describe('static renderInput () =>', () => {
-        beforeEach(() => {
-            AphroditeStyles.before();
-        });
-
         test('should return title app', () => {
             expect(InputTodoItemComponent.renderInput()).toBeDefined();
             expect(typeof InputTodoItemComponent.renderInput()).toBe('string');
         });
+    });
 
-        afterEach(() => {
-            AphroditeStyles.after();
-        });
+    afterEach(() => {
+        AphroditeStyles.after();
     });
 });
