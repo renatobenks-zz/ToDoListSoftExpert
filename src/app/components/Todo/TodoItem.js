@@ -18,9 +18,19 @@ export class TodoItemComponent {
             });
     }
 
+    static removeTodoItem (event) {
+        let todoItem = event.target.parentNode;
+        const id = todoItem.querySelector(".js_toggle_todo");
+    }
+
     renderToDoItem (todo) {
         const todoClass = `todo__item todo__item--${todo.done ? 'done' : 'open'}`;
         return `<li>
+            <i 
+                id="removeTodoItem" 
+                class="trash outline icon ${css(StylesTodoItemComponent.RemoverTodoItem)}"
+                >
+            </i>
             <div class="ui checkbox">
                 <input 
                     class="js_toggle_todo" 

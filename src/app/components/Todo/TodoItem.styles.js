@@ -18,6 +18,15 @@ export const StylesTodoItemComponent = {
         right: '5px',
         marginRight: '-2rem',
         fontSize: '1rem'
+    },
+    RemoverTodoItem: {
+        float: 'right',
+        fontSize: '2rem',
+        cursor: 'pointer',
+        transition: '0.3s 0.15s color ease-in-out',
+        ':hover': {
+            color: 'red'
+        }
     }
 };
 
