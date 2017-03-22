@@ -9,4 +9,5 @@ export const registerEventHandlers = () => {
     listen('keydown', '#todoInput', InputToDoItemComponent.addTodoItemWithEnter);
     listen('click', '.js_toggle_todo', TodoItemComponent.toggleStatusTodoItem);
     listen('change', '#filter label input[type="radio"]', FilterComponent.filterTodoList);
+    listen('click', '#removeTodoItem', TodoItemComponent.removeTodoItem);
 };

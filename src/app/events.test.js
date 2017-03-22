@@ -53,12 +53,14 @@ describe('Events: registerEventHandlers', () => {
             spyOn(InputToDoItemComponent, 'addTodoItemWithEnter');
             spyOn(TodoItemComponent, 'toggleStatusTodoItem');
             spyOn(FilterComponent, 'filterTodoList');
+            spyOn(TodoItemComponent, 'removeTodoItem');
 
             registerEventHandlers();
             expect(InputToDoItemComponent.addTodoItem).toHaveBeenCalledWith(event);
             expect(InputToDoItemComponent.addTodoItemWithEnter).toHaveBeenCalledWith(event);
             expect(TodoItemComponent.toggleStatusTodoItem).toHaveBeenCalledWith(event);
             expect(FilterComponent.filterTodoList).toHaveBeenCalledWith(event);
+            expect(TodoItemComponent.removeTodoItem).toHaveBeenCalledWith(event);
         });
     });
 });
