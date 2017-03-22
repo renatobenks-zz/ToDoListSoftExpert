@@ -34,7 +34,6 @@ export class FilterComponent {
 
     renderFilter (FILTERS) {
         return `<div id="filter" class="${css(StylesFilterComponent.filter)}">
-            <h1 class="${css(StylesFilterComponent.filterTitle)}">Filter your tasks:</h1>
             ${this.getFilters(FILTERS)}
         </div>`;
     }

@@ -6,11 +6,6 @@ export const StylesFilterComponent = {
         padding: '10px 0',
         display: 'flex'
     },
-    filterTitle: {
-        fontSize: '1.5rem',
-        color: 'cornflowerblue',
-        margin: '0'
-    },
     filterOptions: {
         margin: '7px 0',
         flexGrow: '1',
