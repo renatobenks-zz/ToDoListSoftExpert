@@ -19,22 +19,16 @@
       "severity": "normal"
     },
     {
-      "id": 5,
+      "id": 3,
       "text": "More new todo item task",
-      "done": false,
+      "done": true,
       "severity": "urgent"
     },
     {
       "id": 4,
-      "text": "new task",
+      "text": "More new todo item task",
       "done": false,
-      "severity": "normal"
-    },
-    {
-      "id": 5,
-      "text": "my new task",
-      "done": false,
-      "severity": "normal"
+      "severity": "urgent"
     }
   ],
   "filters": [

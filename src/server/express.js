@@ -13,7 +13,8 @@ let assets = environment.assets;
 config(server);
 server.use('/api/v1/',
     API.APITodoList(),
-    API.APIFilters()
+    API.APIFilters(),
+    API.APISeverities()
 );
 
 // Render Document
