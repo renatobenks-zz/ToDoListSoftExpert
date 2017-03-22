@@ -47,7 +47,7 @@ export const APITodoList = () => {
         })
         .put('/todos/:id', (request, response) => {
             const id = parseInt(request.params.id, 10);
-            if (!id || !request.body) {
+            if (!id && id !== 0 || !request.body) {
                 response.statusCode = 400;
                 response.json({
                     error: 'Bad request. Please, send us request body or check field id on request'
