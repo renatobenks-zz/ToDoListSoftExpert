@@ -49,9 +49,13 @@ export const fetch = (url, params) => {
                         }
                         break;
                     case 'DELETE':
-                        let item = state.todos.filter(todo => todo.id === id);
-                        state.todos.splice(state.todos.indexOf(item[0]), 1);
-                        data = {id};
+                        if (id) {
+                            let item = state.todos.filter(todo => todo.id === id);
+                            state.todos.splice(state.todos.indexOf(item[0]), 1);
+                            response = {id};
+                        } else {
+                            data = {error: 'Bad request'};
+                        }
                         break;
                 }
                 break;
@@ -103,14 +107,15 @@ const ELEMENT = {
     },
     querySelector: selector => ELEMENT,
     matches: selector => true,
-    getAttribute: attribute => '2',
+    getAttribute: attribute => {
+        if (attribute === 'data-id') return '2'
+    },
     classList: {
         classNames: [],
         add (classe) {this.classNames.push(classe)} ,
         remove (classe) {this.classNames.splice(this.classNames.indexOf(classe), 1)}
     },
-    value: 'data value',
-    parentNode: ELEMENT
+    value: 'data value'
 };
 
 export const window = {

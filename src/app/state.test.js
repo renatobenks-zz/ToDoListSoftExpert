@@ -3,7 +3,7 @@ import { createStore } from './lib/state';
 import { todoChangeHandler, store, getInitialState } from './state';
 
 import { addTodo } from './components/Input/Input.actions';
-import { toggleTodoState } from './components/Todo/TodoItem.actions';
+import { toggleTodoState, removeTodoItem } from './components/Todo/TodoItem.actions';
 import { filterTodoList, toggleFilter } from './components/Filter/Filter.actions';
 
 import { state, fetch } from './components/components.mock';
@@ -88,6 +88,17 @@ describe('State: App', () => {
                 expect(state.todos[1].done).toBe(false);
                 mockReducer(state, toggleTodoState(1));
                 expect(state.todos[1].done).toBe(true);
+            });
+        });
+
+        describe('change: REMOVE_TODO_ITEM', () => {
+            test('should remove item from todo list items', () => {
+                expect(state.todos.length).toBe(5);
+                expect(state.todos[2].id).toBe(2);
+                expect(state.todos[3].id).toBe(3);
+                mockReducer(state, removeTodoItem(2));
+                expect(state.todos.length).toBe(4);
+                expect(state.todos[2].id).toBe(3);
             });
         });
 

@@ -1,7 +1,7 @@
 import { state, AphroditeStyles, event, fetch } from '../components.mock';
 
 import { store, getInitialState } from '../../state';
-import { toggleTodoState } from './TodoItem.actions';
+import { toggleTodoState, removeTodoItem } from './TodoItem.actions';
 
 import callAPIMiddleware from '../../middlewares/callAPImiddleware';
 
@@ -22,17 +22,14 @@ describe('Component: TodoItemComponent', () => {
         expect(typeof TodoItemComponent.toggleStatusTodoItem).toBe('function');
     });
 
-    describe('toggleStatusTodoItem () =>', () => {
+    getInitialState().then();
+
+    describe('static toggleStatusTodoItem () =>', () => {
         beforeEach(() => {
-            spyOn(callAPIMiddleware, 'FETCH_REQUEST').and.callThrough((endpoint, method, data) => {
-                return fetch('/api/v1'.concat(endpoint), {
-                    method: method,
-                    body: data
-                }).then(data => data.json());
-            });
+            spyOn(callAPIMiddleware, 'FETCH_REQUEST').and.callThrough();
         });
 
-        test('should fetch params todo item to update', () => {
+        test('should fetch params to api for update todo item ', () => {
             event.target.checked = true;
             TodoItemComponent.toggleStatusTodoItem(event);
             expect(callAPIMiddleware.FETCH_REQUEST).toHaveBeenCalledWith('/todos/2', 'PUT', {done: true});
@@ -54,7 +51,45 @@ describe('Component: TodoItemComponent', () => {
         });
     });
 
-    describe('static renderToDoItem () =>', () => {
+    describe('static removeTodoItem () =>', () => {
+        beforeEach(() => {
+            event.target.parentNode = event.target;
+            spyOn(callAPIMiddleware, 'FETCH_REQUEST').and.callThrough();
+        });
+
+        test('should fetch todo item id for delete it', () => {
+            TodoItemComponent.removeTodoItem(event);
+            expect(callAPIMiddleware.FETCH_REQUEST).toHaveBeenCalledWith('/todos/2', 'DELETE');
+        });
+
+        test('should delete todo item', () => {
+            const mockRemoveTodoItem = jest.fn(removeTodoItem);
+            spyOn(store, 'dispatch').and.callThrough();
+            TodoItemComponent.removeTodoItem(event);
+            return callAPIMiddleware.FETCH_REQUEST('/todos/2', 'DELETE')
+                .then(todo => {
+                    expect(todo.id).toBe(2);
+                    expect(store.dispatch).toHaveBeenCalledWith(mockRemoveTodoItem(todo.id));
+                    expect(mockRemoveTodoItem).toHaveBeenCalledWith(todo.id);
+                });
+        });
+
+        test('should throw and console error when bad request', () => {
+            spyOn(store, 'dispatch').and.callThrough();
+            spyOn(console, 'error').and.callThrough();
+            event.target.parentNode.querySelector().getAttribute = attr => 'id';
+
+            TodoItemComponent.removeTodoItem(event);
+            return callAPIMiddleware.FETCH_REQUEST('/todos/id', 'DELETE')
+                .then((todo) => {
+                    expect(store.dispatch).not.toHaveBeenCalled();
+                    expect(console.error).toHaveBeenCalledWith(todo.error);
+                    expect(todo.error).toThrow();
+                });
+        });
+    });
+
+    describe('renderToDoItem () =>', () => {
         beforeEach(() => {
             AphroditeStyles.before();
         });

@@ -4,3 +4,10 @@ export const toggleTodoState = (id) => {
         id
     };
 };
+
+export const removeTodoItem = (id) => {
+    return {
+        type: 'REMOVE_TODO_ITEM',
+        id
+    }
+};

@@ -17,6 +17,9 @@ export const todoChangeHandler = (state, change) => {
                 }
             }
             break;
+        case 'REMOVE_TODO_ITEM':
+            state.todos.splice(change.id, 1);
+            break;
         case 'FILTER_TODO':
             let todos = change.status === null ? TODOS : [];
             if (todos.length === 0) {

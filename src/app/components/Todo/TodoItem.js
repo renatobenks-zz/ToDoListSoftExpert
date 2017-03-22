@@ -1,6 +1,6 @@
 import { store } from './../../state';
 
-import { toggleTodoState } from './TodoItem.actions';
+import { toggleTodoState, removeTodoItem } from './TodoItem.actions';
 
 import { css } from 'aphrodite'
 import StylesTodoItemComponent from './TodoItem.styles';
@@ -14,13 +14,31 @@ export class TodoItemComponent {
         const done = event.target.checked;
         callAPIMiddleware.FETCH_REQUEST('/todos/'.concat(id), 'PUT', {done: done})
             .then((todo) => {
-                store.dispatch(toggleTodoState(todo.id));
+                if (todo.error) {
+                    console.error(todo.error);
+                    throw todo.error;
+                } else {
+                    store.dispatch(toggleTodoState(todo.id));
+                }
             });
     }
 
     static removeTodoItem (event) {
         let todoItem = event.target.parentNode;
-        const id = todoItem.querySelector(".js_toggle_todo");
+        const id = Number.parseInt(todoItem.querySelector(".js_toggle_todo").getAttribute('data-id'), 10);
+
+        callAPIMiddleware.FETCH_REQUEST('/todos/'.concat(id), 'DELETE')
+            .then(todo => {
+                if (todo.error) {
+                    console.error(todo.error);
+                    throw todo.error;
+                } else {
+                    todoItem.classList.add('animated', 'lightSpeedOut');
+                    setTimeout(() => {
+                        store.dispatch(removeTodoItem(todo.id));
+                    }, 1500);
+                }
+            });
     }
 
     renderToDoItem (todo) {
