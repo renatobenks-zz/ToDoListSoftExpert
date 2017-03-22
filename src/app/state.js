@@ -57,7 +57,10 @@ export const getInitialState = async () => {
                 })
                 .then(data => {
                     return data.filters;
-                })
+                }),
+            severities: await fetch('/api/v1/severities')
+                .then(response => response.json())
+                .then(data => data.severities)
         };
 
         store = await createStore(todoChangeHandler, initialState);

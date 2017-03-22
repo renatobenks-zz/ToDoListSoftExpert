@@ -92,6 +92,11 @@ export const state = {
         { id: 1, name: 'Mostrar ToDos', selected: true, value: null },
         { id: 2, name: 'Somente abertos', selected: false, value: false},
         { id: 3, name: 'Somente fechados', selected: true }
+    ],
+    severities: [
+        { id: 1, priority: 'urgent' },
+        { "id": 2, priority: 'important' },
+        { "id": 3, priority: 'normal' }
     ]
 };
 
