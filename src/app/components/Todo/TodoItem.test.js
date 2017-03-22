@@ -63,12 +63,17 @@ describe('Component: TodoItemComponent', () => {
         });
 
         test('should delete todo item', () => {
+            jest.useFakeTimers();
             const mockRemoveTodoItem = jest.fn(removeTodoItem);
             spyOn(store, 'dispatch').and.callThrough();
+            spyOn(event.target.classList, 'add');
             TodoItemComponent.removeTodoItem(event);
             return callAPIMiddleware.FETCH_REQUEST('/todos/2', 'DELETE')
                 .then(todo => {
+                    let mockTimeOut = setTimeout.mock.calls[0][0];
                     expect(todo.id).toBe(2);
+                    expect(event.target.classList.add).toHaveBeenCalledWith('animated', 'lightSpeedOut');
+                    mockTimeOut();
                     expect(store.dispatch).toHaveBeenCalledWith(mockRemoveTodoItem(todo.id));
                     expect(mockRemoveTodoItem).toHaveBeenCalledWith(todo.id);
                 });
