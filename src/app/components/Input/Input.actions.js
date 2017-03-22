@@ -4,3 +4,10 @@ export const addTodo = (todo) => {
         todo
     }
 };
+
+export const toggleTodoSeverity = (severity) => {
+    return {
+        type: 'TOGGLE_TODO_SEVERITY',
+        severity
+    }
+};
