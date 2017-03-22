@@ -30,13 +30,15 @@ export const StylesInputToDoItemComponent = {
         outline: 'none',
         transition: 'border 0.3s 0.15s ease-in-out',
         ':active': {
-            borderColor: 'transparent',
-            boxShadow: 'none',
             borderBottom: '1px solid rgb(192, 192, 192)'
         },
         ':focus': {
             borderBottom: '1px solid rgb(192, 192, 192)'
         }
+    },
+    inputError: {
+        borderColor: 'red',
+        boxShadow: '0 0 10px red'
     },
     severity: {
         position: 'relative',

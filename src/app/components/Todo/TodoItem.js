@@ -3,6 +3,7 @@ import { store } from './../../state';
 import { toggleTodoState } from './TodoItem.actions';
 
 import { css } from 'aphrodite'
+import StylesTodoItemComponent from './TodoItem.styles';
 import styles from './../../styles';
 
 export class TodoItemComponent {
@@ -23,17 +24,17 @@ export class TodoItemComponent {
                     ${todo.done ? ' checked' : ''}
                     >
                 <label 
-                    class="${todoClass} ${css(styles.fontRoboto, styles.fontBodySize)}" 
+                    class="${todoClass} ${css(StylesTodoItemComponent.TodoItemText)}" 
                     for="task-status-${todo.id}"
                     >
                     ${todo.text}
-                    <div class="${css(styles.todoItemPrioryOutstanding, styles['urgent'])}">
+                    <div class="${css(StylesTodoItemComponent.ItemSeverityIcon, styles[todo.severity])}">
                         <i class="circle icon"></i>
                     </div>
                 </label>
             </div>
-            <div class="${css(styles.divPriorityTodoItem)}">
-                urgent
+            <div class="${css(StylesTodoItemComponent.SeverityLabelText)}">
+                ${todo.severity}
             </div>
         </li>`;
     }

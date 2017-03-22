@@ -1,7 +1,6 @@
 import { todos } from './../../state';
-
 import { css } from 'aphrodite'
-import styles from './../../styles';
+import StylesTodoListComponent from './TodoList.styles';
 
 import TodoItemComponent from './TodoItem';
 
@@ -15,7 +14,7 @@ export class TodoListComponent {
     }
 
     renderToDoItems (TODOS) {
-        return `<ul class="todo ${css(styles.divFullWidth, styles.todoListJustify)}">
+        return `<ul class="todo full-width justify ${css(StylesTodoListComponent.TodoListPadding)}">
             ${this.getToDos(TODOS)}
         </ul>`;
     }

@@ -114,32 +114,13 @@ export default StyleSheet.create({
             borderBottom: '1px solid rgb(192, 192, 192)'
         }
     },
-    todoListJustify: {
-        textAlign: 'justify'
-    },
-    divPriorityTodoItem: {
-        width: '100%',
-        padding: '10px 0',
-        margin: '0 5rem',
-        fontSize: '1rem',
-        color: 'rgba(102, 102, 102, .6)'
-    },
-    todoItemPrioryOutstanding: {
-        position: 'absolute',
-        top: '-5px',
-        right: '5px',
-        marginRight: '-2rem',
-        fontSize: '1rem'
+    normal: {
+        color: '#aaa'
     },
     urgent: {
         color: 'red'
     },
     important: {
         color: 'yellow'
-    },
-    todoItemSetSeverity: {
-        width: '20px',
-        height: '20px',
-        color: 'black'
     }
 });

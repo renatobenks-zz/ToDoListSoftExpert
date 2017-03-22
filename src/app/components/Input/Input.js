@@ -30,9 +30,11 @@ export class InputToDoItemComponent {
                 }
             });
         } else {
-            styles.inputAddTodo._definition.borderColor = 'red';
-            styles.inputAddTodo._definition.boxShadow = '0 0 10px red';
-            event.target.classList.add(css(styles.inputAddTodo));
+            event.target.classList.add(css(StylesInputToDoItemComponent.inputError));
+
+            setTimeout(() => {
+                event.target.classList.remove(StylesInputToDoItemComponent.inputError._name);
+            }, 1000);
         }
     }
 
