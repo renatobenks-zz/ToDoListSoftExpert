@@ -91,21 +91,26 @@ export const state = {
     ]
 };
 
-export const event = {
-    target: {
-        matches: selector => true,
-        getAttribute: attribute => '2',
-        classList: {
-            classNames: [],
-            add (classe) {this.classNames.push(classe)} ,
-            remove (classe) {this.classNames.splice(this.classNames.indexOf(classe), 1)}
-        },
-        value: 'data value'
+const ELEMENT = {
+    addEventListener: (eventName, listener) => listener(event),
+    getElementById: id => {
+        if (id) {
+            return {
+                value: `data ${id}`,
+                focus: () => {}
+            }
+        }
     },
-    stopPropagation: () => {},
-    preventDefault: () => {},
-    which: 13,
-    key: 'Enter'
+    querySelector: selector => ELEMENT,
+    matches: selector => true,
+    getAttribute: attribute => '2',
+    classList: {
+        classNames: [],
+        add (classe) {this.classNames.push(classe)} ,
+        remove (classe) {this.classNames.splice(this.classNames.indexOf(classe), 1)}
+    },
+    value: 'data value',
+    parentNode: ELEMENT
 };
 
 export const window = {
@@ -115,17 +120,16 @@ export const window = {
 };
 
 export const document = {
-    body: {
-        addEventListener: (eventName, listener) => listener(event)
-    },
-    getElementById: id => {
-        if (id) {
-            return {
-                value: `data ${id}`,
-                focus: () => {}
-            }
-        }
-    }
+    body: ELEMENT,
+    ELEMENT
+};
+
+export const event = {
+    target: ELEMENT,
+    stopPropagation: () => {},
+    preventDefault: () => {},
+    which: 13,
+    key: 'Enter'
 };
 
 export const AphroditeStyles = {
