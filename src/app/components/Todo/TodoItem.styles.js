@@ -1,6 +1,13 @@
 import { GetStylesComponent, FontRoboto } from './../../styles';
 
 export const StylesTodoItemComponent = {
+    TodoItem: {
+        padding: '2rem 0',
+        transition: '0.2s 0.1s background ease-in-out',
+        ':hover': {
+            background: 'whitesmoke'
+        }
+    },
     TodoItemText: {
         fontFamily: [FontRoboto, 'sans-serif'],
         fontSize: '2rem'

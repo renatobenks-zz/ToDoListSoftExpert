@@ -43,7 +43,7 @@ export class TodoItemComponent {
 
     renderToDoItem (todo) {
         const todoClass = `todo__item todo__item--${todo.done ? 'done' : 'open'}`;
-        return `<li>
+        return `<li class="${css(StylesTodoItemComponent.TodoItem)}">
             <i 
                 id="removeTodoItem" 
                 class="trash outline icon ${css(StylesTodoItemComponent.RemoverTodoItem)}"

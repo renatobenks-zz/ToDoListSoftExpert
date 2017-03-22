@@ -5,7 +5,14 @@ export const StylesInputToDoItemComponent = {
         width: '100%',
         display: 'flex',
         margin: '0',
-        padding: '10px'
+        padding: '10px',
+        transition: 'border 0.3s 0.15s ease-in-out',
+        ':active': {
+            borderBottom: '1px solid rgb(192, 192, 192)'
+        },
+        ':focus': {
+            borderBottom: '1px solid rgb(192, 192, 192)'
+        }
     },
     inputButtonAddInputText: {
         textTransform: 'uppercase',
@@ -27,14 +34,7 @@ export const StylesInputToDoItemComponent = {
         background: 'none',
         fontSize: '2rem',
         padding: '5px 0 5px 2em',
-        outline: 'none',
-        transition: 'border 0.3s 0.15s ease-in-out',
-        ':active': {
-            borderBottom: '1px solid rgb(192, 192, 192)'
-        },
-        ':focus': {
-            borderBottom: '1px solid rgb(192, 192, 192)'
-        }
+        outline: 'none'
     },
     inputError: {
         borderColor: 'red',
@@ -45,8 +45,6 @@ export const StylesInputToDoItemComponent = {
         width: '120px',
         minWidth: '120px',
         height: '30px',
-        right: '130px',
-        bottom: '-12.5px',
         overflow: 'hidden'
     },
     labelSeverity: {
