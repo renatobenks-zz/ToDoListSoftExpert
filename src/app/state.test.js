@@ -125,6 +125,20 @@ describe('State: App', () => {
             }
         });
 
+        test('should response severities with description about selection', async () => {
+            const severities_response = await mockGetInitialState()
+                .then((data) => data.severities);
+            for (let severity of severities_response) {
+                expect(severity.selected).toBeDefined();
+                if (severity.priority === 'normal') {
+                    expect(severity.selected).toBe(true);
+                } else {
+                    expect(severity.selected).toBe(false);
+                }
+            }
+
+        });
+
         test('should create store from data state fetched from api', () => {
             return mockGetInitialState()
                 .then(() => {
@@ -133,6 +147,7 @@ describe('State: App', () => {
         });
 
         test('should handler error and throw him when catch fetch', () => {
+            spyOn(console, 'error');
             const mockGetInitialState = jest.fn(async () => {
                 try {
                     return await fetch('/api/v1/data');

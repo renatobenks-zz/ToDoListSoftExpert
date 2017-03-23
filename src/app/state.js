@@ -37,6 +37,7 @@ export const todoChangeHandler = (state, change) => {
                     filter.selected = !filter.selected;
                 }
             }
+            break;
     }
 };
 
@@ -60,7 +61,10 @@ export const getInitialState = async () => {
                 }),
             severities: await fetch('/api/v1/severities')
                 .then(response => response.json())
-                .then(data => data.severities)
+                .then(data => data.severities.map(severity => {
+                    severity.selected = severity.priority === 'normal';
+                    return severity;
+                }))
         };
 
         store = await createStore(todoChangeHandler, initialState);
