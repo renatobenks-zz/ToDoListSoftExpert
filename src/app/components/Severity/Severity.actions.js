@@ -1,6 +1,6 @@
-export const toggleSeverity = (severity) => {
+export const toggleSeverity = (id) => {
     return {
         type: 'TOGGLE_SEVERITY_TODO',
-        severity
+        id
     }
 };

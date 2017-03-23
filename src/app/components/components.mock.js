@@ -95,8 +95,8 @@ export const state = {
     ],
     severities: [
         { id: 1, priority: 'urgent', selected: false},
-        { "id": 2, priority: 'important', selected: false },
-        { "id": 3, priority: 'normal', selected: true }
+        { id: 2, priority: 'important', selected: false },
+        { id: 3, priority: 'normal', selected: true }
     ]
 };
 

@@ -5,6 +5,7 @@ import { todoChangeHandler, store, getInitialState } from './state';
 import { addTodo } from './components/Input/Input.actions';
 import { toggleTodoState, removeTodoItem } from './components/Todo/TodoItem.actions';
 import { filterTodoList, toggleFilter } from './components/Filter/Filter.actions';
+import { toggleSeverity } from './components/Severity/Severity.actions';
 
 import { state, fetch } from './components/components.mock';
 
@@ -107,6 +108,15 @@ describe('State: App', () => {
                 expect(state.filters[0].selected).toBe(true);
                 mockReducer(state, toggleFilter(2));
                 expect(state.filters[0].selected).toBe(false);
+                expect(state.filters[1].selected).toBe(true);
+            });
+        });
+
+        describe('change: TOGGLE_SEVERITY_TODO', () => {
+            test('should toggle severity todo', () => {
+                expect(state.severities[2].selected).toBe(true);
+                mockReducer(state, toggleSeverity(2));
+                expect(state.severities[2].selected).toBe(false);
                 expect(state.filters[1].selected).toBe(true);
             });
         });

@@ -8,9 +8,9 @@ describe('Actions: SeverityComponent', () => {
 
     describe('toggleSeverity () =>', () => {
         test('should toggle severity selected', () => {
-            expect(toggleSeverity('urgent')).toEqual({
+            expect(toggleSeverity(1)).toEqual({
                 type: 'TOGGLE_SEVERITY_TODO',
-                severity: 'urgent'
+                id: 1
             });
         });
     });

@@ -38,6 +38,12 @@ export const todoChangeHandler = (state, change) => {
                 }
             }
             break;
+        case 'TOGGLE_SEVERITY_TODO':
+            state.severities.map(severity => {
+                severity.selected = severity.id === change.id;
+                return severity;
+            });
+            break;
     }
 };
 
