@@ -67,9 +67,9 @@ Sinta-se livre também para adicionar um pré-processador CSS como Sass, PostCSS
 Less ao build do webpack para tornar sua vida um pouco mais fácil.
 Usar CSS puro, também não é um problema. Faça como achar melhor.
 
-### WEB-120
+### ~~WEB-120~~
 
-- [ ] Salve a lista de ToDo items
+- [x] Salve a lista de ToDo items
 
 Nós gostaríamos agora, que a aplicação salvasse os ToDo items que o usuário adicionar.
 Assim quando ele atualizar a página, sua lista estará intacta e não irá perder nada.

@@ -1,53 +1,13 @@
+import 'babel-polyfill';
 import { createStore } from './lib/state';
 
-const initialState = {
-    todos: [
-        {
-            id: 0,
-            text: 'Take a look at the application',
-            done: true
-        },
-        {
-            id: 1,
-            text: 'Add ability to filter todos',
-            done: false
-        },
-        {
-            id: 2,
-            text: 'Filter todos by status',
-            done: false
-        }
-    ],
-    filters: [
-        {
-            id: 1,
-            name: 'Mostrar ToDos',
-            selected: true,
-            value: null
-        }, {
-            id: 2,
-            name: 'Somente abertos',
-            selected: false,
-            value: false
-        }, {
-            id: 3,
-            name: 'Somente fechados',
-            value: true,
-            selected: false
-        }
-    ]
-};
-
-const TODOS = initialState.todos;
+let TODOS;
+export let store;
 
 export const todoChangeHandler = (state, change) => {
     switch(change.type) {
         case 'ADD_TODO':
-            state.todos.push({
-                id: state.todos.length,
-                text: change.text,
-                done: false
-            });
+            state.todos.push(change.todo);
             break;
         case 'TODO_TOGGLE_DONE':
             for(let todo of state.todos) {
@@ -56,6 +16,9 @@ export const todoChangeHandler = (state, change) => {
                     break;
                 }
             }
+            break;
+        case 'REMOVE_TODO_ITEM':
+            state.todos.splice(change.id, 1);
             break;
         case 'FILTER_TODO':
             let todos = change.status === null ? TODOS : [];
@@ -74,7 +37,45 @@ export const todoChangeHandler = (state, change) => {
                     filter.selected = !filter.selected;
                 }
             }
+            break;
+        case 'TOGGLE_SEVERITY_TODO':
+            state.severities.map(severity => {
+                severity.selected = severity.id === change.id;
+                return severity;
+            });
+            break;
     }
 };
 
-export const todos = createStore(todoChangeHandler, initialState);
+export const getInitialState = async () => {
+    try {
+        const initialState = {
+            todos: await fetch('/api/v1/todos')
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    TODOS = data.todos;
+                    return data.todos;
+                }),
+            filters: await fetch('/api/v1/filters')
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    return data.filters;
+                }),
+            severities: await fetch('/api/v1/severities')
+                .then(response => response.json())
+                .then(data => data.severities.map(severity => {
+                    severity.selected = severity.priority === 'normal';
+                    return severity;
+                }))
+        };
+
+        store = await createStore(todoChangeHandler, initialState);
+        return initialState
+    } catch (error) {
+        throw error;
+    }
+};

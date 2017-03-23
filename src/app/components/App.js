@@ -23,9 +23,15 @@ export default class AppComponent extends Component {
     static renderAddToDoItemAt (isEnabled, state) {
         let Components = [TitleComponent.renderTitle(), FilterComponent.renderFilter(state.filters)];
         if (isEnabled) {
-            Components.push(TodoListComponent.renderToDoItems(state.todos), InputToDoItemComponent.renderInput());
+            Components.push(
+                TodoListComponent.renderToDoItems(state.todos),
+                InputToDoItemComponent.renderInput(state.severities)
+            );
         } else {
-            Components.push(InputToDoItemComponent.renderInput(), TodoListComponent.renderToDoItems(state.todos));
+            Components.push(
+                InputToDoItemComponent.renderInput(state.severities),
+                TodoListComponent.renderToDoItems(state.todos)
+            );
         }
 
         return `<div id="app">${AppComponent.joinComponents(Components)}</div>`;

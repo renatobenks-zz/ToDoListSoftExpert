@@ -62,7 +62,7 @@ class Tasks:
     def makeGitHubIssue(self, task, milestone=None):
         """Create an issue on github.com using the given parameters."""
         # Our url to create issues via POST
-        url = 'https://api.github.com/repos/%s/%s/issues' % (self.REPO_OWNER, self.REPO_NAME)
+        url = 'https://API.github.com/repos/%s/%s/issues' % (self.REPO_OWNER, self.REPO_NAME)
         # Create an authenticated session to create the issue
         session = requests.Session()
         session.auth = (self.USERNAME, self.PASSWORD)

@@ -3,9 +3,12 @@ import { listen } from './lib/events';
 
 import { registerEventHandlers } from './events';
 
+import { getInitialState } from './state';
+
 import { InputToDoItemComponent } from './components/Input/Input';
 import { TodoItemComponent } from './components/Todo/TodoItem';
 import { FilterComponent } from './components/Filter/Filter';
+import SeverityComponent from './components/Severity/Severity';
 
 //noinspection JSAnnotator
 global.document = document;
@@ -24,8 +27,11 @@ describe('Events: registerEventHandlers', () => {
         test('should register the handlers events in the app', () => {
             const mockRegisterEventHandlers = jest.fn(registerEventHandlers);
 
-            mockRegisterEventHandlers();
-            expect(mockRegisterEventHandlers).toHaveBeenCalled();
+            getInitialState()
+                .then(() => {
+                    mockRegisterEventHandlers();
+                    expect(mockRegisterEventHandlers).toHaveBeenCalled();
+                });
         });
 
         test('should been listen events', () => {
@@ -48,12 +54,16 @@ describe('Events: registerEventHandlers', () => {
             spyOn(InputToDoItemComponent, 'addTodoItemWithEnter');
             spyOn(TodoItemComponent, 'toggleStatusTodoItem');
             spyOn(FilterComponent, 'filterTodoList');
+            spyOn(TodoItemComponent, 'removeTodoItem');
+            spyOn(SeverityComponent, 'changeTodoSeverity');
 
             registerEventHandlers();
             expect(InputToDoItemComponent.addTodoItem).toHaveBeenCalledWith(event);
             expect(InputToDoItemComponent.addTodoItemWithEnter).toHaveBeenCalledWith(event);
             expect(TodoItemComponent.toggleStatusTodoItem).toHaveBeenCalledWith(event);
             expect(FilterComponent.filterTodoList).toHaveBeenCalledWith(event);
+            expect(TodoItemComponent.removeTodoItem).toHaveBeenCalledWith(event);
+            expect(SeverityComponent.changeTodoSeverity).toHaveBeenCalledWith(event);
         });
     });
 });

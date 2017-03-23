@@ -2,6 +2,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var AssetsPlugin = require('assets-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const OccurrenceOrderPlugin = new webpack.optimize.OccurrenceOrderPlugin();
 
@@ -13,7 +14,9 @@ module.exports = {
             './src/public/styles/main.less'
         ],
         vendor: [
-            'aphrodite' // Stylesheet Javascript for styles components
+            'aphrodite', // Stylesheet Javascript for styles components
+            'semantic-ui-css/semantic.min.css',
+            'animate.css/animate.min.css'
         ]
     },
     output: {
@@ -41,7 +44,8 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production'),
             '__DEV__': false
-        })
+        }),
+        new ExtractTextPlugin("[name].css")
     ],
     module: {
         rules: [{
@@ -55,11 +59,10 @@ module.exports = {
             },
             include: path.join(__dirname, 'src/app')
         }, {
-            test: /\.less$/,
-            exclude: path.join(__dirname, 'node_modules'),
-            use: [
-                'style-loader',
-                {
+            test: /\.(less|css)$/,
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: [{
                     loader: 'css-loader',
                     options: {
                         minimize: true,
@@ -68,9 +71,8 @@ module.exports = {
                     }
                 }, {
                     loader: 'less-loader'
-                }
-            ],
-            include: path.join(__dirname, 'src/public/styles')
+                }]
+            })
         }, {
             test: /\.(png|woff|woff2|eot|ttf|svg)$/,
             use: 'url-loader'

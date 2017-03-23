@@ -2,14 +2,12 @@
 var path = require('path');
 var webpack = require('webpack');
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OccurrenceOrderPlugin = new webpack.optimize.OccurrenceOrderPlugin();
 
 module.exports = {
     devtool: 'cheap-module-source-map',
     entry: {
         bundle: [
-            'babel-polyfill',
             'webpack-hot-middleware/client',
             'webpack/hot/only-dev-server',
             './src/app/main.js',
@@ -17,7 +15,8 @@ module.exports = {
         ],
         vendor: [
             'aphrodite', // Stylesheet Javascript for styles components
-            'semantic-ui/dist/semantic.min.css'
+            'semantic-ui-css/semantic.min.css',
+            'animate.css/animate.min.css'
         ]
     },
     output: {
@@ -37,31 +36,37 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('development'),
             '__DEV__': true
-        }),
-        new ExtractTextPlugin("[name].css")
+        })
     ],
     module: {
         rules: [{
             test: /\.js$/,
             exclude: path.join(__dirname, 'node_modules'),
-            use: 'babel-loader',
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: ['env', 'es2015', 'stage-0']
+                }
+            },
             include: path.join(__dirname, 'src/app')
-        }, {
+        },  {
             test: /\.(less|css)$/,
-            use: ExtractTextPlugin.extract({
-                fallback: 'style-loader',
-                use: [{
+            use: [
+                'style-loader',
+                {
                     loader: 'css-loader',
                     options: {
-                        sourceMap: true
+                        sourceMap: true,
+                        camelCase: true,
+                        importLoaders: 1
                     }
                 }, {
                     loader: 'less-loader',
                     options: {
                         sourceMap: true
                     }
-                }]
-            })
+                }
+            ]
         }, {
             test: /\.(png|woff|woff2|eot|ttf|svg)$/,
             use: 'url-loader'

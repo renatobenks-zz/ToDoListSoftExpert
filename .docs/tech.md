@@ -123,7 +123,8 @@ Na arquitetura de componentes montada, os estilos dos componentes
 podem ser encontrados na pasta de cada componente, com a
 nomenclatura padrão do projeto para `styles`, ou seja:
 
-    ./src/app/
+
+    /src/app/
     ├── styles.js
     ├── components
         ├── Component

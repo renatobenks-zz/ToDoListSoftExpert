@@ -1,12 +1,15 @@
-import { todos } from './state';
-import AppComponent from './components/App';
+import { getInitialState, store } from './state';
 import { registerEventHandlers } from './events';
+
+import AppComponent from './components/App';
 
 const root = document.getElementById('root');
 const App = new AppComponent();
 
-App.renderApp(root, todos.getState());
+getInitialState()
+    .then(() => {
+        App.renderApp(root, store.getState());
 
-todos.subscribe(newState => App.renderApp(root, newState));
-
-registerEventHandlers();
+        store.subscribe(newState => App.renderApp(root, newState));
+        registerEventHandlers();
+    });
