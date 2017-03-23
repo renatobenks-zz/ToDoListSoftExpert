@@ -1,4 +1,5 @@
 import { isEnabled } from './../lib/feature';
+import { store } from '../state';
 
 import Component from  './View';
 
@@ -13,33 +14,65 @@ export default class AppComponent extends Component {
     }
 
     renderApp (el, state) {
-        let renderBottom = isEnabled(['renderBottom', 'filter']);
-        this.render(el, AppComponent.renderAddToDoItemAt(renderBottom, state));
+        AppComponent.windowHashChange();
+        let whereRender = isEnabled(['filter', 'renderBottom', 'filterTop']);
+        this.render(el, AppComponent.renderAddToDoItemAt(whereRender, state));
+    }
+
+    static windowHashChange () {
+        window.addEventListener('hashchange', (event) => {
+            const App = new AppComponent;
+            App.renderApp(document.getElementById('root'), store.getState());
+            event.stopImmediatePropagation();
+        });
     }
 
     static joinComponents (Components) {
         return Components.join('\n');
     }
 
-    static renderAddToDoItemAt (renderBottom, state) {
-        let Components = [TitleComponent.renderTitle()];
-        if (renderBottom.next().value) {
-            Components.push(
-                TodoListComponent.renderToDoItems(state.todos),
-                InputToDoItemComponent.renderInput(state.severities)
-            );
-
-            if (renderBottom.next().value) {
-                Components.push(FilterComponent.renderFilter(state.filters));
-            } else {
-                Components.splice(1, 0, FilterComponent.renderFilter(state.filters));
-            }
-        } else {
-            Components.push(
+    static renderAddToDoItemAt (whereRender, state) {
+        let isEnabled = whereRender.next();
+        let Components = [TitleComponent.renderTitle(), TodoListComponent.renderToDoItems(state.todos)];
+        if (isEnabled.done) {
+            Components.splice(1, 0,
                 FilterComponent.renderFilter(state.filters),
                 InputToDoItemComponent.renderInput(state.severities),
-                TodoListComponent.renderToDoItems(state.todos)
             );
+        } else {
+            switch (isEnabled.value) {
+                case 'filter':
+                    let next = whereRender.next();
+                    if (next.done) {
+                        Components.splice(1, 0,
+                            InputToDoItemComponent.renderInput(state.severities),
+                            FilterComponent.renderFilter(state.filters)
+                        );
+                    } else {
+                        if (next.value === 'filterTop') {
+                            Components.splice(1, 0,
+                                FilterComponent.renderFilter(state.filters),
+                                InputToDoItemComponent.renderInput(state.severities)
+                            );
+                        }
+
+                        if (next.value === 'renderBottom') {
+                            Components.splice(2, 0, InputToDoItemComponent.renderInput(state.severities));
+                            if (whereRender.next().value === 'filterTop') {
+                                Components.splice(0, 0, FilterComponent.renderFilter(state.filters));
+                            } else {
+                                Components.splice(1, 0, FilterComponent.renderFilter(state.filters));
+                            }
+                        }
+                    }
+                    break;
+                case 'renderBottom':
+                    Components.splice(2, 0,
+                        InputToDoItemComponent.renderInput(state.severities),
+                        FilterComponent.renderFilter(state.filters)
+                    );
+                    break;
+            }
         }
 
         return `<div id="app">${AppComponent.joinComponents(Components)}</div>`;
