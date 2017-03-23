@@ -8,6 +8,7 @@ import { getInitialState } from './state';
 import { InputToDoItemComponent } from './components/Input/Input';
 import { TodoItemComponent } from './components/Todo/TodoItem';
 import { FilterComponent } from './components/Filter/Filter';
+import SeverityComponent from './components/Severity/Severity';
 
 //noinspection JSAnnotator
 global.document = document;
@@ -54,6 +55,7 @@ describe('Events: registerEventHandlers', () => {
             spyOn(TodoItemComponent, 'toggleStatusTodoItem');
             spyOn(FilterComponent, 'filterTodoList');
             spyOn(TodoItemComponent, 'removeTodoItem');
+            spyOn(SeverityComponent, 'changeTodoSeverity');
 
             registerEventHandlers();
             expect(InputToDoItemComponent.addTodoItem).toHaveBeenCalledWith(event);
@@ -61,6 +63,7 @@ describe('Events: registerEventHandlers', () => {
             expect(TodoItemComponent.toggleStatusTodoItem).toHaveBeenCalledWith(event);
             expect(FilterComponent.filterTodoList).toHaveBeenCalledWith(event);
             expect(TodoItemComponent.removeTodoItem).toHaveBeenCalledWith(event);
+            expect(SeverityComponent.changeTodoSeverity).toHaveBeenCalledWith(event);
         });
     });
 });
