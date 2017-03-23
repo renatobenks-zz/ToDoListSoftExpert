@@ -1,8 +1,6 @@
 import { css } from 'aphrodite';
 import StylesheetSeverityComponent from './Severity.styles';
 
-import { listen } from '../../lib/events';
-
 import { store } from '../../state';
 
 export class SeverityComponent {
