@@ -92,13 +92,14 @@ describe('Component: AppComponent', () => {
 
             expect(TodoListComponent.renderToDoItems).toHaveBeenCalledWith(state.todos);
             expect(FilterComponent.renderFilter).toHaveBeenCalledWith(state.filters);
+            expect(InputToDoItemComponent.renderInput).toHaveBeenCalledWith(state.severities);
         });
 
         test('should be render input to add todo item at top when renderButton is disabled', () => {
             let Components = [
                 TitleComponent.renderTitle(),
                 FilterComponent.renderFilter(state.filters),
-                InputToDoItemComponent.renderInput(),
+                InputToDoItemComponent.renderInput(state.severities),
                 TodoListComponent.renderToDoItems(state.todos)
             ];
 
@@ -113,7 +114,7 @@ describe('Component: AppComponent', () => {
                 TitleComponent.renderTitle(),
                 FilterComponent.renderFilter(state.filters),
                 TodoListComponent.renderToDoItems(state.todos),
-                InputToDoItemComponent.renderInput()
+                InputToDoItemComponent.renderInput(state.severities)
             ];
 
             spyOn(AppComponent, 'joinComponents');

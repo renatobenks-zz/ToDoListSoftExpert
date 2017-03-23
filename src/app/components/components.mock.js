@@ -94,9 +94,9 @@ export const state = {
         { id: 3, name: 'Somente fechados', selected: true }
     ],
     severities: [
-        { id: 1, priority: 'urgent' },
-        { "id": 2, priority: 'important' },
-        { "id": 3, priority: 'normal' }
+        { id: 1, priority: 'urgent', selected: false},
+        { "id": 2, priority: 'important', selected: false },
+        { "id": 3, priority: 'normal', selected: true }
     ]
 };
 

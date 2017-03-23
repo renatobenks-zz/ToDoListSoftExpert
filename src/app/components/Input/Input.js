@@ -5,12 +5,14 @@ import { store } from './../../state';
 import { addTodo } from './Input.actions';
 
 import callAPIMiddleware from '../../middlewares/callAPImiddleware';
+import SeverityComponent from '../Severity/Severity';
 
 export class InputToDoItemComponent {
     static addTodoItem (event) {
         const todoInputValue = event.target.value;
+        const severity = SeverityComponent.severity;
         if (todoInputValue) {
-            callAPIMiddleware.FETCH_REQUEST('/todos', 'POST', {text: todoInputValue, severity: 'normal'})
+            callAPIMiddleware.FETCH_REQUEST('/todos', 'POST', {text: todoInputValue, severity: severity})
                 .then(todo => {
                     if (todo.error) {
                         console.error(todo.error);
@@ -36,18 +38,14 @@ export class InputToDoItemComponent {
         }
     }
 
-    renderInput () {
+    renderInput (SEVERITIES) {
         return `<div class="todo__input ${css(StylesInputToDoItemComponent.inputComponent)}">
             <button class="${css(StylesInputToDoItemComponent.inputButtonAddInputText)}" id="addTodo">
                 <i class="add circle icon ${css(StylesInputToDoItemComponent.inputIconInButton)}"></i>
             </button>
             <input placeholder="Add a Task" class="${css(StylesInputToDoItemComponent.input)}" type="text" id="todoInput">
             <label class="${css(StylesInputToDoItemComponent.severity)} severity">
-                <p class="${css(StylesInputToDoItemComponent.labelSeverity)}">Set severity</p>
-                <select class="${css(StylesInputToDoItemComponent.selectSeverity)}" id="set-severity">
-                    <option value="important">important</option>
-                    <option value="urgent">urgent</option>
-                </select>
+                ${SeverityComponent.render(SEVERITIES)}
             </label>
         </div>`;
     }

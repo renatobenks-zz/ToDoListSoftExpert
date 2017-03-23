@@ -1,12 +1,13 @@
-import { AphroditeStyles, event, document, fetch } from './../components.mock';
+import { AphroditeStyles, event, document, fetch, state } from './../components.mock';
 
 import { store, getInitialState } from './../../state';
 import { addTodo } from './Input.actions';
 
 import callAPIMiddleware from '../../middlewares/callAPImiddleware';
 
-import StylesInputToDoItemComponent from './Input.styles';
+import SeverityComponent from '../Severity/Severity';
 
+import StylesInputToDoItemComponent from './Input.styles';
 import InputTodoItemComponent, { InputToDoItemComponent } from './Input';
 
 //noinspection JSAnnotator
@@ -65,6 +66,7 @@ describe('Component: InputToDoItemComponent', () => {
         });
 
         test('should fetch to api the new todo item', () => {
+            InputTodoItemComponent.renderInput(state.severities);
             InputToDoItemComponent.addTodoItem(event);
             expect(callAPIMiddleware.FETCH_REQUEST).toHaveBeenCalledWith('/todos', 'POST', {
                 text: 'data value',
@@ -120,10 +122,17 @@ describe('Component: InputToDoItemComponent', () => {
         });
     });
 
-    describe('static renderInput () =>', () => {
-        test('should return title app', () => {
-            expect(InputTodoItemComponent.renderInput()).toBeDefined();
-            expect(typeof InputTodoItemComponent.renderInput()).toBe('string');
+    describe('renderInput () =>', () => {
+        test('should return input app for add todo', () => {
+            expect(InputTodoItemComponent.renderInput(state.severities)).toBeDefined();
+            expect(typeof InputTodoItemComponent.renderInput(state.severities)).toBe('string');
+        });
+
+        test('should be rendered the severity component for select severity to todo item', () => {
+            spyOn(SeverityComponent, 'render');
+
+            InputTodoItemComponent.renderInput(state.severities);
+            expect(SeverityComponent.render).toHaveBeenCalledWith(state.severities);
         });
     });
 
