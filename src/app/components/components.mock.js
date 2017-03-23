@@ -111,6 +111,7 @@ const ELEMENT = {
         }
     },
     querySelector: selector => ELEMENT,
+    querySelectorAll: selector => [ELEMENT],
     matches: selector => true,
     getAttribute: attribute => {
         if (attribute === 'data-id') return '2'

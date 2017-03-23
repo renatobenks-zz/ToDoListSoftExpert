@@ -3,6 +3,8 @@ import StylesheetSeverityComponent from './Severity.styles';
 
 import { store } from '../../state';
 
+import { toggleSeverity } from './Severity.actions';
+
 export class SeverityComponent {
     constructor () {
         this.render = (SEVERITIES) => {
@@ -12,7 +14,13 @@ export class SeverityComponent {
     }
 
     changeTodoSeverity (event) {
-        this.severity = event.target.value;
+        for (let severity of event.target.querySelectorAll('option')) {
+            if (event.target.value === severity.value) this.severity = severity
+        }
+
+        const id = Number.parseInt(this.severity.getAttribute('data-id'), 10);
+        this.severity = this.severity.value;
+        store.dispatch(toggleSeverity(id));
     }
 
     renderSeveritiesList () {
@@ -37,8 +45,10 @@ export class SeverityComponent {
 
     getSeverity (severity) {
         this.severities.push(`<option 
+            data-id="${severity.id}"
             class="${css(StylesheetSeverityComponent[severity.selected ? 'severitySelected' : 'severity'])}" 
             value="${severity.priority}"
+            ${severity.selected ? 'selected' : ''}
             >
             ${severity.priority}
         </option>`);

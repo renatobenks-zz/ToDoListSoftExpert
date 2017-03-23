@@ -1,6 +1,12 @@
-import { AphroditeStyles, state, event } from '../components.mock';
+import { AphroditeStyles, state, event, fetch } from '../components.mock';
+
+import { store, getInitialState } from '../../state';
 
 import SeverityComponent from './Severity';
+import { toggleSeverity } from './Severity.actions';
+
+//noinspection JSAnnotator
+global.fetch = fetch;
 
 describe('Component: Severity', () => {
     beforeEach(() => {
@@ -35,9 +41,14 @@ describe('Component: Severity', () => {
     });
 
     describe('changeTodoSeverity () =>', () => {
-        test('should change the severity selected', () => {
+        test('should change the severity selected', async () => {
+            await getInitialState();
+            spyOn(store, 'dispatch');
+            const mockToggleSeverity = jest.fn(toggleSeverity);
             SeverityComponent.changeTodoSeverity(event);
             expect(SeverityComponent.severity).toBe('data value');
+            expect(store.dispatch).toHaveBeenCalledWith(mockToggleSeverity(2));
+            expect(mockToggleSeverity).toHaveBeenCalledWith(2);
         });
     });
 
