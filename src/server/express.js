@@ -3,14 +3,19 @@ import express from 'express';
 
 import config from './config';
 import env from './env';
+import API from './api';
 
 const server = express();
 
 const environment = env(server);
-
 let assets = environment.assets;
 
 config(server);
+server.use('/api/v1/',
+    API.APITodoList(),
+    API.APIFilters(),
+    API.APISeverities()
+);
 
 // Render Document
 const renderPage = (assets) => {
@@ -21,10 +26,10 @@ const renderPage = (assets) => {
             <meta charSet="utf-8" />
             <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
-            ${process.env.NODE_ENV === 'production' ?
-                `<link rel='stylesheet' href='${assets.vendor.css}'/>
-                <link rel='stylesheet' href='${assets.bundle.css}'/>` :
-                ''
+            ${process.env.NODE_ENV === 'production' 
+                ? `<link rel='stylesheet' href='${assets.vendor.css}'/> 
+                    <link rel='stylesheet' href='${assets.bundle.css}'/>` 
+                : ''
             }
           </head>
           <body>

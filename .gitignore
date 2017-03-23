@@ -44,6 +44,5 @@ dist
 build
 assets.json
 
-# semantic-ui files
-semantic
-semantic.json
+# ignoring news app data
+src/server/data/data.json

@@ -1,14 +1,26 @@
-import { AphroditeStyles, event, document } from './../components.mock';
+import { AphroditeStyles, event, document, fetch, state } from './../components.mock';
 
-import { todos } from './../../state';
-import { addTodo } from './../../actions';
+import { store, getInitialState } from './../../state';
+import { addTodo } from './Input.actions';
 
+import callAPIMiddleware from '../../middlewares/callAPImiddleware';
+
+import SeverityComponent from '../Severity/Severity';
+
+import StylesInputToDoItemComponent from './Input.styles';
 import InputTodoItemComponent, { InputToDoItemComponent } from './Input';
 
 //noinspection JSAnnotator
 global.document = document;
 
+//noinspection JSAnnotator
+global.fetch = fetch;
+
 describe('Component: InputToDoItemComponent', () => {
+    beforeEach(() => {
+        AphroditeStyles.before();
+    });
+
     test('should be imported', () => {
         expect(InputToDoItemComponent).toBeDefined();
         expect(InputTodoItemComponent).toBeDefined();
@@ -47,31 +59,84 @@ describe('Component: InputToDoItemComponent', () => {
     });
 
     describe('static addTodoItem () =>', () => {
+        let todo = {text: 'data value', severity: 'normal'};
+
+        beforeEach(() => {
+            spyOn(callAPIMiddleware, 'FETCH_REQUEST').and.callThrough();
+        });
+
+        test('should fetch to api the new todo item', () => {
+            InputTodoItemComponent.renderInput(state.severities);
+            InputToDoItemComponent.addTodoItem(event);
+            expect(callAPIMiddleware.FETCH_REQUEST).toHaveBeenCalledWith('/todos', 'POST', {
+                text: 'data value',
+                severity: 'normal'
+            });
+        });
+
         test('should dispatch new state todo items with new todo item added', () => {
             const mockAddTodo = jest.fn(addTodo);
+            return getInitialState()
+                .then(() => {
+                    spyOn(event, 'stopPropagation');
+                    spyOn(store, 'dispatch');
+                    InputToDoItemComponent.addTodoItem(event);
+                    return callAPIMiddleware.FETCH_REQUEST('/todos', 'POST', todo)
+                        .then((todo) => {
+                            expect(store.dispatch).toHaveBeenCalledWith(mockAddTodo(todo));
+                            expect(mockAddTodo).toHaveBeenCalledWith(todo);
+                            expect(event.stopPropagation).toHaveBeenCalled();
+                        });
+                });
+        });
 
-            spyOn(todos, 'dispatch');
-            spyOn(event, 'stopPropagation');
+        test('should be throw and console error when error happen on fetch', () => {
+            return getInitialState()
+                .then(() => {
+                    todo.text = true;
+                    event.target.value = true;
+                    spyOn(console, 'error');
+
+                    InputToDoItemComponent.addTodoItem(event);
+                    return callAPIMiddleware.FETCH_REQUEST('/todos', 'POST', todo)
+                        .then(todo => {
+                            expect(todo.error).toBeDefined();
+                            expect(console.error).toHaveBeenCalledWith(todo.error);
+                            expect(todo.error).toThrow();
+                        });
+                });
+        });
+
+        test('should add error class for input when was empty', () => {
+            jest.useFakeTimers();
+            let inputErrorClass = StylesInputToDoItemComponent.inputError._name;
+            event.target.value = '';
+            spyOn(event.target.classList, 'add');
+            spyOn(event.target.classList, 'remove');
 
             InputToDoItemComponent.addTodoItem(event);
-            expect(todos.dispatch).toHaveBeenCalledWith(mockAddTodo('data todoInput'));
-            expect(mockAddTodo).toHaveBeenCalledWith('data todoInput');
-            expect(event.stopPropagation).toHaveBeenCalled();
+            let mockTimeOut = setTimeout.mock.calls[0][0];
+            expect(event.target.classList.add).toHaveBeenCalledWith(inputErrorClass);
+            mockTimeOut();
+            expect(event.target.classList.remove).toHaveBeenCalledWith(inputErrorClass);
         });
     });
 
-    describe('static renderInput () =>', () => {
-        beforeEach(() => {
-            AphroditeStyles.before();
+    describe('renderInput () =>', () => {
+        test('should return input app for add todo', () => {
+            expect(InputTodoItemComponent.renderInput(state.severities)).toBeDefined();
+            expect(typeof InputTodoItemComponent.renderInput(state.severities)).toBe('string');
         });
 
-        test('should return title app', () => {
-            expect(InputTodoItemComponent.renderInput()).toBeDefined();
-            expect(typeof InputTodoItemComponent.renderInput()).toBe('string');
-        });
+        test('should be rendered the severity component for select severity to todo item', () => {
+            spyOn(SeverityComponent, 'render');
 
-        afterEach(() => {
-            AphroditeStyles.after();
+            InputTodoItemComponent.renderInput(state.severities);
+            expect(SeverityComponent.render).toHaveBeenCalledWith(state.severities);
         });
+    });
+
+    afterEach(() => {
+        AphroditeStyles.after();
     });
 });

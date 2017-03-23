@@ -15,7 +15,8 @@ module.exports = {
         ],
         vendor: [
             'aphrodite', // Stylesheet Javascript for styles components
-            'semantic-ui/dist/semantic.min.css'
+            'semantic-ui-css/semantic.min.css',
+            'animate.css/animate.min.css'
         ]
     },
     output: {

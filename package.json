@@ -14,6 +14,7 @@
   "author": "Renato Benkendorf",
   "license": "MIT",
   "dependencies": {
+    "animate.css": "^3.5.2",
     "aphrodite": "^1.1.0",
     "babel-core": "^6.4.0",
     "babel-loader": "^6.2.1",
@@ -34,6 +35,7 @@
     "less": "^2.7.2",
     "less-loader": "^3.0.0",
     "morgan": "^1.8.1",
+    "semantic-ui-css": "^2.2.9",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.8",
     "webpack": "^2.2.1"
@@ -64,6 +66,7 @@
       "es6"
     ],
     "testEnvironment": "node",
-    "testRegex": "\\.test\\.jsx?$"
+    "testRegex": "\\.test\\.jsx?$",
+    "verbose": true
   }
 }

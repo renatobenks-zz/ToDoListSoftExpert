@@ -1,0 +1,62 @@
+{
+  "todos": [
+    {
+      "id": 0,
+      "text": "Take a look at the application",
+      "done": true,
+      "severity": "important"
+    },
+    {
+      "id": 1,
+      "text": "Add ability to filter todos",
+      "done": false,
+      "severity": "urgent"
+    },
+    {
+      "id": 2,
+      "text": "Filter todos by status",
+      "done": false,
+      "severity": "normal"
+    },
+    {
+      "id": 3,
+      "text": "More new todo item task",
+      "done": false,
+      "severity": "urgent"
+    }
+  ],
+  "filters": [
+    {
+      "id": 1,
+      "name": "Mostrar ToDos",
+      "selected": true,
+      "value": null
+    },
+    {
+      "id": 2,
+      "name": "Somente abertos",
+      "selected": false,
+      "value": false
+    },
+    {
+      "id": 3,
+      "name": "Somente fechados",
+      "value": true,
+      "selected": false
+    }
+  ],
+  "severities": [
+    {
+      "id": 1,
+      "priority": "urgent"
+    },
+    {
+      "id": 2,
+      "priority": "important"
+    },
+    {
+      "id": 3,
+      "priority": "normal"
+    }
+  ]
+}

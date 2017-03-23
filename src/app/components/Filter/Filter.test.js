@@ -1,10 +1,13 @@
-import { AphroditeStyles, event, state } from './../components.mock';
+import { AphroditeStyles, event, state, fetch } from './../components.mock';
 import { css } from 'aphrodite';
 
-import { todos } from './../../state';
+import { store, getInitialState } from './../../state';
 import { filterTodoList, toggleFilter } from './Filter.actions';
 
 import filterComponent, { FilterComponent } from './Filter';
+
+//noinspection JSAnnotator
+global.fetch = fetch;
 
 describe('Component: FilterComponent', () => {
     beforeEach(() => {
@@ -30,37 +33,52 @@ describe('Component: FilterComponent', () => {
         const mockFilterTodoList = jest.fn(filterTodoList);
         const mockToggleFilterSelected = jest.fn(toggleFilter);
         beforeEach(() => {
-            spyOn(todos, 'dispatch');
+            getInitialState()
+                .then(() => {
+                    spyOn(store, 'dispatch');
+                });
         });
 
         test('should filter for todo items than its done', () => {
             event.target.value = 'true';
 
-            FilterComponent.filterTodoList(event);
-            expect(todos.dispatch).toHaveBeenCalledWith(mockFilterTodoList(true));
-            expect(mockFilterTodoList).toHaveBeenCalledWith(true);
+            return getInitialState()
+                .then(() => {
+                    FilterComponent.filterTodoList(event);
+                    expect(store.dispatch).toHaveBeenCalledWith(mockFilterTodoList(true));
+                    expect(mockFilterTodoList).toHaveBeenCalledWith(true);
+                });
         });
 
         test('should filter for todo items than its not done', () => {
             event.target.value = 'false';
 
-            FilterComponent.filterTodoList(event);
-            expect(todos.dispatch).toHaveBeenCalledWith(mockFilterTodoList(false));
-            expect(mockFilterTodoList).toHaveBeenCalledWith(false);
+            return getInitialState()
+                .then(() => {
+                    FilterComponent.filterTodoList(event);
+                    expect(store.dispatch).toHaveBeenCalledWith(mockFilterTodoList(false));
+                    expect(mockFilterTodoList).toHaveBeenCalledWith(false);
+                });
         });
 
         test('should filter all todo items', () => {
             event.target.value = 'null';
 
-            FilterComponent.filterTodoList(event);
-            expect(todos.dispatch).toHaveBeenCalledWith(mockFilterTodoList(null));
-            expect(mockFilterTodoList).toHaveBeenCalledWith(null);
+            return getInitialState()
+                .then(() => {
+                    FilterComponent.filterTodoList(event);
+                    expect(store.dispatch).toHaveBeenCalledWith(mockFilterTodoList(null));
+                    expect(mockFilterTodoList).toHaveBeenCalledWith(null);
+                });
         });
 
         test('should update state filter selected', () => {
-            FilterComponent.filterTodoList(event);
-            expect(todos.dispatch).toHaveBeenCalledWith(mockToggleFilterSelected(2));
-            expect(mockToggleFilterSelected).toHaveBeenCalledWith(2);
+            return getInitialState()
+                .then(() => {
+                    FilterComponent.filterTodoList(event);
+                    expect(store.dispatch).toHaveBeenCalledWith(mockToggleFilterSelected(2));
+                    expect(mockToggleFilterSelected).toHaveBeenCalledWith(2);
+                });
         });
     });
 

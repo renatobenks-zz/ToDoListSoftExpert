@@ -1,17 +1,34 @@
-import { todos } from './../../state';
-
-import { addTodo } from './../../actions';
-
 import { css } from 'aphrodite';
-import styles from './../../styles';
+import StylesInputToDoItemComponent from './Input.styles';
+
+import { store } from './../../state';
+import { addTodo } from './Input.actions';
+
+import callAPIMiddleware from '../../middlewares/callAPImiddleware';
+import SeverityComponent from '../Severity/Severity';
 
 export class InputToDoItemComponent {
     static addTodoItem (event) {
-        const todoInput = document.getElementById('todoInput').value;
+        const todoInputValue = event.target.value;
+        const severity = SeverityComponent.severity;
+        if (todoInputValue) {
+            callAPIMiddleware.FETCH_REQUEST('/todos', 'POST', {text: todoInputValue, severity: severity})
+                .then(todo => {
+                    if (todo.error) {
+                        console.error(todo.error);
+                        throw todo.error;
+                    }
 
-        todos.dispatch(addTodo(todoInput));
-        event.stopPropagation();
-        document.getElementById('todoInput').focus();
+                    store.dispatch(addTodo(todo));
+                    event.stopPropagation();
+                    document.getElementById('todoInput').focus();
+                });
+        } else {
+            event.target.classList.add(css(StylesInputToDoItemComponent.inputError));
+            setTimeout(() => {
+                event.target.classList.remove(StylesInputToDoItemComponent.inputError._name);
+            }, 1000);
+        }
     }
 
     static addTodoItemWithEnter (event) {
@@ -21,18 +38,14 @@ export class InputToDoItemComponent {
         }
     }
 
-    renderInput () {
-        return `<div class="todo__input ${css(styles.divFullWidth, styles.divAlignFlex, styles.divAddTodo)}">
-            <button class="${css(styles.buttonAddTodo)}" id="addTodo">
-                <i class="add circle icon ${css(styles.iconAddTodoButton)}"></i>
+    renderInput (SEVERITIES) {
+        return `<div class="todo__input ${css(StylesInputToDoItemComponent.inputComponent)}">
+            <button class="${css(StylesInputToDoItemComponent.inputButtonAddInputText)}" id="addTodo">
+                <i class="add circle icon ${css(StylesInputToDoItemComponent.inputIconInButton)}"></i>
             </button>
-            <input placeholder="Add a Task" class="${css(styles.fullWidth, styles.inputAddTodo)}" type="text" id="todoInput">
-            <label class="${css(styles.fieldSelectSeverity)} severity">
-                <p class="${css(styles.textSeveritySelected)}">Set severity</p>
-                <select class="${css(styles.selectSeverity)}" id="set-severity">
-                    <option value="important">important</option>
-                    <option value="urgent">urgent</option>
-                </select>
+            <input placeholder="Add a Task" class="${css(StylesInputToDoItemComponent.input)}" type="text" id="todoInput">
+            <label class="${css(StylesInputToDoItemComponent.severity)} severity">
+                ${SeverityComponent.render(SEVERITIES)}
             </label>
         </div>`;
     }
