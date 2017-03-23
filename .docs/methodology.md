@@ -162,18 +162,3 @@ da cobertura de código através do ícone de
 no README do projeto:
 
 [![Test Coverage](https://codeclimate.com/repos/58bddd275723fd027b003f5a/badges/b9071f9c803e247ef447/coverage.svg)](https://codeclimate.com/repos/58bddd275723fd027b003f5a/coverage)
-
-## Jest [(see about it)](https://facebook.github.io/jest/)
-
-Jest é um framework de testes unitários desenvolvido
-pelo facebook com rápida e fácil configuração e
-manuseio para o desenvolvimento de *unit tests*. Mesmo
-com tanta simplicidade, ele tem features muito
-poderosas, como a execução do teste sobre a engine
-do node.js, aumentando assim a 1000x a performance
-de execução dos testes. Com essa feature e com outras
-também, o fazem, sinceramente, um framework que
-não se compara com outros na sua categoria.
-
-Por razões óbvias ele foi escolhido para ser usado
-na execução dos testes unitários do app.

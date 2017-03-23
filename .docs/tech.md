@@ -154,3 +154,18 @@ especificações, onde com o aphrodite, existem limitações.
 
 *Obs.: O uso do less permitiu também aproveitar o css já escrito
 através da importação do css no arquivo less.*
+
+## Jest [(see about it)](https://facebook.github.io/jest/)
+
+Jest é um framework de testes unitários desenvolvido
+pelo facebook com rápida e fácil configuração e
+manuseio para o desenvolvimento de *unit tests*. Mesmo
+com tanta simplicidade, ele tem features muito
+poderosas, como a execução do teste sobre a engine
+do node.js, aumentando assim a 1000x a performance
+de execução dos testes. Com essa feature e com outras
+também, o fazem, sinceramente, um framework que
+não se compara com outros na sua categoria.
+
+Por razões óbvias ele foi escolhido para ser usado
+na execução dos testes unitários do app.
