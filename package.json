@@ -50,6 +50,7 @@
     "cross-env": "^3.2.3",
     "extract-text-webpack-plugin": "^2.1.0",
     "jest": "^19.0.2",
+    "react-test-renderer": "^15.4.2",
     "webpack-dev-middleware": "^1.10.1",
     "webpack-hot-middleware": "^2.17.1"
   },
@@ -71,7 +72,6 @@
       "es6"
     ],
     "testEnvironment": "node",
-    "testRegex": "\\.test\\.jsx?$",
-    "verbose": true
+    "testRegex": "\\.test\\.jsx?$"
   }
 }

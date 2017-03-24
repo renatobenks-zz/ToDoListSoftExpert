@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { css } from 'aphrodite';
 
 import StylesheetTitleComponent from './TitleComponent.styles';

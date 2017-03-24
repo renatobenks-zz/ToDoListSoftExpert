@@ -10,6 +10,7 @@ import FilterComponent from './Filter/Filter';
 import { TestingFeaturesComponent } from './TestingFeatures/TestingFeatures';
 
 import TitleComponent from './Title/TitleComponent.jsx';
+import FilterListComponent from './Filter/FilterListComponent.jsx';
 
 export class AppComponent extends Component {
     constructor () {
