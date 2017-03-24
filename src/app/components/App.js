@@ -1,12 +1,15 @@
-import { isEnabled } from './../lib/feature';
-
+import React from 'react';
+import ReactDOM from 'react-dom';
 import Component from  './View';
 
-import TitleComponent from './Title/Title';
+import { isEnabled } from './../lib/feature';
+
 import InputToDoItemComponent from './Input/Input';
 import TodoListComponent from './Todo/TodoList';
 import FilterComponent from './Filter/Filter';
 import { TestingFeaturesComponent } from './TestingFeatures/TestingFeatures';
+
+import TitleComponent from './Title/TitleComponent.jsx';
 
 export class AppComponent extends Component {
     constructor () {
@@ -17,6 +20,10 @@ export class AppComponent extends Component {
         TestingFeaturesComponent.windowHashChange(el, state);
         let whereRender = isEnabled(['filter', 'renderBottom', 'filterTop']);
         this.render(el, AppComponent.renderAddToDoItemAt(whereRender, state));
+        ReactDOM.render(
+            <TitleComponent/>,
+            document.getElementById('title')
+        );
     }
 
     static joinComponents (Components) {
@@ -24,7 +31,7 @@ export class AppComponent extends Component {
     }
 
     static renderAddToDoItemAt (whereRender, state) {
-        let Components = [TitleComponent.renderTitle(), TodoListComponent.renderToDoItems(state.todos)];
+        let Components = [`<div id="title"></div>`, TodoListComponent.renderToDoItems(state.todos)];
         let isEnabled = whereRender.next();
         let indexInput;
         if (!isEnabled.done) {
