@@ -1,6 +1,6 @@
 // jscs:disable
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
 
 const OccurrenceOrderPlugin = new webpack.optimize.OccurrenceOrderPlugin();
 
@@ -14,6 +14,8 @@ module.exports = {
             './src/public/styles/main.less'
         ],
         vendor: [
+            'react',
+            'react-dom',
             'aphrodite', // Stylesheet Javascript for styles components
             'semantic-ui-css/semantic.min.css',
             'animate.css/animate.min.css'
@@ -40,16 +42,16 @@ module.exports = {
     ],
     module: {
         rules: [{
-            test: /\.js$/,
+            test: /\.(js|jsx)$/,
             exclude: path.join(__dirname, 'node_modules'),
             use: {
                 loader: 'babel-loader',
                 options: {
-                    presets: ['env', 'es2015', 'stage-0']
+                    presets: ['env', 'es2015', 'stage-0', 'react']
                 }
             },
             include: path.join(__dirname, 'src/app')
-        },  {
+        }, {
             test: /\.(less|css)$/,
             use: [
                 'style-loader',
