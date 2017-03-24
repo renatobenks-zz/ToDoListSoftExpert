@@ -8,6 +8,7 @@ import Component from './View';
 import TitleComponent from './Title/Title';
 import InputToDoItemComponent from './Input/Input';
 import TodoListComponent from './Todo/TodoList';
+import FilterComponent from './Filter/Filter';
 import { TestingFeaturesComponent } from './TestingFeatures/TestingFeatures';
 
 //noinspection JSAnnotator
@@ -118,6 +119,51 @@ describe('Component: AppComponent', () => {
             window.location.hash = '#renderBottom';
             let Components = [
                 TitleComponent.renderTitle(),
+                TodoListComponent.renderToDoItems(state.todos),
+                InputToDoItemComponent.renderInput(state.severities)
+            ];
+
+            spyOn(AppComponent, 'joinComponents');
+
+            AppComponent.renderAddToDoItemAt(isEnabled(hashes), state);
+            expect(AppComponent.joinComponents).toHaveBeenCalledWith(Components);
+        });
+
+        test('should be render filter when filter is enabled', () => {
+            window.location.hash = '#filter';
+            let Components = [
+                TitleComponent.renderTitle(),
+                InputToDoItemComponent.renderInput(state.severities),
+                FilterComponent.renderFilter(state.filters),
+                TodoListComponent.renderToDoItems(state.todos)
+            ];
+
+            spyOn(AppComponent, 'joinComponents');
+
+            AppComponent.renderAddToDoItemAt(isEnabled(hashes), state);
+            expect(AppComponent.joinComponents).toHaveBeenCalledWith(Components);
+        });
+
+        test('should be render filter at bottom when filter is enabled within renderBottom', () => {
+            window.location.hash = '#filter#renderBottom';
+            let Components = [
+                TitleComponent.renderTitle(),
+                TodoListComponent.renderToDoItems(state.todos),
+                FilterComponent.renderFilter(state.filters),
+                InputToDoItemComponent.renderInput(state.severities)
+            ];
+
+            spyOn(AppComponent, 'joinComponents');
+
+            AppComponent.renderAddToDoItemAt(isEnabled(hashes), state);
+            expect(AppComponent.joinComponents).toHaveBeenCalledWith(Components);
+        });
+
+        test('should be render filter at top when filter is enabled to the top within renderBottom', () => {
+            window.location.hash = '#filter#renderBottom#filterTop';
+            let Components = [
+                TitleComponent.renderTitle(),
+                FilterComponent.renderFilter(state.filters),
                 TodoListComponent.renderToDoItems(state.todos),
                 InputToDoItemComponent.renderInput(state.severities)
             ];

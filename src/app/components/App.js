@@ -26,37 +26,32 @@ export class AppComponent extends Component {
     static renderAddToDoItemAt (whereRender, state) {
         let Components = [TitleComponent.renderTitle(), TodoListComponent.renderToDoItems(state.todos)];
         let isEnabled = whereRender.next();
-        if (isEnabled.done) {
-            Components.splice(1, 0,
-                InputToDoItemComponent.renderInput(state.severities),
-            );
-        } else {
-            let indexInput;
+        let indexInput;
+        if (!isEnabled.done) {
             switch (isEnabled.value) {
                 case 'filter':
                     let indexFilter;
                     if (whereRender.next().value === 'renderBottom') {
-                        indexInput = Components.length;
-                        if (whereRender.next().value === 'filterTop') {
-                            indexFilter = 1;
-                        } else {
+                        indexInput = Components.length+1;
+                        if (whereRender.next().value !== 'filterTop') {
                             indexFilter = 2;
                         }
-
-                        Components.splice(indexFilter || 1, 0,
-                            FilterComponent.renderFilter(state.filters),
-                        );
                     }
+
+                    Components.splice(indexFilter || 1, 0,
+                        FilterComponent.renderFilter(state.filters),
+                    );
                     break;
+
                 case 'renderBottom':
                     indexInput = Components.length;
                     break;
             }
-
-            Components.splice(indexInput || 1, 0,
-                InputToDoItemComponent.renderInput(state.severities)
-            );
         }
+
+        Components.splice(indexInput || 1, 0,
+            InputToDoItemComponent.renderInput(state.severities)
+        );
 
         return `<div id="app">${AppComponent.joinComponents(Components)}</div>`;
     }
