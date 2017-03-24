@@ -38,17 +38,6 @@ export const FontRobotoCondensedBold = {
 export const GetStylesComponent = styles => StyleSheet.create(styles);
 
 export default StyleSheet.create({
-    divTitle: {
-        margin: '0 0 2rem 0'
-    },
-    imageTitle: {
-        width: '25%',
-        height: 'auto',
-        margin: '10px 0'
-    },
-    imageRounded: {
-        borderRadius: '50%'
-    },
     noMargin: {
         margin: '0'
     },
@@ -61,19 +50,6 @@ export default StyleSheet.create({
     fontBodyApp: {
         fontFamily: [FontRobotoMedium, 'sans-serif'],
         fontSize: '2rem'
-    },
-    fontTitle: {
-        fontFamily: [FontRobotoCondensedBold, 'sans-serif'],
-        fontWeight: '800',
-        fontSize: '4rem'
-    },
-    fontSubtitle: {
-        fontFamily: [FontRobotoBlack, 'sans-serif'],
-        fontWeight: '600',
-        fontSize: '1.5rem'
-    },
-    colorTitleSubtitle: {
-        color: 'rgba(102, 102, 102, .6)'
     },
     fullWidth: {
         width: '100%'
