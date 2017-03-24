@@ -39,9 +39,9 @@ Estes radio buttons devem ser mutuamente exclusivos, apenas um deles pode ser se
 Ex.: se "Somente abertos" estiver selecionados, apenas os ToDo items que tiverem o `done`
 setado como `false` devem ser mostrados.
 
-### WEB-104
+### ~~WEB-104~~
 
-- [ ] Adicione um TESTE para mudar a posição do filtro
+- [x] Adicione um TESTE para mudar a posição do filtro
 
 Descobrimos que para usuários que tem o teste "renderBottom" habilitado, ficou difícil
 utilizar o filtro. Nossos especialistas UX entendem que quando os dois testes estão

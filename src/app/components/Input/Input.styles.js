@@ -6,13 +6,7 @@ export const StylesInputToDoItemComponent = {
         display: 'flex',
         margin: '0',
         padding: '10px',
-        transition: 'border 0.3s 0.15s ease-in-out',
-        ':active': {
-            borderBottom: '1px solid rgb(192, 192, 192)'
-        },
-        ':focus': {
-            borderBottom: '1px solid rgb(192, 192, 192)'
-        }
+        transition: 'border 0.3s 0.15s ease-in-out'
     },
     inputButtonAddInputText: {
         textTransform: 'uppercase',
