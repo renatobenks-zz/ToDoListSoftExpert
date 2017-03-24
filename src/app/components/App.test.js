@@ -2,6 +2,8 @@ import { state, window, document, AphroditeStyles } from './components.mock.js';
 
 import { isEnabled } from './../lib/feature';
 
+import ReactDOM from 'react-dom';
+
 import AppViewComponent, { AppComponent } from './App';
 
 import Component from './View';
@@ -48,6 +50,13 @@ describe('Component: AppComponent', () => {
                 return {
                     element,
                     state
+                }
+            });
+
+            spyOn(ReactDOM, 'render').and.callFake((component, element) => {
+                return {
+                    component,
+                    element
                 }
             });
         });
@@ -102,6 +111,7 @@ describe('Component: AppComponent', () => {
 
         test('should be render input to add todo item at top when renderButton is disabled', () => {
             let Components = [
+                `<div id="title"></div>`,
                 InputToDoItemComponent.renderInput(state.severities),
                 TodoListComponent.renderToDoItems(state.todos)
             ];
@@ -115,6 +125,7 @@ describe('Component: AppComponent', () => {
         test('should be render input to add todo item at bottom when renderButton is enabled', () => {
             window.location.hash = '#renderBottom';
             let Components = [
+                `<div id="title"></div>`,
                 TodoListComponent.renderToDoItems(state.todos),
                 InputToDoItemComponent.renderInput(state.severities)
             ];
@@ -128,6 +139,7 @@ describe('Component: AppComponent', () => {
         test('should be render filter when filter is enabled', () => {
             window.location.hash = '#filter';
             let Components = [
+                `<div id="title"></div>`,
                 InputToDoItemComponent.renderInput(state.severities),
                 FilterComponent.renderFilter(state.filters),
                 TodoListComponent.renderToDoItems(state.todos)
@@ -142,6 +154,7 @@ describe('Component: AppComponent', () => {
         test('should be render filter at bottom when filter is enabled within renderBottom', () => {
             window.location.hash = '#filter#renderBottom';
             let Components = [
+                `<div id="title"></div>`,
                 TodoListComponent.renderToDoItems(state.todos),
                 FilterComponent.renderFilter(state.filters),
                 InputToDoItemComponent.renderInput(state.severities)
@@ -156,6 +169,7 @@ describe('Component: AppComponent', () => {
         test('should be render filter at top when filter is enabled to the top within renderBottom', () => {
             window.location.hash = '#filter#renderBottom#filterTop';
             let Components = [
+                `<div id="title"></div>`,
                 FilterComponent.renderFilter(state.filters),
                 TodoListComponent.renderToDoItems(state.todos),
                 InputToDoItemComponent.renderInput(state.severities)
@@ -170,6 +184,7 @@ describe('Component: AppComponent', () => {
         test('should be render input at bottom within filter when renderBottom and filter is enabled ', () => {
             window.location.hash = '#renderBottom#filter';
             let Components = [
+                `<div id="title"></div>`,
                 TodoListComponent.renderToDoItems(state.todos),
                 FilterComponent.renderFilter(state.filters),
                 InputToDoItemComponent.renderInput(state.severities)
