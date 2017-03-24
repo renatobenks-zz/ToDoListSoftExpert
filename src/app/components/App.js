@@ -31,38 +31,31 @@ export class AppComponent extends Component {
                 InputToDoItemComponent.renderInput(state.severities),
             );
         } else {
+            let indexInput;
             switch (isEnabled.value) {
                 case 'filter':
-                    let next = whereRender.next();
-                    if (next.done) {
-                        Components.splice(1, 0,
-                            FilterComponent.renderFilter(state.filters),
-                            InputToDoItemComponent.renderInput(state.severities)
-                        );
-                    } else {
-                        if (next.value === 'filterTop') {
-                            Components.splice(1, 0,
-                                FilterComponent.renderFilter(state.filters),
-                                InputToDoItemComponent.renderInput(state.severities)
-                            );
+                    let indexFilter;
+                    if (whereRender.next().value === 'renderBottom') {
+                        indexInput = Components.length;
+                        if (whereRender.next().value === 'filterTop') {
+                            indexFilter = 1;
+                        } else {
+                            indexFilter = 2;
                         }
 
-                        if (next.value === 'renderBottom') {
-                            Components.splice(2, 0, InputToDoItemComponent.renderInput(state.severities));
-                            if (whereRender.next().value === 'filterTop') {
-                                Components.splice(0, 0, FilterComponent.renderFilter(state.filters));
-                            } else {
-                                Components.splice(2, 0, FilterComponent.renderFilter(state.filters));
-                            }
-                        }
+                        Components.splice(indexFilter || 1, 0,
+                            FilterComponent.renderFilter(state.filters),
+                        );
                     }
                     break;
                 case 'renderBottom':
-                    Components.splice(2, 0,
-                        InputToDoItemComponent.renderInput(state.severities),
-                    );
+                    indexInput = Components.length;
                     break;
             }
+
+            Components.splice(indexInput || 1, 0,
+                InputToDoItemComponent.renderInput(state.severities)
+            );
         }
 
         return `<div id="app">${AppComponent.joinComponents(Components)}</div>`;

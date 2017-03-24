@@ -34,14 +34,4 @@ describe('Component: TestingFeatures', () => {
             AphroditeStyles.after();
         });
     });
-
-    describe('static renderComponentAfterTitleComponent', () => {
-        test('should get static method from component', () => {
-            expect(TestingFeaturesComponent.renderComponentAfterTitleComponent).toBeDefined();
-            expect(typeof TestingFeaturesComponent.renderComponentAfterTitleComponent).toBe('function');
-        });
-
-        test('should getter components and render them after title component', () => {
-        });
-    });
 });

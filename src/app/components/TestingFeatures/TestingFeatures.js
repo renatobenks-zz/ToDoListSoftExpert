@@ -7,10 +7,6 @@ export class TestingFeaturesComponent {
             event.stopImmediatePropagation();
         });
     }
-
-    static renderComponentAfterTitleComponent () {
-
-    }
 }
 
 export default new TestingFeaturesComponent;
