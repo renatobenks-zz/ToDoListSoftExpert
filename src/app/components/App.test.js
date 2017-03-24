@@ -2,13 +2,13 @@ import { state, window, document, AphroditeStyles } from './components.mock.js';
 
 import { isEnabled } from './../lib/feature';
 
-import AppComponent from './App';
+import AppViewComponent, { AppComponent } from './App';
 
 import Component from './View';
 import TitleComponent from './Title/Title';
 import InputToDoItemComponent from './Input/Input';
 import TodoListComponent from './Todo/TodoList';
-import FilterComponent from './Filter/Filter';
+import { TestingFeaturesComponent } from './TestingFeatures/TestingFeatures';
 
 //noinspection JSAnnotator
 global.window = window;
@@ -16,24 +16,22 @@ global.window = window;
 global.document = document;
 
 describe('Component: AppComponent', () => {
-    let element = Object.prototype;
+    const element = Object.prototype;
 
     beforeEach(() => {
         AphroditeStyles.before();
     });
 
-    AphroditeStyles.before();
-    const AppViewComponent = new AppComponent();
-    AphroditeStyles.after();
-
     test('should be imported', () => {
         expect(AppComponent).toBeDefined();
+        expect(AppViewComponent).toBeDefined();
     });
 
-    test('should get methods of class', () => {
+    test('should get methods from component', () => {
         expect(AppViewComponent.renderApp).toBeDefined();
-        expect(AppComponent.renderAddToDoItemAt).toBeDefined();
         expect(AppViewComponent.render).toBeDefined();
+        expect(AppComponent.renderAddToDoItemAt).toBeDefined();
+        expect(AppComponent.joinComponents).toBeDefined();
     });
 
     describe('constructor () =>', () => {
@@ -42,24 +40,34 @@ describe('Component: AppComponent', () => {
         });
     });
 
+    const hashes = ['filter', 'renderBottom', 'filterTop'];
+
     describe('renderApp () =>', () => {
-        const mockIsEnabled = jest.fn(isEnabled);
+        beforeEach(() => {
+            spyOn(TestingFeaturesComponent, 'windowHashChange').and.callFake((element, state) => {
+                return {
+                    element,
+                    state
+                }
+            });
+        });
+
         test('should be render app to element', () => {
             spyOn(AppViewComponent, 'render');
 
             AppViewComponent.renderApp(element, state);
+            expect(TestingFeaturesComponent.windowHashChange).toHaveBeenCalledWith(element, state);
             expect(AppViewComponent.render).toHaveBeenCalledWith(
                 element,
-                AppComponent.renderAddToDoItemAt(mockIsEnabled('renderBottom'), state)
+                AppComponent.renderAddToDoItemAt(isEnabled(hashes), state)
             );
         });
 
         test('should be rendered the todo list data to the app across with hash passed', () => {
-            spyOn(AppComponent, 'renderAddToDoItemAt');
+            spyOn(AppComponent, 'renderAddToDoItemAt').and.callThrough();
 
             AppViewComponent.renderApp(element, state);
-            expect(AppComponent.renderAddToDoItemAt).toHaveBeenCalledWith(mockIsEnabled('renderBottom'), state);
-            expect(mockIsEnabled).toHaveBeenCalledWith('renderBottom');
+            expect(AppComponent.renderAddToDoItemAt).toHaveBeenCalled();
         });
     });
 
@@ -75,51 +83,48 @@ describe('Component: AppComponent', () => {
         });
     });
 
-    describe('renderAddToDoItemAt () =>', () => {
+    describe('static renderAddToDoItemAt () =>', () => {
         test('should get data from app components', () => {
             const components = [
                 { component: TitleComponent, method: 'renderTitle' },
                 { component: InputToDoItemComponent, method: 'renderInput' },
-                { component: TodoListComponent, method: 'renderToDoItems' },
-                { component: FilterComponent, method: 'renderFilter' }
+                { component: TodoListComponent, method: 'renderToDoItems' }
             ];
 
             for (let component of components) {
                 spyOn(component.component, component.method);
-                AppComponent.renderAddToDoItemAt(false, state);
+                AppComponent.renderAddToDoItemAt(isEnabled(hashes), state);
                 expect(component.component[component.method]).toHaveBeenCalled();
             }
 
             expect(TodoListComponent.renderToDoItems).toHaveBeenCalledWith(state.todos);
-            expect(FilterComponent.renderFilter).toHaveBeenCalledWith(state.filters);
             expect(InputToDoItemComponent.renderInput).toHaveBeenCalledWith(state.severities);
         });
 
         test('should be render input to add todo item at top when renderButton is disabled', () => {
             let Components = [
                 TitleComponent.renderTitle(),
-                FilterComponent.renderFilter(state.filters),
                 InputToDoItemComponent.renderInput(state.severities),
                 TodoListComponent.renderToDoItems(state.todos)
             ];
 
             spyOn(AppComponent, 'joinComponents');
 
-            AppComponent.renderAddToDoItemAt(false, state);
+            AppComponent.renderAddToDoItemAt(isEnabled(hashes), state);
             expect(AppComponent.joinComponents).toHaveBeenCalledWith(Components);
         });
 
         test('should be render input to add todo item at bottom when renderButton is enabled', () => {
+            window.location.hash = '#renderBottom';
             let Components = [
                 TitleComponent.renderTitle(),
-                FilterComponent.renderFilter(state.filters),
                 TodoListComponent.renderToDoItems(state.todos),
                 InputToDoItemComponent.renderInput(state.severities)
             ];
 
             spyOn(AppComponent, 'joinComponents');
 
-            AppComponent.renderAddToDoItemAt(true, state);
+            AppComponent.renderAddToDoItemAt(isEnabled(hashes), state);
             expect(AppComponent.joinComponents).toHaveBeenCalledWith(Components);
         });
     });

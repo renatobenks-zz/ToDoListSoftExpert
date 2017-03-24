@@ -125,20 +125,22 @@ const ELEMENT = {
 };
 
 export const window = {
+    addEventListener: (eventName, listener) => ELEMENT.addEventListener(eventName, listener),
     location: {
-        hash: '#renderBottom'
+        hash: '#'
     }
 };
 
 export const document = {
     body: ELEMENT,
-    ELEMENT
+    getElementById: ELEMENT.getElementById
 };
 
 export const event = {
     target: ELEMENT,
     stopPropagation: () => {},
     preventDefault: () => {},
+    stopImmediatePropagation: () => {},
     which: 13,
     key: 'Enter'
 };

@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 export function *isEnabled (names) {
     let hashes = window.location.hash.split('#');
     hashes.splice(0, 1);
