@@ -32,10 +32,9 @@ export class AppComponent extends Component {
                 case 'filter':
                     let indexFilter;
                     if (whereRender.next().value === 'renderBottom') {
-                        indexInput = Components.length+1;
-                        if (whereRender.next().value !== 'filterTop') {
-                            indexFilter = 2;
-                        }
+                        indexInput = Components.length + 1;
+                        indexFilter = Components.length;
+                        if (whereRender.next().value === 'filterTop') indexFilter = 0;
                     }
 
                     Components.splice(indexFilter || 1, 0,
@@ -44,6 +43,12 @@ export class AppComponent extends Component {
                     break;
 
                 case 'renderBottom':
+                    if (whereRender.next().value === 'filter') {
+                        Components.splice(Components.length, 0,
+                            FilterComponent.renderFilter(state.filters),
+                        );
+                    }
+
                     indexInput = Components.length;
                     break;
             }

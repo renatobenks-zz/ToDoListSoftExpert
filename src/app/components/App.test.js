@@ -173,6 +173,21 @@ describe('Component: AppComponent', () => {
             AppComponent.renderAddToDoItemAt(isEnabled(hashes), state);
             expect(AppComponent.joinComponents).toHaveBeenCalledWith(Components);
         });
+
+        test('should be render input at bottom within filter when renderBottom and filter is enabled ', () => {
+            window.location.hash = '#renderBottom#filter';
+            let Components = [
+                TitleComponent.renderTitle(),
+                TodoListComponent.renderToDoItems(state.todos),
+                FilterComponent.renderFilter(state.filters),
+                InputToDoItemComponent.renderInput(state.severities)
+            ];
+
+            spyOn(AppComponent, 'joinComponents');
+
+            AppComponent.renderAddToDoItemAt(isEnabled(hashes), state);
+            expect(AppComponent.joinComponents).toHaveBeenCalledWith(Components);
+        });
     });
 
     afterEach(() => {
